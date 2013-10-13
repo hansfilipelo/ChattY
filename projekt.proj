@@ -10,7 +10,7 @@
 #  
 #  BESKRIVNING 
 #  ------------------
-#  Projektfil för Qt. Används tillsammans med qmake för att framställa makefile för GCC-/LLVM-kompileratorer. 
+#  Projektfil för Qt. Används tillsammans med qmake för att framställa makefile för GCC-/LLVM-kompilatorer. 
 #  
 #
 #  REVISIONSBERÄTTELSE 
