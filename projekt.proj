@@ -1,3 +1,24 @@
+# 
+#  IDENTIFIERING 
+#  -----------------
+#  Filnamn:    projekt.proj
+#  Enhetsnamn: projekt.proj
+#  Typ:        Projektfil för Qt / qmake
+#  Revision:   1
+#  Skriven av: H-F Elo
+#  
+#  
+#  BESKRIVNING 
+#  ------------------
+#  Projektfil för Qt. Används tillsammans med qmake för att framställa makefile för GCC-/LLVM-kompileratorer. 
+#  
+#
+#  REVISIONSBERÄTTELSE 
+#  ------------------
+#  Revision     Datum   Förändringar 
+#  
+#  1            131013  Tom projektfil
+#  
 
 SOURCES = 
 HEADERS = 
