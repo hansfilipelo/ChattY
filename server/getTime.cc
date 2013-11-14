@@ -13,8 +13,8 @@ BESKRIVNING:
 
 using namespace std;
 
-// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-const std::string currentDateTime() {
+// Get current date/time, format is YYYY-MM-DD HH:mm:ss
+const string currentDateTime() {
     time_t     now = time(0);
     struct tm  tstruct;
     char       buf[80];
