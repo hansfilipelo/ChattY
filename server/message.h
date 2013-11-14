@@ -6,8 +6,8 @@
  BESKRIVNING:
  */
 
-#ifndef MESSAGE
-#define MESSAGE
+#ifndef MESSAGE_H
+#define MESSAGE_H
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>

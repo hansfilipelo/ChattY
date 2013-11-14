@@ -5,6 +5,9 @@ SKAPAD DATUM:	2013-11-14
 BESKRIVNING:	
 */
 
+#ifndef room_H
+#define room_H
+
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
@@ -20,15 +23,40 @@ class Room {
 public:
     // Construct
     Room(string);
+    // Destruct
+    virtual ~Room();
     
-    void sendMessage(message);
+    virtual void sendMessage(Message);
     void addRoom(Room&);
     void removeRoom(Room&);             // Throws error if room doesn't exist
-    void receiveMessage;
+    void receiveMessage(Message);
     
 protected:
-    void sendMessageAll(message);
+    void saveToFile(Message);
+    void sendMessageAll(Message);
     std::string name;
-    std::map<string,room*> rooms;
-    std::vector<message*> log;
+    std::map<string,Room*> rooms;
+    std::vector<Message> log;
+    Room* parentRoom = nullptr;
 };
+
+// --------------------
+// User
+
+class User : public Room
+{
+public:
+    User(string inName) : Room(inName) {};
+    ~User();
+    std::string name;
+    void sendMessage(Message);
+    void receiveMessage(Message);
+    void chooseRoom(Room*);
+    
+private:
+    std::vector<Message> log;
+    Room* parentRoom;
+    
+};
+
+#endif

@@ -1,31 +1,26 @@
 /*
 FILNAMN: 		User.cc
-LABORATION:		
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
-DATUM:			2013-11-14
+SKAPAD DATUM:	2013-11-14
 BESKRIVNING:	
 */
 
-#include <User.h>
+#include "room.h"
 using namespace std;
 
-User::User(string inName){
-    name = InName;
-}
-
 User::~User(){
-    parentRoom->removeRoom(this&); //you sure? *this eller this&?
+    parentRoom->removeRoom(*this); //you sure? *this eller this&?
 }
 
-User::chooseRoom(Room* newRoom){
-    newRoom->addRoom(this);
+void User::chooseRoom(Room* newRoom){
+    newRoom->addRoom(*this);
     parentRoom = newRoom;
 }
 
-User::recieveMessage(Message inMessage){
+void User::receiveMessage(Message inMessage){
     log.push_back(inMessage); //tbd
 }
 
-User::sendMessage(Message outMessage){
-    parentRoom->recieveMessage(outMessage);
+void User::sendMessage(Message outMessage){
+    parentRoom->receiveMessage(outMessage);
 }

@@ -5,6 +5,9 @@ SKAPAD DATUM:	2013-11-14
 BESKRIVNING:	
 */
 
+#ifndef getTime_CC
+#define getTime_CC
+
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
@@ -25,3 +28,5 @@ const string currentDateTime() {
     
     return buf;
 }
+
+#endif

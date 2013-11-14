@@ -1,15 +1,24 @@
 	CCC = g++
 	CCFLAGS = -g -std=c++11 -pedantic -Wall -Wextra 
+	OBJECTS = room_test.o message.o room.o User.o getTime.o
 
-message_test: message_test.o message.o
-	$(CCC) $(CCFLAGS) message_test.o message.o -o message_test
+room_test: $(OBJECTS)
+	$(CCC) $(CCFLAGS) room_test.o -o room_test
 
-message_test.o: message_test.cc
-	$(CCC) $(CCFLAGS) -c message_test.cc 
+room_test.o: room_test.cc
+	$(CCC) $(CCFLAGS) -c room_test.cc 
 
-message.o: message.cc message.h
+message.o: message.cc 
 	$(CCC) $(CCFLAGS) -c message.cc
+
+room.o: room.cc
+	$(CCC) $(CCFLAGS) -c room.cc
+
+User.o: User.cc
+	$(CCC) $(CCFLAGS) -c User.cc
+
+getTime.o: getTime.cc
+	$(CCC) $(CCFLAGS) -c getTime.cc
 
 clean:
 	@ \rm -f ./*.o
-

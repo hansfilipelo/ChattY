@@ -17,32 +17,49 @@ Room::Room(string inName) {
 }
 
 // ----------------------------------
+// Destructor
 
-void Room::sendMessage(message inMessage) {
-    string to = inMessage.to;
-    
-    if ( rooms.find(to) == rooms.end() ) {
-        message errorMessage("User does not exist", name, inMessage.from, getCurrentDateTime());
-        rooms.at(to).receiveMessage(errorMessage);
-    }
-    
-    User* userTemp = dynamic_cast<User*>(&rooms.at(to));
-    
-    if ( userTemp == nullptr) {
-        message errorMessage("You can't a send whisper to a room, dummy!", name, inMessage.from, getCurrentDateTime());
-        rooms.at(to).receiveMessage(errorMessage);
-    }
-    else {
-        rooms.at(to).receiveMessage(inMessage);
+Room::~Room() {
+    for (auto i = rooms.cbegin(); i != rooms.cend(); ++i) {
+        User* userTemp = dynamic_cast<User*>(i->second);
+        if ( userTemp == nullptr ) {
+            delete i->second;
+        }
+        else if ( parentRoom != nullptr ) {
+            parentRoom->addRoom(*i->second);
+            this->removeRoom(*i->second);
+        }
     }
 }
 
 // ----------------------------------
 
-void Room::receiveMessage(message inMessage) {
-    string to = inMessage.to;
+void Room::sendMessage(Message inMessage) {
+    string to = inMessage.getTo();
+    
+    if ( rooms.find(to) == rooms.end() ) {
+        Message errorMessage("User does not exist", name, inMessage.getFrom());
+        rooms.at(to)->receiveMessage(errorMessage);
+    }
+    
+    User* userTemp = dynamic_cast<User*>(rooms.at(to));
+    
+    if ( userTemp == nullptr) {
+        Message errorMessage("You can't a send whisper to a room, dummy!", name, inMessage.getFrom());
+        rooms.at(to)->receiveMessage(errorMessage);
+    }
+    else {
+        rooms.at(to)->receiveMessage(inMessage);
+    }
+}
+
+// ----------------------------------
+
+void Room::receiveMessage(Message inMessage) {
+    string to = inMessage.getTo();
     if(to == name){
         sendMessageAll(inMessage);
+        saveToFile(inMessage);
     }
     else{
         sendMessage(inMessage);
@@ -51,20 +68,23 @@ void Room::receiveMessage(message inMessage) {
 
 // ----------------------------------
 
-void Room::sendMessageAll(message inMessage) {
-    for (unsigned int i = 0; i < rooms.length(); i++) {
-        User* userTemp = dynamic_cast<User*>(&rooms.at(to));
-        if ( usertemp == nullptr ) {
+void Room::sendMessageAll(Message inMessage) {
+    string to = inMessage.getTo();
+    
+    for (unsigned int i = 0; i < rooms.size(); i++) {
+        User* userTemp = dynamic_cast<User*>(rooms.at(to));
+        if ( userTemp == nullptr ) {
             continue;
         }
-        rooms.at(to).receiveMessage(inMessage);
+        rooms.at(to)->receiveMessage(inMessage);
     }
 }
 
 // ----------------------------------
 
 void Room::addRoom(Room& inRoom) {
-    rooms.insert(inRoom.name, &inRoom);
+    inRoom.parentRoom = this;
+    rooms.insert(pair<string, Room*>(inRoom.name,&inRoom));
 }
 
 // ----------------------------------
@@ -78,5 +98,10 @@ void Room::removeRoom(Room& inRoom) {
     }
 }
 
+// ----------------------------------
 
+void Room::saveToFile(Message inMessage) {
+    cout << inMessage.getMessage() << endl;
+    return;
+}
 
