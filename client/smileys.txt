@@ -1,0 +1,3 @@
+=) /images/bild1
+=D /images/bild2
+=( /images/bild3

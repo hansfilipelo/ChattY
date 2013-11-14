@@ -10,17 +10,33 @@ BESKRIVNING:
 #include "smiley.h"
 using namespace std;
 
-Smiley::Smiley(const string referenceString_, const string pictureDirectory_)
+Smiley::Smiley()
 {
-    referenceString = referenceString_;
-    pictureDirectory = pictureDirectory_;
+    const char* filename="smileys.txt";
+    ifstream inputfile;
+    inputfile.open(filename,ifstream::in);
+    
+    if (not(inputfile.good())) {
+        cout<< "Error while opening file";
+    }
+    string key;
+    string path;
+    while (inputfile)
+    {
+        inputfile >> key;
+        inputfile >> path;
+        listOfSmileys.insert(pair<string,string>(key, path));
+    }
 }
 
-string Message::getSmiley() const
+
+string Smiley::get(string key) const
 {
-    return pictureDirectory;
+    return listOfSmileys.at(key);
 }
 
 
-
-
+bool Smiley::find(string key) const
+{
+    return listOfSmileys.count(key);
+}

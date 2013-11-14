@@ -14,24 +14,18 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <time.h>
+#include <map>
+
 
 class Smiley
 {
 public:
-    Smiley(const string referenceString, const string pictureDirectory);
-    ~Smiley()=default;
-    std::string getSmiley() const;
-   
-    void print() const;
-    
+    Smiley();
+    std::string get(std::string) const;
+    bool find(std::string) const;
 private:
-    std::string referenceString;
-    std::string pictureDirectory;
-    
-    
+    std::map<std::string,std::string> listOfSmileys;
 };
-
 
 
 #endif
