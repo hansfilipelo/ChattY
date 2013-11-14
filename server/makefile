@@ -22,3 +22,4 @@ getTime.o: getTime.cc
 
 clean:
 	@ \rm -f ./*.o
+	@ \rm -f room_test

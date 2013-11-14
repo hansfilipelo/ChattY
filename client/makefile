@@ -12,4 +12,4 @@ smiley.o: smiley.cc smiley.h
 
 clean:
 	@ \rm -f ./*.o
-
+	@ \rm -f client
