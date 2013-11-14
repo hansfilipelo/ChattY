@@ -5,4 +5,4 @@ sendMessage(message*) -> sendMessage(message*)
 addRoom(Room&) -> addRoom(Room*)
 map<string... > -> vector<message*>log
 removeRoom
-map<string,room*> recieved the name names.
+map<string,room*> is now called rooms.
