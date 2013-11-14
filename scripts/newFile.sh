@@ -10,11 +10,10 @@ _EOF_
 echo "FILNAMN: 		$FILE" >> $FILE
 
 cat << _EOF_ >> ./$FILE
-LABORATION:		
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
 _EOF_
 
-echo "DATUM:			$(date '+%Y-%m-%d')" >> $FILE
+echo "SKAPAD DATUM:	$(date '+%Y-%m-%d')" >> $FILE
 
 cat << _EOF_ >> ./$FILE
 BESKRIVNING:	

@@ -5,15 +5,25 @@ SKAPAD DATUM:			2013-11-14
 BESKRIVNING:	
 */
 
-#include <stdlib.h>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <string>
-#include <vector>
+#include "room.h"
+
 using namespace std;
 
-int main(){
-	
-	return 0;
+// ----------------------------------
+// Constructor
+
+Room::Room(string inName) {
+    name = inName;
+}
+
+// ----------------------------------
+
+void Room::sendMessage(message* inMessage) {
+    string to = inMessage.to;
+    
+    if ( not(log.find(to)) ) {
+        message* errorMessage = new message("User does not exist", name, inMessage.from, time(0));
+        
+    }
+    
 }
