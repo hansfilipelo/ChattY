@@ -6,7 +6,7 @@ DATUM:			2013-11-14
 BESKRIVNING:	
 */
 
-#include "getTime.cc"
+#include "../getTime.cc"
 #include "message.h"
 using namespace std;
 
@@ -36,6 +36,11 @@ string Message::getTo()const
 string Message::getLocalTime() const
 {
     return localTime;
+}
+
+void Message::setServerTime(const string serverTime_)
+{
+    serverTime = serverTime_;
 }
 
 string Message::getServerTime() const
