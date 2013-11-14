@@ -25,12 +25,10 @@ BESKRIVNING:
 #include <fstream>
 #include <string>
 #include <vector>
-using namespace std;
+#include <map>
+#include "getTime.cc"
+#include "message.h"
 
-int main(){
-	
-	return 0;
-}
 _EOF_
 
 echo "Skapat ny $FILE"

@@ -12,6 +12,8 @@ BESKRIVNING:
 #include <string>
 #include <vector>
 #include <map>
+#include <stdexcept>
+#include "getTime.cc"
 #include "message.h"
 
 class Room {
@@ -19,12 +21,13 @@ public:
     // Construct
     Room(string);
     
-    void sendMessage(message*);
+    void sendMessage(message);
     void addRoom(Room&);
-    void removeRoom(Room&);
+    void removeRoom(Room&);             // Throws error if room doesn't exist
     void receiveMessage;
     
 protected:
+    void sendMessageAll(message);
     std::string name;
     std::map<string,room*> rooms;
     std::vector<message*> log;
