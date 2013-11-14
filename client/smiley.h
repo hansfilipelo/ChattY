@@ -19,7 +19,7 @@
 class Smiley
 {
 public:
-    Smiley(const referenceString, pictureDirectory;
+    Smiley(const string referenceString, const string pictureDirectory);
     ~Smiley()=default;
     std::string getSmiley() const;
    

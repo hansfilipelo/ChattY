@@ -1,52 +1,26 @@
 /*
-FILNAMN: 		message.cc
+FILNAMN: 		smiley.cc
 LABORATION:		
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
 DATUM:			2013-11-14
 BESKRIVNING:	
 */
 
-#include "getTime.cc"
-#include "message.h"
+
+#include "smiley.h"
 using namespace std;
 
-Message::Message(const std::string message_, const std::string from_,const std::string to_)
+Smiley::Smiley(const string referenceString_, const string pictureDirectory_)
 {
-    message = message_;
-    from = from_;
-    to = to_;
-    localTime = currentDateTime();
+    referenceString = referenceString_;
+    pictureDirectory = pictureDirectory_;
 }
 
-string Message::getMessage() const
+string Message::getSmiley() const
 {
-    return message;
+    return pictureDirectory;
 }
 
-string Message::getFrom() const
-{
-    return from;
-}
-
-string Message::getTo()const
-{
-    return to;
-}
-
-string Message::getLocalTime() const
-{
-    return localTime;
-}
-
-string Message::getServerTime() const
-{
-    return serverTime;
-}
-
-void Message::print() const
-{
-    cout<<to<<" "<<localTime<< "\n"<<from<< " says: "<<message<<"\n";
-}
 
 
 
