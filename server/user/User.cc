@@ -5,7 +5,7 @@ SKAPAD DATUM:	2013-11-14
 BESKRIVNING:	
 */
 
-#include "room.h"
+#include "../room/room.h"
 using namespace std;
 
 User::~User(){

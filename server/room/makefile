@@ -8,17 +8,17 @@ room_test: $(OBJECTS)
 room_test.o: room_test.cc
 	$(CCC) $(CCFLAGS) -c room_test.cc 
 
-message.o: message.cc 
-	$(CCC) $(CCFLAGS) -c message.cc
+message.o: ../message/message.cc 
+	$(CCC) $(CCFLAGS) -c ../message/message.cc
 
-room.o: room.cc
-	$(CCC) $(CCFLAGS) -c room.cc
+room.o: ../room/room.cc
+	$(CCC) $(CCFLAGS) -c ../room/room.cc
 
-User.o: User.cc
-	$(CCC) $(CCFLAGS) -c User.cc
+User.o: ../user/User.cc
+	$(CCC) $(CCFLAGS) -c ../user/User.cc
 
-getTime.o: getTime.cc
-	$(CCC) $(CCFLAGS) -c getTime.cc
+getTime.o: ../getTime.cc
+	$(CCC) $(CCFLAGS) -c ../getTime.cc
 
 clean:
 	@ \rm -f ./*.o

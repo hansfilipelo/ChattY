@@ -16,8 +16,8 @@ BESKRIVNING:
 #include <vector>
 #include <map>
 #include <stdexcept>
-#include "getTime.cc"
-#include "message.h"
+#include "../getTime.cc"
+#include "../message/message.h"
 
 class Room {
 public:

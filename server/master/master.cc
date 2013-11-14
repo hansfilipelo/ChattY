@@ -1,5 +1,5 @@
 /*
-FILNAMN: 		room_test.cc
+FILNAMN: 		master.cc
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
 SKAPAD DATUM:	2013-11-14
 BESKRIVNING:	
@@ -15,11 +15,3 @@ BESKRIVNING:
 #include "getTime.cc"
 #include "message.h"
 
-using namespace std;
-
-int main() {
-    
-    
-    
-    return 0;
-}
