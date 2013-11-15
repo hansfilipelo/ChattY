@@ -15,18 +15,23 @@ BESKRIVNING:
 #include <string>
 #include <vector>
 #include <map>
-#include "getTime.cc"
-#include "message.h"
+#include "../getTime.cc"
+#include "../room/room.h"
 
 class Master {
 public:
-    Master()
-    ~Master()
+    Master();
+    ~Master();
     
+    Room* createRoom(std::string);
+    void removeRoom(std::string);
+    Room* createUser(std::string);
+    void removeUser(std::string);
     
     
 protected:
-    
+    map<std::string, Room*> rooms;
+    Room* topRoom;
 };
 
 #endif

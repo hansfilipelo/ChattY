@@ -31,6 +31,7 @@ public:
     void addRoom(Room&);
     void removeRoom(Room&);             // Throws error if room doesn't exist
     void receiveMessage(Message);
+    std::string getName();
     
 protected:
     void saveToFile(Message);

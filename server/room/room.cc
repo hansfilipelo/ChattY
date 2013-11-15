@@ -105,3 +105,9 @@ void Room::saveToFile(Message inMessage) {
     return;
 }
 
+// ------------------------------------
+
+string Room::getName() {
+    return name;
+}
+
