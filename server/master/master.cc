@@ -38,14 +38,6 @@ Room* Master::createRoom(string name) {
 
 // ---------------------------------------
 
-Room* Master::createRoom(string name) {
-    User* temp = new User(name);
-    rooms.insert(pair<string,Room*>(temp->getName(),temp));
-    return temp;
-}
-
-// ---------------------------------------
-
 void Master::removeRoom(string name) {
     if ( rooms.find(name) != rooms.cend() ) {
         delete rooms.find(name)->second;
