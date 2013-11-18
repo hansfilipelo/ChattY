@@ -6,13 +6,17 @@ BESKRIVNING:
 */
 
 #include "master/master.h"
+#include <iostream>
 
 int main() {
-	Master master;
-	master.createRoom("Room1");
-	master.createRoom("Room2");
-	std::cout << master.getRoom("Room1")->getName() << std::endl;
-	std::cout << master.getRoom("Room2")->getName() << std::endl;
+	Master* master = new Master();
+    Room* top = master->getTop();
+	top->addRoom(master->createRoom("Room1"));
+	top->addRoom(master->createRoom("Room2"));
+	std::cout << master->getRoom("Room1")->getName() << std::endl;
+	std::cout << master->getRoom("Room2")->getName() << std::endl;
 	
+    delete master;
+    std::cout << "destroyed" << std::endl;
     return 0;
 }

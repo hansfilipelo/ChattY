@@ -29,6 +29,7 @@ public:
     void removeUser(std::string);
     void removeRoomHelp(std::string);
     Room* getRoom(std::string);
+    Room* getTop();
     
 protected:
     std::map<std::string, Room*> rooms;

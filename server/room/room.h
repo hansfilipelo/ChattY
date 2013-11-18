@@ -14,6 +14,7 @@ Benny
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <algorithm>
 #include <vector>
 #include <map>
 #include <stdexcept>
@@ -34,6 +35,7 @@ public:
     void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
     std::string getName();
+    friend void destructHelp(Room*);
     
 protected:
     void saveToFile(Message);
@@ -43,6 +45,8 @@ protected:
     std::vector<Message> log;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
+    
+
 };
 
 // --------------------

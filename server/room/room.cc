@@ -20,17 +20,36 @@ Room::Room(string inName,Master* master) {
 // ----------------------------------
 // Destructor
 
+void destructHelp(Room* inRoom){
+    inRoom->parentRoom->rooms.erase(inRoom->parentRoom->rooms.find(inRoom->getName()));
+    delete inRoom;
+}
+
 Room::~Room() {
-    for (auto i = rooms.cbegin(); i != rooms.cend(); ++i) {
+    
+    if(parentRoom == nullptr){
+        for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
+            cout << this->getName() << endl;
+            rooms.erase(it++);
+        }
+        cout << "slut" << endl;
+        return;
+    }
+    
+    vector<Room*> temp;
+    for (auto i = rooms.begin(); i != rooms.end(); i++) { //This might not work.
         User* userTemp = dynamic_cast<User*>(i->second);
         if ( userTemp == nullptr ) {
-            delete i->second;
-        }
-        else if ( parentRoom != nullptr ) {
-            parentRoom->addRoom(i->second);
-            this->removeRoom(i->second);
+            temp.push_back(i->second);
         }
     }
+    
+    for_each(temp.begin(),temp.end(),destructHelp);
+    
+    for (auto i = rooms.begin(); i != rooms.end(); i++) { //This might not work.
+            parentRoom->addRoom(i->second);
+        }
+    
     masterPointer->removeRoomHelp(name);
     parentRoom->removeRoom(this);
 }

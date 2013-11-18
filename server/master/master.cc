@@ -21,9 +21,7 @@ Master::Master() {
 // Destructor
 
 Master::~Master() {
-    for (auto i = rooms.cbegin(); i != rooms.cend(); ++i) {
-        delete i->second;
-    }
+    delete topRoom;
     rooms.clear();
     topRoom = nullptr;
 }
@@ -78,4 +76,8 @@ Room* Master::createUser(string name){
 
 Room* Master::getRoom(std::string name){
 	return rooms.find(name)->second;
+}
+
+Room* Master::getTop(){
+    return topRoom;
 }
