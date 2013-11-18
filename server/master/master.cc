@@ -74,3 +74,8 @@ Room* Master::createUser(string name){
     return roomTemp;
 }
 
+//----------------------------------------------
+
+Room* Master::getRoom(std::string name){
+	return rooms.find(name)->second;
+}

@@ -8,5 +8,11 @@ BESKRIVNING:
 #include "master/master.h"
 
 int main() {
+	Master master;
+	master.createRoom("Room1");
+	master.createRoom("Room2");
+	std::cout << master.getRoom("Room1")->getName() << std::endl;
+	std::cout << master.getRoom("Room2")->getName() << std::endl;
+	
     return 0;
 }
