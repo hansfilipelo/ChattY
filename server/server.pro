@@ -5,11 +5,8 @@
 # BESKRIVNING:		Project file for Qmake. Creates makefile compatible with make and c++ compilers
 
 # Use GNU compilers - not clang
-QMAKE_CXX	= /usr/bin/g++
-QMAKE_CC	= /usr/bin/gcc
-
-# C++11 standard
-QMAKE_CXXFLAGS  += -std=c++11
+QMAKE_CXX	= g++
+QMAKE_CC	= gcc
 
 # Qt components required. Server does not use GUI. 
 QT		+= core
@@ -18,13 +15,14 @@ QT		-= gui
 
 TARGET		= server
 
-CONFIG		+= console
+# Use C++11 standard
+CONFIG		+= console c++11
 CONFIG		-= app_bundle
 
 TEMPLATE	= app
 
 # Files to include while building
-SOURCES		+= getTime.cc master/master.cc room/room.cc user/User.cc message/message.cc
+SOURCES		+= main.cc getTime.cc master/master.cc room/room.cc user/User.cc message/message.cc
 
 HEADERS		+= master/master.h room/room.h message/message.h
 
