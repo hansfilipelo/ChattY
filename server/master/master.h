@@ -15,7 +15,7 @@ BESKRIVNING:
 #include <string>
 #include <vector>
 #include <map>
-#include "../getTime.cc"
+#include "../getTime.h"
 #include "../room/room.h"
 
 class Master {
@@ -30,7 +30,7 @@ public:
     
     
 protected:
-    map<std::string, Room*> rooms;
+    std::map<std::string, Room*> rooms;
     Room* topRoom;
 };
 

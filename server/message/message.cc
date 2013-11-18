@@ -6,7 +6,7 @@ DATUM:			2013-11-14
 BESKRIVNING:	
 */
 
-#include "../getTime.cc"
+
 #include "message.h"
 using namespace std;
 

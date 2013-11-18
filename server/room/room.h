@@ -17,13 +17,13 @@ Benny
 #include <vector>
 #include <map>
 #include <stdexcept>
-#include "../getTime.cc"
+#include "../getTime.h"
 #include "../message/message.h"
 
 class Room {
 public:
     // Construct
-    Room(string);
+    Room(std::string);
     // Destruct
     virtual ~Room();
     
@@ -37,7 +37,7 @@ protected:
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;
-    std::map<string,Room*> rooms;
+    std::map<std::string,Room*> rooms;
     std::vector<Message> log;
     Room* parentRoom = nullptr;
 };
@@ -48,7 +48,7 @@ protected:
 class User : public Room
 {
 public:
-    User(string inName) : Room(inName) {};
+    User(std::string inName) : Room(inName) {};
     ~User();
     std::string name;
     void sendMessage(Message);

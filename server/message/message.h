@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include "../getTime.h"
 
 class Message
 {
