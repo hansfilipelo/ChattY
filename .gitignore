@@ -7,6 +7,12 @@
 *.o
 *.so
 
+# Automated makefile created with Qt
+server/Makefile
+
+# Executable created with Qt and make for server
+server/server
+
 # Davids sketna projektfiler #
 ##############################
 *.dev
