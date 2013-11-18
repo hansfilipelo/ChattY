@@ -24,14 +24,14 @@ Benny
 class Room {
 public:
     // Construct
-    Room(std::string,Master*);
+    Room(std::string,class Master*);
     // Destruct
     virtual ~Room();
     
     virtual void sendMessage(Message);
-    Room* createRoom(std::string)
-    void addRoom(Room&);
-    void removeRoom(Room&);             // Throws error if room doesn't exist
+    Room* createRoom(std::string);
+    void addRoom(Room*);
+    void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
     std::string getName();
     

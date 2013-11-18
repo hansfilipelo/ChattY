@@ -23,7 +23,7 @@ public:
     Master();
     ~Master();
     
-    Room* createRoom(std::string);
+    class Room* createRoom(std::string);
     void removeRoom(std::string);
     Room* createUser(std::string);
     void removeUser(std::string);

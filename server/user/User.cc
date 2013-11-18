@@ -9,11 +9,11 @@ BESKRIVNING:
 using namespace std;
 
 User::~User(){
-    parentRoom->removeRoom(*this); //you sure? *this eller this&?
+    parentRoom->removeRoom(this); //you sure? *this eller this&?
 }
 
 void User::chooseRoom(Room* newRoom){
-    newRoom->addRoom(*this);
+    newRoom->addRoom(this);
     parentRoom = newRoom;
 }
 

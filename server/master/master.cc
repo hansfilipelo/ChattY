@@ -62,7 +62,7 @@ void Master::removeUser(string name){
 
 // ---------------------------------------
 
-Room* createUser(string name){
+Room* Master::createUser(string name){
     if ( rooms.find(name) != rooms.cend() ) {
         throw logic_error{"Already user by that name"};
     }

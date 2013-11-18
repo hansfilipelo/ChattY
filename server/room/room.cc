@@ -27,11 +27,12 @@ Room::~Room() {
             delete i->second;
         }
         else if ( parentRoom != nullptr ) {
-            parentRoom->addRoom(*i->second);
-            this->removeRoom(*i->second);
+            parentRoom->addRoom(i->second);
+            this->removeRoom(i->second);
         }
     }
     masterPointer->removeRoomHelp(name);
+    parentRoom->removeRoom(this);
 }
 
 // ----------------------------------
@@ -85,18 +86,18 @@ void Room::sendMessageAll(Message inMessage) {
 // ----------------------------------
 
 void Room::addRoom(Room* inRoom) {
-    inRoom.parentRoom = this;
-    rooms.insert(pair<string, Room*>(inRoom.name,&inRoom));
+    inRoom->parentRoom = this;
+    rooms.insert(pair<string, Room*>(inRoom->name,inRoom));
 }
 
 // ----------------------------------
 
-void Room::removeRoom(Room& inRoom) {
-    if ( rooms.find(inRoom.name) == rooms.end() ) {
+void Room::removeRoom(Room* inRoom) {
+    if ( rooms.find(inRoom->name) == rooms.end() ) {
         throw logic_error{"Trying to remove room that's not in this parent room"};
     }
     else {
-        rooms.erase(rooms.find(inRoom.name));
+        rooms.erase(rooms.find(inRoom->name));
     }
 }
 
