@@ -19,15 +19,17 @@ Benny
 #include <stdexcept>
 #include "../getTime.h"
 #include "../message/message.h"
+#include "../master/master.h"
 
 class Room {
 public:
     // Construct
-    Room(std::string);
+    Room(std::string,Master*);
     // Destruct
     virtual ~Room();
     
     virtual void sendMessage(Message);
+    Room* createRoom(std::string)
     void addRoom(Room&);
     void removeRoom(Room&);             // Throws error if room doesn't exist
     void receiveMessage(Message);
@@ -40,6 +42,7 @@ protected:
     std::map<std::string,Room*> rooms;
     std::vector<Message> log;
     Room* parentRoom = nullptr;
+    Master* masterPointer = nullptr;
 };
 
 // --------------------
@@ -48,12 +51,13 @@ protected:
 class User : public Room
 {
 public:
-    User(std::string inName) : Room(inName) {};
+    User(std::string inName, Master* master) : Room(inName,master) {};
     ~User();
     std::string name;
     void sendMessage(Message);
     void receiveMessage(Message);
     void chooseRoom(Room*);
+    void initRoom(std::string name);
     
 private:
     std::vector<Message> log;

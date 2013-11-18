@@ -12,7 +12,8 @@ using namespace std;
 // ----------------------------------
 // Constructor
 
-Room::Room(string inName) {
+Room::Room(string inName,Master* master) {
+    masterPointer = master;
     name = inName;
 }
 
@@ -30,6 +31,7 @@ Room::~Room() {
             this->removeRoom(*i->second);
         }
     }
+    masterPointer->removeRoomHelp(name);
 }
 
 // ----------------------------------
@@ -82,7 +84,7 @@ void Room::sendMessageAll(Message inMessage) {
 
 // ----------------------------------
 
-void Room::addRoom(Room& inRoom) {
+void Room::addRoom(Room* inRoom) {
     inRoom.parentRoom = this;
     rooms.insert(pair<string, Room*>(inRoom.name,&inRoom));
 }

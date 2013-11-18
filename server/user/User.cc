@@ -24,3 +24,7 @@ void User::receiveMessage(Message inMessage){
 void User::sendMessage(Message outMessage){
     parentRoom->receiveMessage(outMessage);
 }
+
+void User::initRoom(string name){
+    parentRoom->addRoom(masterPointer->createRoom(name));
+}
