@@ -8,8 +8,11 @@ BESKRIVNING:
 #include "netClient.h"
 #include <QTest>
 
-NetClient::NetClient(QObject *parent) : QObject(parent){
+using namespace std;
 
+NetClient::NetClient(string username, QObject *parent) : QObject(parent){
+
+    name=username;
 }
 void NetClient::test2(){
 
@@ -57,3 +60,5 @@ void NetClient::readyRead(){
     qDebug() << tcpSocket->readAll();
     this->test2();
 }
+
+
