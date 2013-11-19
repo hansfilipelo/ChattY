@@ -10,7 +10,7 @@ QMAKE_CC	= gcc
 
 # Qt components required 
 QT		+= core 
-QT		+= network gui 
+QT		+= network gui testlib 
 
 TARGET		= client
 

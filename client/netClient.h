@@ -21,6 +21,8 @@ class NetClient : public QObject
 public:
     NetClient(QObject *parent = 0);
     void test();
+    void test2();
+    void sendMessage(std::string);   // ("Operand Kod" + "//" + "Argument1, 2, 3, 4 ... " + "EOF sträng" )
     
 signals:
     

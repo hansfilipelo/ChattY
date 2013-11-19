@@ -6,9 +6,14 @@ BESKRIVNING:
 */
 
 #include "netClient.h"
+#include <QTest>
 
 NetClient::NetClient(QObject *parent) : QObject(parent){
 
+}
+void NetClient::test2(){
+
+    tcpSocket->write("Hej2 \n\r");
 }
 
 void NetClient::test(){
@@ -32,8 +37,10 @@ void NetClient::test(){
 //------Slots---------
 
 void NetClient::connected(){
-    qDebug() << "connected";
-}
+    qDebug() << "Connected!";
+    tcpSocket->write("hej \r\n");
+    
+    }
 
 void NetClient::disconnected(){
     qDebug() << "disconnected";
@@ -48,4 +55,5 @@ void NetClient::bytesWritten(qint64 bytes){
 void NetClient::readyRead(){
     qDebug() << "reading...";
     qDebug() << tcpSocket->readAll();
+    this->test2();
 }
