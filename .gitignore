@@ -20,6 +20,7 @@ client/client
 # Networking in Qt creates .cpp-files
 client/moc_netClient.cpp
 server/serverclass/moc_server.cpp
+server/serverclass/moc_thread.cpp
 
 # Davids sketna projektfiler #
 ##############################
