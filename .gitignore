@@ -9,9 +9,18 @@
 
 # Automated makefile created with Qt
 server/Makefile
+server/serverclass/Makefile
+client/Makefile
 
-# Executable created with Qt and make for server
+# Our own xecutables
 server/server
+server/serverclass/server
+client/client
+
+# Networking in Qt creates .cpp-files
+client/moc_netClient.cpp
+server/serverclass/moc_server.cpp
+server/serverclass/moc_thread.cpp
 
 # Davids sketna projektfiler #
 ##############################
