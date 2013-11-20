@@ -40,7 +40,6 @@ Room::~Room() {
             User* userTemp = dynamic_cast<User*>(it->second);
             if(userTemp == nullptr ){
                 cout << it->second->name << "was removed as room" << endl;
-                removeRoom(it->second);
                 rooms.erase(it++);
                 break;
             }
@@ -50,7 +49,7 @@ Room::~Room() {
     if(parentRoom == nullptr){
         cout << "should not happen" << endl;
         for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
-            delete it
+            
             rooms.erase(it++);
         }
         return;

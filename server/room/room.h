@@ -42,7 +42,7 @@ public:
     Room* getRoom(std::string);
     Message getMessage(int i);
     
-protected:
+//protected:
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;
