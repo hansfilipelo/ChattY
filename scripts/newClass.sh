@@ -20,6 +20,9 @@ cat << _EOF_ >> ./$CLASS.h
 BESKRIVNING:	
 */
 
+#ifndef $(echo $CLASS)_H
+#define $(echo $CLASS)_H
+
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
@@ -28,6 +31,11 @@ BESKRIVNING:
 #include <vector>
 #include <map>
 
+class $CLASS {
+
+}
+
+#endif
 _EOF_
 
 
