@@ -98,6 +98,7 @@ void Room::sendMessageAll(Message inMessage) {
         if ( userTemp == nullptr ) {
             continue;
         }
+        log.push_back(inMessage);
         rooms.at(to)->receiveMessage(inMessage);
     }
 }
@@ -119,6 +120,7 @@ void Room::removeRoom(Room* inRoom) {
         rooms.erase(rooms.find(inRoom->name));
     }
 }
+//raderar enbart pekaren i MAP:n objektets destruktor körs ej!
 
 // ----------------------------------
 
@@ -133,3 +135,20 @@ string Room::getName() {
     return name;
 }
 
+void Room::createRoom(std::string inName){
+	addRoom(masterPointer->createRoom(inName));
+}
+
+Room* Room::getRoom(std::string name){
+	 if(rooms.find(name) == rooms.end()){
+		 throw logic_error{"No such Room or User!"};
+	 }
+	 return rooms.find(name)->second;
+}
+
+Message Room::getMessage(int i){
+	 if (log.size() < i){
+		 throw logic_error{"No message at that position!"};
+	 }
+	 return log[i];
+ }

@@ -60,7 +60,7 @@ void Master::removeUser(string name){
 
 // ---------------------------------------
 
-Room* Master::createUser(string name){
+void Master::createUser(string name){
     if ( rooms.find(name) != rooms.cend() ) {
         throw logic_error{"Already user by that name"};
     }
@@ -68,8 +68,10 @@ Room* Master::createUser(string name){
     
     Room* roomTemp = dynamic_cast<Room*>(temp);
     
+    temp->chooseRoom(topRoom);
+    
     rooms.insert(pair<string,Room*>(roomTemp->getName(),roomTemp));
-    return roomTemp;
+    return;
 }
 
 //----------------------------------------------
