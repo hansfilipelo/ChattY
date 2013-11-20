@@ -30,6 +30,7 @@ public:
     virtual ~Room();
     
     virtual void sendMessage(Message);
+    void createRoom(std::string);
     void addRoom(Room*);
     void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
@@ -37,6 +38,11 @@ public:
     void listUsers();
     void listRooms();
                          // Here protected
+    friend void destructHelp(Room*);
+    Room* getRoom(std::string);
+    Message getMessage(int i);
+    
+protected:
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;
@@ -56,11 +62,13 @@ class User : public Room
 public:
     User(std::string inName, Master* master) : Room(inName,master) {};
     ~User();
-    std::string name;
+//    std::string name;
     void sendMessage(Message);
     void receiveMessage(Message);
     void chooseRoom(Room*);
-    void initRoom(std::string name); //testing purposes
+    void initRoom(std::string);
+    Message getMessage(int i);
+
     
 private:
     std::vector<Message> log;

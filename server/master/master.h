@@ -25,7 +25,7 @@ public:
     
     class Room* createRoom(std::string);
     void removeRoom(std::string);
-    Room* createUser(std::string);
+    void createUser(std::string);
     void removeUser(std::string);
     Room* getRoom(std::string);
     Room* getTop();

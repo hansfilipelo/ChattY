@@ -14,7 +14,11 @@ User::~User(){
 
 void User::chooseRoom(Room* newRoom){
     newRoom->addRoom(this);
+    if(parentRoom != nullptr){
+		parentRoom->removeRoom(this);
+	}
     parentRoom = newRoom;
+    
 }
 
 void User::receiveMessage(Message inMessage){
@@ -23,8 +27,16 @@ void User::receiveMessage(Message inMessage){
 
 void User::sendMessage(Message outMessage){
     parentRoom->receiveMessage(outMessage);
+    log.push_back(outMessage);
 }
 
 void User::initRoom(string name){
     parentRoom->addRoom(masterPointer->createRoom(name));
 }
+
+Message User::getMessage(int i){
+	 if (log.size() < i){
+		 throw logic_error{"No message at that position!"};
+	 }
+	 return log[i];
+ }
