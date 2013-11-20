@@ -21,7 +21,9 @@ Master::Master() {
 // Destructor
 
 Master::~Master() {
+    cout << "Hello1" << endl;
     delete topRoom;
+    cout << "Hello" << endl;
     rooms.clear();
     topRoom = nullptr;
 }
@@ -42,15 +44,15 @@ Room* Master::createRoom(string name) {
 void Master::removeRoom(string name) {
     if ( rooms.find(name) != rooms.cend() ) {
         delete rooms.find(name)->second;
+        cout << name << " was removed in master" << endl;
+        cout << getTop()->getName() << endl;
+        rooms.erase(name);
     }
     else {
         throw logic_error{"There's no room by that name"};
     }
 }
 
-void Master::removeRoomHelp(string name) {
-    rooms.erase(rooms.find(name));
-}
 
 // ---------------------------------------
 
@@ -75,6 +77,9 @@ Room* Master::createUser(string name){
 //----------------------------------------------
 
 Room* Master::getRoom(std::string name){
+    if(rooms.find(name) == rooms.end()){
+        cout << "Not known room" << endl;
+    }
 	return rooms.find(name)->second;
 }
 

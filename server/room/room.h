@@ -34,9 +34,9 @@ public:
     void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
     std::string getName();
-    friend void destructHelp(Room*);
-    
-protected:
+    void listUsers();
+    void listRooms();
+                         // Here protected
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;

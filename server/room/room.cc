@@ -21,7 +21,7 @@ Room::Room(string inName,Master* master) {
 // Destructor
 
 bool containsRoom(map<string,Room*> rooms){
-    for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
+       for (auto it = rooms.cbegin(); it != rooms.cend() ; it++ ){
         User* userTemp = dynamic_cast<User*>(it->second);
         if(userTemp == nullptr ){
             return true;
@@ -30,28 +30,36 @@ bool containsRoom(map<string,Room*> rooms){
     return false;
 }
 
+// ----------------------------------------
+//              Destructor
+
 Room::~Room() {
-    
+    cout << containsRoom(rooms) << endl;
     while(containsRoom(rooms)) {
         for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
             User* userTemp = dynamic_cast<User*>(it->second);
             if(userTemp == nullptr ){
+                cout << it->second->name << "was removed as room" << endl;
+                removeRoom(it->second);
                 rooms.erase(it++);
                 break;
             }
+            it++;
         }
     }
-    
     if(parentRoom == nullptr){
+        cout << "should not happen" << endl;
         for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
-            cout << this->getName() << endl;
+            delete it
             rooms.erase(it++);
         }
         return;
     }
-    for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
+    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
         parentRoom->addRoom(it->second);
+        cout << "should happen twice" << it->first << endl;
     }
+    return;
 }
 
 // ----------------------------------------
@@ -61,7 +69,10 @@ void Room::removeRoom(Room* inRoom) {
         throw logic_error{"Trying to remove room that's not in this parent room"};
     }
     else {
-        rooms.erase(rooms.find(inRoom->name));
+        cout << inRoom->name << "was passed on to master by "<< this->name << endl;
+        masterPointer->removeRoom(inRoom->name);
+        rooms.erase(inRoom->name);
+        
     }
 }
 
@@ -123,7 +134,33 @@ void Room::sendMessage(Message inMessage) {
     }
 }
 
+
 // ----------------------------------
+
+void Room::listRooms(){
+    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
+        User* userTemp = dynamic_cast<User*>(it->second);
+        if(userTemp == nullptr ){
+            cout << it->first << endl;
+        }
+    }
+    return;
+}
+
+// ----------------------------------
+
+void Room::listUsers(){
+    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
+        User* userTemp = dynamic_cast<User*>(it->second);
+        if(userTemp == nullptr ){
+            continue;
+        }
+        else{
+            cout << it->first << endl;
+        }
+    }
+    return;
+}
 
 void Room::receiveMessage(Message inMessage) {
     string to = inMessage.getTo();

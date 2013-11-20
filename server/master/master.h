@@ -27,7 +27,6 @@ public:
     void removeRoom(std::string);
     Room* createUser(std::string);
     void removeUser(std::string);
-    void removeRoomHelp(std::string);
     Room* getRoom(std::string);
     Room* getTop();
     
