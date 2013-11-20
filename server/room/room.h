@@ -30,7 +30,6 @@ public:
     virtual ~Room();
     
     virtual void sendMessage(Message);
-    Room* createRoom(std::string);
     void addRoom(Room*);
     void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
@@ -61,7 +60,7 @@ public:
     void sendMessage(Message);
     void receiveMessage(Message);
     void chooseRoom(Room*);
-    void initRoom(std::string name);
+    void initRoom(std::string name); //testing purposes
     
 private:
     std::vector<Message> log;
