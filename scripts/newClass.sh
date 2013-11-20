@@ -49,8 +49,10 @@ BESKRIVNING:
 
 #include "$CLASS.h"
 
+using namespace std;
+
 _EOF_
 
 
-echo "Skapat ny klass $CLASS
+echo "Skapat ny klass $CLASS"
 
