@@ -58,7 +58,9 @@ Room* Master::createRoom(string name) {
 // ---------------------------------------
 
 void Master::removeRoom(string name) {
-    rooms.erase(rooms.begin() + getPosOfRoom(name));
+    unsigned int pos = getPosOfRoom(name);
+    delete rooms.at(pos);
+    rooms.erase(rooms.begin() + pos);
 }
 
 

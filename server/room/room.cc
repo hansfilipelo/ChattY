@@ -30,7 +30,7 @@ void ifRoomRemove(Room* inRoom) {
 }
 
 void throwUp(Room* inRoom) {
-    inRoom->parentRoom->parentRoom->addRoom(inRoom);
+    inRoom->chooseRoom(inRoom->parentRoom->parentRoom);
 }
 
 // ----------------------------------------

@@ -26,7 +26,6 @@ int main() {
     Message testmess("Niklas tv är gay.", "David","Erik");
     top->getRoom("David")->sendMessage(testmess);
     
-    cout <<
     cout << top->getRoom("Erik")->getMessage(0).getMessage() << endl;
     
     master->createUser("Erik0");
