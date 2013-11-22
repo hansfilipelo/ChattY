@@ -34,7 +34,7 @@ void User::initRoom(string name){
     parentRoom->addRoom(masterPointer->createRoom(name));
 }
 
-Message User::getMessage(int i){
+Message User::getMessage(unsigned int i){
 	 if (log.size() < i){
 		 throw logic_error{"No message at that position!"};
 	 }

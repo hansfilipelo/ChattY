@@ -40,7 +40,7 @@ public:
                          // Here protected
     friend void destructHelp(Room*);
     Room* getRoom(std::string);
-    Message getMessage(int i);
+    Message getMessage(unsigned int i);
     
 //protected:
     void saveToFile(Message);
@@ -67,7 +67,7 @@ public:
     void receiveMessage(Message);
     void chooseRoom(Room*);
     void initRoom(std::string);
-    Message getMessage(int i);
+    Message getMessage(unsigned int i);
 
     
 private:

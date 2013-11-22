@@ -220,7 +220,7 @@ Room* Room::getRoom(std::string name){
 	 return rooms.find(name)->second;
 }
 
-Message Room::getMessage(int i){
+Message Room::getMessage(unsigned int i){
 	 if (log.size() < i){
 		 throw logic_error{"No message at that position!"};
 	 }

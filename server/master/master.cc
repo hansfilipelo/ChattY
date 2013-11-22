@@ -14,7 +14,7 @@ using namespace std;
 
 Master::Master() {
     topRoom = new Room("root",this);
-    rooms.insert(pair<string,Room*>(topRoom->getName(), topRoom));
+    rooms.push_back(topRoom);
 }
 
 // ---------------------------------------
@@ -30,23 +30,37 @@ Master::~Master() {
 
 // ---------------------------------------
 
+unsigned int Master::getPosOfRoom(string name){
+    for( unsigned int i = 0 ; i < rooms.size() ; i++) {
+        if(rooms.at(i)->getName() == name){
+            return i;
+        }
+    }
+    throw logic_error("No such room in Rooms");
+    return 0;
+}
+
+
+
+// ---------------------------------------
+
 Room* Master::createRoom(string name) {
-    if ( rooms.find(name) != rooms.cend() ) {
+    if ( not(getRoom(name)) ) {
         throw logic_error{"Already room by that name"};
     }
     Room* temp = new Room(name,this);
-    rooms.insert(pair<string,Room*>(temp->getName(),temp));
+    rooms.push_back(temp);
     return temp;
 }
 
 // ---------------------------------------
 
 void Master::removeRoom(string name) {
-    if ( rooms.find(name) != rooms.cend() ) {
-        delete rooms.find(name)->second;
+    if ( getRoom(name) != nullptr ) {
+        delete getRoom(name);
         cout << name << " was removed in master" << endl;
         cout << getTop()->getName() << endl;
-        rooms.erase(name);
+        rooms.erase(rooms.begin() + getPosOfRoom(name));
     }
     else {
         throw logic_error{"There's no room by that name"};
@@ -63,7 +77,7 @@ void Master::removeUser(string name){
 // ---------------------------------------
 
 void Master::createUser(string name){
-    if ( rooms.find(name) != rooms.cend() ) {
+    if ( getRoom(name) != nullptr ) {
         throw logic_error{"Already user by that name"};
     }
     User* temp = new User(name,this);
@@ -72,19 +86,23 @@ void Master::createUser(string name){
     
     temp->chooseRoom(topRoom);
     
-    rooms.insert(pair<string,Room*>(roomTemp->getName(),roomTemp));
+    rooms.push_back(roomTemp);
     return;
 }
 
 //----------------------------------------------
 
-Room* Master::getRoom(std::string name){
-    if(rooms.find(name) == rooms.end()){
-        cout << "Not known room" << endl;
-    }
-	return rooms.find(name)->second;
-}
-
 Room* Master::getTop(){
     return topRoom;
+}
+
+//----------------------------------------------
+
+Room* Master::getRoom(std::string name){
+    for( unsigned int i = 0 ; i < rooms.size() ; i++) {
+        if(rooms.at(i)->getName() == name){
+            return rooms.at(i);
+        }
+    }
+    throw logic_error("Trying to find room that does not exist");
 }

@@ -31,7 +31,8 @@ public:
     Room* getTop();
     
 protected:
-    std::map<std::string, Room*> rooms;
+    unsigned int getPosOfRoom(std::string);
+    std::vector<Room*> rooms;
     Room* topRoom;
 };
 
