@@ -29,29 +29,31 @@ public:
     // Destruct
     virtual ~Room();
     
+    virtual void receiveMessage(Message);
     virtual void sendMessage(Message);
+    
     void createRoom(std::string);
     void addRoom(Room*);
-    void removeRoom(Room*);             // Throws error if room doesn't exist
-    void receiveMessage(Message);
+    void removeRoom(Room*); // Throws error if room doesn't exist
+    
     std::string getName();
     void listUsers();
     void listRooms();
-                         // Here protected
-    friend void destructHelp(Room*);
     Room* getRoom(std::string);
     Message getMessage(unsigned int i);
+    virtual void chooseRoom(Room*);
     
 //protected:
+    friend void throwUp(Room* inRoom);
+    friend void ifRoomRemove(Room* inRoom);
+    unsigned int getPosOfRoom(std::string name) const;
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;
-    std::map<std::string,Room*> rooms;
+    std::vector<Room*> rooms;
     std::vector<Message> log;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
-    
-
 };
 
 // --------------------
@@ -65,14 +67,9 @@ public:
 //    std::string name;
     void sendMessage(Message);
     void receiveMessage(Message);
+    
     void chooseRoom(Room*);
     void initRoom(std::string);
-    Message getMessage(unsigned int i);
-
-    
-private:
-    std::vector<Message> log;
-    Room* parentRoom;
     
 };
 

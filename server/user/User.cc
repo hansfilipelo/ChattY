@@ -9,8 +9,12 @@ BESKRIVNING:
 using namespace std;
 
 User::~User(){
-    parentRoom->removeRoom(this); //you sure? *this eller this&?
+    parentRoom->removeRoom(this);
+    parentRoom = nullptr;
+    masterPointer = nullptr;
 }
+
+// ----------------------------------
 
 void User::chooseRoom(Room* newRoom){
     newRoom->addRoom(this);
@@ -21,22 +25,22 @@ void User::chooseRoom(Room* newRoom){
     
 }
 
+// ----------------------------------
+
 void User::receiveMessage(Message inMessage){
     log.push_back(inMessage); //tbd
 }
 
+// ----------------------------------
+
 void User::sendMessage(Message outMessage){
+    cout << "Skickad fr user" << endl;
     parentRoom->receiveMessage(outMessage);
     log.push_back(outMessage);
 }
 
+// ----------------------------------
+
 void User::initRoom(string name){
     parentRoom->addRoom(masterPointer->createRoom(name));
 }
-
-Message User::getMessage(unsigned int i){
-	 if (log.size() < i){
-		 throw logic_error{"No message at that position!"};
-	 }
-	 return log[i];
- }

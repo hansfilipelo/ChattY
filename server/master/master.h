@@ -30,6 +30,8 @@ public:
     Room* getRoom(std::string);
     Room* getTop();
     
+    void printVector(); // testing purposes 
+    
 protected:
     unsigned int getPosOfRoom(std::string);
     std::vector<Room*> rooms;

@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 // ---------------------------------------
 // Constructor
 
@@ -21,10 +22,8 @@ Master::Master() {
 // Destructor
 
 Master::~Master() {
-    cout << "Hello1" << endl;
-    delete topRoom;
-    cout << "Hello" << endl;
-    rooms.clear();
+    removeRoom("root");
+    
     topRoom = nullptr;
 }
 
@@ -45,26 +44,21 @@ unsigned int Master::getPosOfRoom(string name){
 // ---------------------------------------
 
 Room* Master::createRoom(string name) {
-    if ( not(getRoom(name)) ) {
-        throw logic_error{"Already room by that name"};
+    try{
+        getRoom(name);
     }
-    Room* temp = new Room(name,this);
-    rooms.push_back(temp);
-    return temp;
+    catch(...){
+        Room* temp = new Room(name,this);
+        rooms.push_back(temp);
+        return temp;
+    }
+    throw logic_error("Trying to create room, but name is taken (Liam Neeson)");
 }
 
 // ---------------------------------------
 
 void Master::removeRoom(string name) {
-    if ( getRoom(name) != nullptr ) {
-        delete getRoom(name);
-        cout << name << " was removed in master" << endl;
-        cout << getTop()->getName() << endl;
-        rooms.erase(rooms.begin() + getPosOfRoom(name));
-    }
-    else {
-        throw logic_error{"There's no room by that name"};
-    }
+    rooms.erase(rooms.begin() + getPosOfRoom(name));
 }
 
 
@@ -77,17 +71,18 @@ void Master::removeUser(string name){
 // ---------------------------------------
 
 void Master::createUser(string name){
-    if ( getRoom(name) != nullptr ) {
-        throw logic_error{"Already user by that name"};
+    try {
+        getRoom(name);
+    } catch (...) {
+        User* temp = new User(name,this);
+        
+        temp->chooseRoom(topRoom);
+        
+        rooms.push_back(temp);
+        return;
     }
-    User* temp = new User(name,this);
     
-    Room* roomTemp = dynamic_cast<Room*>(temp);
-    
-    temp->chooseRoom(topRoom);
-    
-    rooms.push_back(roomTemp);
-    return;
+    throw logic_error{"Already user by that name"};
 }
 
 //----------------------------------------------
@@ -98,11 +93,19 @@ Room* Master::getTop(){
 
 //----------------------------------------------
 
-Room* Master::getRoom(std::string name){
+Room* Master::getRoom(string name){
     for( unsigned int i = 0 ; i < rooms.size() ; i++) {
         if(rooms.at(i)->getName() == name){
             return rooms.at(i);
         }
     }
     throw logic_error("Trying to find room that does not exist");
+}
+
+//----------------------------------------------
+
+void Master::printVector(){
+    for( unsigned int i = 0 ; i < rooms.size() ; i++) {
+        cout << rooms.at(i)->getName() << endl;
+    }
 }

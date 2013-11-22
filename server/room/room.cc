@@ -18,129 +18,83 @@ Room::Room(string inName,Master* master) {
 }
 
 // ----------------------------------------
+// Help functions
+
+void ifRoomRemove(Room* inRoom) {
+    cout << inRoom->getName() << endl;
+    User* userTemp = dynamic_cast<User*>(inRoom);
+    
+    if (userTemp == nullptr) {
+        inRoom->masterPointer->removeRoom(inRoom->getName());
+    }
+}
+
+void throwUp(Room* inRoom) {
+    inRoom->parentRoom->parentRoom->addRoom(inRoom);
+}
+
+// ----------------------------------------
 // Destructor
 
-bool containsRoom(map<string,Room*> rooms){
-       for (auto it = rooms.cbegin(); it != rooms.cend() ; it++ ){
-        User* userTemp = dynamic_cast<User*>(it->second);
-        if(userTemp == nullptr ){
-            return true;
-        }
-    }
-    return false;
-}
-
-// ----------------------------------------
-//              Destructor
-
 Room::~Room() {
-    cout << containsRoom(rooms) << endl;
-    while(containsRoom(rooms)) {
-        for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
-            User* userTemp = dynamic_cast<User*>(it->second);
-            if(userTemp == nullptr ){
-                cout << it->second->name << "was removed as room" << endl;
-                rooms.erase(it++);
-                break;
-            }
-            it++;
-        }
-    }
-    if(parentRoom == nullptr){
-        cout << "should not happen" << endl;
-        for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
-            
-            rooms.erase(it++);
-        }
-        return;
-    }
-    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
-        parentRoom->addRoom(it->second);
-        cout << "should happen twice" << it->first << endl;
-    }
-    return;
-}
-
-// ----------------------------------------
-
-void Room::removeRoom(Room* inRoom) {
-    if ( rooms.find(inRoom->name) == rooms.end() ) {
-        throw logic_error{"Trying to remove room that's not in this parent room"};
+    for_each(rooms.begin(), rooms.end(), ifRoomRemove);
+    
+    if ( parentRoom == nullptr) {
+        rooms.clear();
     }
     else {
-        cout << inRoom->name << "was passed on to master by "<< this->name << endl;
-        masterPointer->removeRoom(inRoom->name);
-        rooms.erase(inRoom->name);
         
+        parentRoom->removeRoom(this);
+    
+        for_each(rooms.begin(), rooms.end(), throwUp);
+        parentRoom = nullptr;
     }
+    
+    masterPointer = nullptr;
+    
 }
 
 // ----------------------------------------
 
+unsigned int Room::getPosOfRoom(string name) const{
+    for( unsigned int i = 0 ; i < rooms.size() ; i++) {
+        if(rooms.at(i)->getName() == name){
+            return i;
+        }
+    }
+    throw logic_error("No such room in Rooms");
+    return 0;
+}
 
-//void destructHelp(Room* inRoom){
-//    inRoom->parentRoom->rooms.erase(inRoom->parentRoom->rooms.find(inRoom->getName()));
-//    delete inRoom;
-//}
-//
-//Room::~Room() {
-//
-//    if(parentRoom == nullptr){
-//        for (auto it = rooms.cbegin(); it != rooms.cend() ; ){
-//            cout << this->getName() << endl;
-//            rooms.erase(it++);
-//        }
-//        cout << "slut" << endl;
-//        return;
-//    }
-//
-//    vector<Room*> temp;
-//    for (auto i = rooms.begin(); i != rooms.end(); i++) { //This might not work.
-//        User* userTemp = dynamic_cast<User*>(i->second);
-//        if ( userTemp == nullptr ) {
-//            temp.push_back(i->second);
-//        }
-//    }
-//
-//    for_each(temp.begin(),temp.end(),destructHelp);
-//
-//    for (auto i = rooms.begin(); i != rooms.end(); i++) { //This might not work.
-//            parentRoom->addRoom(i->second);
-//        }
-//
-//    masterPointer->removeRoomHelp(name);
-//    parentRoom->removeRoom(this);
-//}
+// ----------------------------------------
+// Automatically called from child when child room is destroyed
+void Room::removeRoom(Room* inRoom) {
+    unsigned int pos = getPosOfRoom(inRoom->getName());
+    rooms.at(pos) = nullptr;
+    rooms.erase(rooms.begin() + pos);
+}
 
 // ----------------------------------
 
 void Room::sendMessage(Message inMessage) {
     string to = inMessage.getTo();
     
-    if ( rooms.find(to) == rooms.end() ) {
-        Message errorMessage("User does not exist", name, inMessage.getFrom());
-        rooms.at(to)->receiveMessage(errorMessage);
+    try {
+        getRoom(to)->receiveMessage(inMessage);
+    } catch (...) {
+        Message errorMessage("No such user in this room.",name,inMessage.getFrom());
     }
     
-    User* userTemp = dynamic_cast<User*>(rooms.at(to));
-    
-    if ( userTemp == nullptr) {
-        Message errorMessage("You can't a send whisper to a room, dummy!", name, inMessage.getFrom());
-        rooms.at(to)->receiveMessage(errorMessage);
-    }
-    else {
-        rooms.at(to)->receiveMessage(inMessage);
-    }
 }
 
 
 // ----------------------------------
 
 void Room::listRooms(){
-    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
-        User* userTemp = dynamic_cast<User*>(it->second);
+    for (unsigned int it = 0; it < rooms.size() ; it++){
+        User* userTemp = dynamic_cast<User*>(rooms.at(it));
         if(userTemp == nullptr ){
-            cout << it->first << endl;
+            cout << rooms.at(it)->getName() << endl;
         }
     }
     return;
@@ -149,13 +103,13 @@ void Room::listRooms(){
 // ----------------------------------
 
 void Room::listUsers(){
-    for (auto it = rooms.cbegin(); it != rooms.cend() ; it++){
-        User* userTemp = dynamic_cast<User*>(it->second);
-        if(userTemp == nullptr ){
+    for (unsigned int it = 0; it < rooms.size() ; it++){
+        User* userTemp = dynamic_cast<User*>(rooms.at(it));
+        if( userTemp == nullptr ){
             continue;
         }
         else{
-            cout << it->first << endl;
+            cout << rooms.at(it)->getName() << endl;
         }
     }
     return;
@@ -164,7 +118,10 @@ void Room::listUsers(){
 void Room::receiveMessage(Message inMessage) {
     string to = inMessage.getTo();
     if(to == name){
+        log.push_back(inMessage);
+        
         sendMessageAll(inMessage);
+        
         saveToFile(inMessage);
     }
     else{
@@ -177,21 +134,21 @@ void Room::receiveMessage(Message inMessage) {
 void Room::sendMessageAll(Message inMessage) {
     string to = inMessage.getTo();
     
+    unsigned int pos = getPosOfRoom(to);
+    
     for (unsigned int i = 0; i < rooms.size(); i++) {
-        User* userTemp = dynamic_cast<User*>(rooms.at(to));
+        User* userTemp = dynamic_cast<User*>(rooms.at(pos));
         if ( userTemp == nullptr ) {
             continue;
         }
-        log.push_back(inMessage);
-        rooms.at(to)->receiveMessage(inMessage);
+        rooms.at(pos)->receiveMessage(inMessage);
     }
 }
 
 // ----------------------------------
 
 void Room::addRoom(Room* inRoom) {
-    inRoom->parentRoom = this;
-    rooms.insert(pair<string, Room*>(inRoom->name,inRoom));
+    this->rooms.push_back(inRoom);
 }
 
 
@@ -209,20 +166,36 @@ string Room::getName() {
     return name;
 }
 
+// ------------------------------------
+
 void Room::createRoom(std::string inName){
 	addRoom(masterPointer->createRoom(inName));
 }
 
+// ------------------------------------
+
 Room* Room::getRoom(std::string name){
-	 if(rooms.find(name) == rooms.end()){
-		 throw logic_error{"No such Room or User!"};
-	 }
-	 return rooms.find(name)->second;
+    for( unsigned int i = 0 ; i < rooms.size() ; i++) {
+        if(rooms.at(i)->getName() == name){
+            return rooms.at(i);
+        }
+    }
+    throw logic_error("No such room in Rooms");
+    
+    return nullptr;
 }
 
+// -----------------------------------
+
 Message Room::getMessage(unsigned int i){
-	 if (log.size() < i){
-		 throw logic_error{"No message at that position!"};
-	 }
-	 return log[i];
- }
+    if (log.size() < i){
+        throw logic_error{"No message at that position!"};
+    }
+    return log.at(i);
+}
+
+// -----------------------------------
+
+void Room::chooseRoom(Room*) {
+    throw logic_error{"You're a retard since you're trying to move a room."};
+}
