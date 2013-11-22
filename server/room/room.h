@@ -35,11 +35,14 @@ public:
     void removeRoom(Room*);             // Throws error if room doesn't exist
     void receiveMessage(Message);
     std::string getName();
+    void listUsers();
+    void listRooms();
+                         // Here protected
     friend void destructHelp(Room*);
     Room* getRoom(std::string);
-    Message getMessage(int i);
+    Message getMessage(unsigned int i);
     
-protected:
+//protected:
     void saveToFile(Message);
     void sendMessageAll(Message);
     std::string name;
@@ -64,7 +67,7 @@ public:
     void receiveMessage(Message);
     void chooseRoom(Room*);
     void initRoom(std::string);
-    Message getMessage(int i);
+    Message getMessage(unsigned int i);
 
     
 private:

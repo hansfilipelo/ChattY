@@ -27,12 +27,12 @@ public:
     void removeRoom(std::string);
     void createUser(std::string);
     void removeUser(std::string);
-    void removeRoomHelp(std::string);
     Room* getRoom(std::string);
     Room* getTop();
     
 protected:
-    std::map<std::string, Room*> rooms;
+    unsigned int getPosOfRoom(std::string);
+    std::vector<Room*> rooms;
     Room* topRoom;
 };
 
