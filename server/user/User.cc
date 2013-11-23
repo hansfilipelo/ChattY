@@ -23,10 +23,6 @@ void User::chooseRoom(Room* newRoom){
 		parentRoom->removeRoom(this);
 	}
     this->parentRoom = newRoom;
-    
-    cout << parentRoom->getName() << endl;
-    cout << newRoom->getName() << endl;
-    
 }
 
 // ----------------------------------
