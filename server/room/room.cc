@@ -26,16 +26,13 @@ void ifRoomRemove(Room* inRoom) {
     User* userTemp = dynamic_cast<User*>(inRoom);
     
     if (userTemp == nullptr) {
+        cout << "nullptr" << endl;
         inRoom->masterPointer->removeRoom(inRoom->getName());
     }
 }
 
 void throwUp(Room* inRoom) {
     inRoom->chooseRoom(inRoom->parentRoom->parentRoom);
-}
-
-void deleteRooms(Room* inRoom) {
-    
 }
 
 // ----------------------------------------
