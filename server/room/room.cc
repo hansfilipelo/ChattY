@@ -33,6 +33,10 @@ void throwUp(Room* inRoom) {
     inRoom->chooseRoom(inRoom->parentRoom->parentRoom);
 }
 
+void deleteRooms(Room* inRoom) {
+    
+}
+
 // ----------------------------------------
 // Destructor
 
