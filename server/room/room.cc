@@ -21,6 +21,7 @@ Room::Room(string inName,Master* master) {
 // Help functions
 
 void ifRoomRemove(Room* inRoom) {
+    cout << "IfRoomRemove: ";
     cout << inRoom->getName() << endl;
     User* userTemp = dynamic_cast<User*>(inRoom);
     
