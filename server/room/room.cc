@@ -151,6 +151,7 @@ void Room::sendMessageAll(Message inMessage) {
 
 void Room::addRoom(Room* inRoom) {
     this->rooms.push_back(inRoom);
+    inRoom->parentRoom = this;
 }
 
 
