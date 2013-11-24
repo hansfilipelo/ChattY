@@ -31,14 +31,10 @@ Master::~Master() {
 
 unsigned int Master::getPosOfRoom(string name){
     
-    cout << "I get here" << endl;
     unsigned int p = this->rooms.size(); // <--- this line segfaults. WAI?!
-    cout << "Printing size: " <<  p << endl;
     for( unsigned int i = 0 ; i < p ; i++) {
-        cout << "in for loop" << endl;
         if(this->rooms.at(i)->getName() == name){
             return i;
-            cout << i << endl;
         }
     }
     throw logic_error("No such room in Rooms");
@@ -64,9 +60,7 @@ Room* Master::createRoom(string name) {
 // ---------------------------------------
 
 void Master::removeRoom(string name) {
-    cout << "seg here: " << endl;
     unsigned int pos = getPosOfRoom(name);
-    cout << "Can't get here" << endl;
     delete rooms.at(pos);
     rooms.erase(rooms.begin() + pos);
 }
@@ -84,9 +78,7 @@ void Master::createUser(string name){
     try {
         getRoom(name);
     } catch (...) {
-        cout << name << " is being created" << endl;
         User* temp = new User(name,this);
-        cout << topRoom << endl;
         temp->chooseRoom(topRoom);
         
         rooms.push_back(temp);

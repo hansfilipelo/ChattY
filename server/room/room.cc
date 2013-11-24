@@ -21,12 +21,9 @@ Room::Room(string inName,Master* master) {
 // Help functions
 
 void ifRoomRemove(Room* inRoom) {
-    cout << "IfRoomRemove: ";
-    cout << inRoom->getName() << endl;
     User* userTemp = dynamic_cast<User*>(inRoom);
     
     if (userTemp == nullptr) {
-        cout << "nullptr" << endl;
         inRoom->masterPointer->removeRoom(inRoom->getName());
     }
 }
@@ -183,7 +180,6 @@ Room* Room::getRoom(std::string name){
             return rooms.at(i);
         }
     }
-    cout << "Jupp" << endl;
     throw logic_error("No such room in Rooms");
     
     return nullptr;

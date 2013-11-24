@@ -21,25 +21,16 @@ int main() {
 	Room1->addRoom(Room2);
     
     master->createUser("Erik");
-   // cout << "1" << endl;
     master->createUser("David");
-    
-    //cout << "2 " << endl;
-    //top->listUsers();
     Message testmess("Niklas tv är gay.", "David","Erik");
-    //cout << "3" << endl;
     top->getRoom("David")->sendMessage(testmess);
-    //cout << "4" << endl;
-    
-   // cout << top->getRoom("Erik")->getMessage(0).getMessage() << endl;
+    cout << top->getRoom("Erik")->getMessage(0).getMessage() << endl;
     
     master->createUser("Erik0");
     master->createUser("Erik1");
     master->createUser("Erik2");
     master->getRoom("Erik0")->chooseRoom(Room1);
     master->getRoom("Erik1")->chooseRoom(Room2);
-   // top->listUsers();
-    //top->listRooms();
     
     
     
