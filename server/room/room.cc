@@ -183,6 +183,7 @@ Room* Room::getRoom(std::string name){
             return rooms.at(i);
         }
     }
+    cout << "Jupp" << endl;
     throw logic_error("No such room in Rooms");
     
     return nullptr;

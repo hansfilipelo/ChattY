@@ -84,8 +84,9 @@ void Master::createUser(string name){
     try {
         getRoom(name);
     } catch (...) {
+        cout << name << " is being created" << endl;
         User* temp = new User(name,this);
-        
+        cout << topRoom << endl;
         temp->chooseRoom(topRoom);
         
         rooms.push_back(temp);

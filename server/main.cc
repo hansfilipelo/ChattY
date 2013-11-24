@@ -21,12 +21,17 @@ int main() {
 	Room1->addRoom(Room2);
     
     master->createUser("Erik");
-    
+   // cout << "1" << endl;
     master->createUser("David");
-    Message testmess("Niklas tv är gay.", "David","Erik");
-    top->getRoom("David")->sendMessage(testmess);
     
-    cout << top->getRoom("Erik")->getMessage(0).getMessage() << endl;
+    //cout << "2 " << endl;
+    //top->listUsers();
+    Message testmess("Niklas tv är gay.", "David","Erik");
+    //cout << "3" << endl;
+    top->getRoom("David")->sendMessage(testmess);
+    //cout << "4" << endl;
+    
+   // cout << top->getRoom("Erik")->getMessage(0).getMessage() << endl;
     
     master->createUser("Erik0");
     master->createUser("Erik1");
@@ -47,6 +52,7 @@ int main() {
  
     cout << "Destroying Room1" << endl;
     master->removeRoom("Room1");
+    cout << "should see Erik0, Erik1, Erik, Erik2, David" << endl;
     top->listUsers();
     
 	//konstigt segfault på vektorn i getMessage i user och room

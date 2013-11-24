@@ -17,11 +17,11 @@ User::~User(){
 // ----------------------------------
 
 void User::chooseRoom(Room* newRoom){
-    newRoom->addRoom(this);
     if(this->parentRoom != nullptr){
         cout << "chooseRoom" << endl;
 		parentRoom->removeRoom(this);
 	}
+    newRoom->addRoom(this);
     this->parentRoom = newRoom;
 }
 
