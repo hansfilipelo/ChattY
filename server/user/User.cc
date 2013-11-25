@@ -18,7 +18,6 @@ User::~User(){
 
 void User::chooseRoom(Room* newRoom){
     if(this->parentRoom != nullptr){
-        cout << "chooseRoom" << endl;
 		parentRoom->removeRoom(this);
 	}
     newRoom->addRoom(this);
@@ -34,7 +33,6 @@ void User::receiveMessage(Message inMessage){
 // ----------------------------------
 
 void User::sendMessage(Message outMessage){
-    cout << "Skickad fr user" << endl;
     parentRoom->receiveMessage(outMessage);
     log.push_back(outMessage);
 }
