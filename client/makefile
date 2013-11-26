@@ -380,6 +380,8 @@ moc_netClient.cpp: ../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Vers
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QTcpSocket \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		netClient.h
 	/Users/niklasericson_90/QT/5.2.0-beta1/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/c++/4.2.1 -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/c++/4.2.1/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/4.2/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include netClient.h -o moc_netClient.cpp
 
@@ -408,6 +410,8 @@ main.o: main.cc netClient.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QTcpSocket \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/QCoreApplication \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/qcoreapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cc
@@ -423,6 +427,8 @@ netClient.o: netClient.cc netClient.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qabstractsocket.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/QTcpSocket \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtNetwork.framework/Versions/5/Headers/qtcpsocket.h \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../QT/5.2.0-beta1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtTest.framework/Versions/5/Headers/QTest \
 		../../../../QT/5.2.0-beta1/clang_64/lib/QtTest.framework/Versions/5/Headers/qtest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o netClient.o netClient.cc

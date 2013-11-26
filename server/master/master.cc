@@ -74,7 +74,7 @@ void Master::removeUser(string name){
 
 // ---------------------------------------
 
-void Master::createUser(string name){
+User* Master::createUser(string name){
     try {
         getRoom(name);
     } catch (...) {
@@ -82,7 +82,8 @@ void Master::createUser(string name){
         temp->chooseRoom(topRoom);
         
         rooms.push_back(temp);
-        return;
+        cout << name << endl;
+        return temp;
     }
     
     throw logic_error{"Already user by that name"};

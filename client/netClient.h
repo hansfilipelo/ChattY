@@ -14,15 +14,15 @@ BESKRIVNING:
 #include <QHostAddress>
 #include <QAbstractSocket>
 #include <QTcpSocket>
+#include <QString>
 
 class NetClient : public QObject
 {
     Q_OBJECT
 public:
     NetClient(std::string, QObject *parent = 0);
-    void test();
-    void test2();
-    void sendMessage(std::string);   // ("Operand Kod" + "//" + "Argument1, 2, 3, 4 ... " + "EOF sträng" )
+    void start();
+    void sendMessage(std::string);
     
 signals:
     
@@ -34,7 +34,7 @@ public slots:
 
 private:
     QTcpSocket *tcpSocket;
-    std::string name;
+    QString name;
     
 };
 

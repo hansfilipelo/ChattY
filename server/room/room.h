@@ -37,13 +37,14 @@ public:
     void removeRoom(Room*); // Throws error if room doesn't exist
     
     std::string getName();
+    Room* getParentRoom();
     void listUsers();
     void listRooms();
     Room* getRoom(std::string);
     Message getMessage(unsigned int i);
     virtual void chooseRoom(Room*);
     
-//protected:
+protected:
     friend void throwUp(Room* inRoom);
     friend void ifRoomRemove(Room* inRoom);
     unsigned int getPosOfRoom(std::string name) const;
@@ -70,6 +71,10 @@ public:
     
     void chooseRoom(Room*);
     void initRoom(std::string);
+    void setThread(class Thread*);
+    
+protected:
+//    class Thread* thread;
     
 };
 

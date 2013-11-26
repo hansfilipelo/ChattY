@@ -11,28 +11,34 @@ BESKRIVNING:
 #include <QThread>
 #include <QTcpSocket>
 #include <QDebug>
-
-
-
+#include <iostream>
+#include <string>
+#include "../master/master.h"
+#include "../room/room.h"
+#include "../message/message.h"
 
 class Thread : public QThread {
     
     Q_OBJECT
 public:
-    Thread(qintptr ID, QObject *parent=nullptr);
+    Thread(qintptr ID, Master* masterptr, QObject *parent=nullptr);
     void run();
     
 signals:
     void error(QTcpSocket::SocketError socketerror);
     
     
+    
 public slots:
     void readyRead();
     void disconnected();
+//    void sendMessage(std::string);
     
 private:
-    QTcpSocket *chattySocket;
+    QTcpSocket* TcpSocket;
     qintptr socketDescriptor;
+    Master* masterPointer;
+    User* userPointer;
 
 
 };

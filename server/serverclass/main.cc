@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     
     QCoreApplication app(argc,argv);
     
-    Server mserver;
+    Server mserver(master);
     mserver.startServer();
     
     return app.exec();

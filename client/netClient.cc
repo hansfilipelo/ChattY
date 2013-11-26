@@ -11,37 +11,35 @@ BESKRIVNING:
 using namespace std;
 
 NetClient::NetClient(string username, QObject *parent) : QObject(parent){
-
-    name=username;
-}
-void NetClient::test2(){
-
-    tcpSocket->write("Hej2 \n\r");
+    
+    name=QString::fromStdString(username);
 }
 
-void NetClient::test(){
+
+void NetClient::start(){
     tcpSocket = new QTcpSocket(this);
-    //Connect all signals and slots
+    
     connect(tcpSocket,SIGNAL(connected()),this,SLOT(connected()));
     connect(tcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
-    connect(tcpSocket,SIGNAL(bytesWritten(qint64)),this,SLOT(bytesWritten(qint64)));
     
     qDebug() << "connecting...";
-    
     tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
     
     if(!tcpSocket->waitForConnected(1000)){
         qDebug() << "Error: " << tcpSocket->errorString();
     }
-
 }
+
 
 //------Slots---------
 
 void NetClient::connected(){
     qDebug() << "Connected!";
-    tcpSocket->write("hej \r\n");
+    QByteArray array = "/initiate*";
+    array += name;
+    
+    tcpSocket->write(array);
     
     }
 
@@ -58,7 +56,10 @@ void NetClient::bytesWritten(qint64 bytes){
 void NetClient::readyRead(){
     qDebug() << "reading...";
     qDebug() << tcpSocket->readAll();
-    this->test2();
+}
+
+void NetClient::sendMessage(string message){
+    qDebug() <<"message sent";
 }
 
 

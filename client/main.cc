@@ -14,16 +14,36 @@ using namespace std;
 
 int main(int argc,char *argv[])
 {
+    QCoreApplication a(argc,argv);
+    
     string name;
     while (name.size() == 0)
     {
         cout << "Skriv in ditt namn: ";
         cin >> name;
     }
-    
-    QCoreApplication a(argc,argv);
     NetClient client(name);
-    client.test();
+    client.start();
+    
+    
+    string input;
+    cout<<name<<": ";
+    while(cin>>input)
+    {
+        if (input=="message")
+        {
+            client.sendMessage(name);
+        }
+        else if (input=="username")
+        {
+            cout<<name;
+        }
+        else
+        {
+            cout<<"unknown command";
+        }
+    }
+        
     
     return a.exec();
 }
