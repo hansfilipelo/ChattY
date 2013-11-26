@@ -1,9 +1,9 @@
 /*
-FILNAMN: 		server.cc
-PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
-SKAPAD DATUM:	2013-11-18
-BESKRIVNING:	
-*/
+ FILNAMN: 		server.cc
+ PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
+ SKAPAD DATUM:	2013-11-18
+ BESKRIVNING:
+ */
 
 #include "thread.h"
 
@@ -45,24 +45,21 @@ void Thread::readyRead()
     string inData = Data.data();
     
     string commandName;
-    while (inData.front!="*")
+    while (inData.front() != '*' )
     {
-        commandName.append[inData.front()];
+        commandName += inData.front();
         inData.erase(inData.begin());
     }
-    switch (commandName)
-    {
-        case "/initiate": userPointer = masterPointer->createUser(inData);
-            break;
-            /*
-        case "/message": userPointer->createMessage(inData);
-            break;
-        case "/room": userPointer->createRoom(inData);
-            break;*/
-        default: TcpSocket->write("Ej giltigt kommando");
-            break;
+    
+    inData.erase(inData.begin());
+    
+    if ( commandName == "/initiate") {
+        userPointer = masterPointer->createUser(inData);
     }
-   // qDebug() << socketDescriptor << "Data in: "<< inData;
+    else {
+        TcpSocket->write("Ej giltigt kommando");
+        // qDebug() << socketDescriptor << "Data in: "<< inData;
+    }
 }
 
 

@@ -20,7 +20,7 @@ class Server : public QTcpServer {
     Q_OBJECT
 public:
     Server(Master* masterPointer, QObject *parent=nullptr);
-    void startServer();
+    void start();
 
 signals:
     

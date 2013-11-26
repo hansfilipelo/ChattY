@@ -11,8 +11,8 @@ BESKRIVNING:
 using namespace std;
 
 NetClient::NetClient(string username, QObject *parent) : QObject(parent){
-
-    name=username;
+    
+    name=QString::fromStdString(username);
 }
 
 
@@ -50,7 +50,8 @@ void NetClient::test(){
 
 void NetClient::connected(){
     qDebug() << "Connected!";
-    QByteArray array = "/initiate*Nikki*";
+    QByteArray array = "/initiate*";
+    array += name;
     
     tcpSocket->write(array);
     

@@ -16,7 +16,7 @@ Server::Server(Master* masterptr, QObject *parent) : QTcpServer(parent)
 }
 
 
-void Server::startServer()
+void Server::start()
 {
     if(!this->listen(QHostAddress::Any,1234))
     {

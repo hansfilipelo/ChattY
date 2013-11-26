@@ -22,7 +22,7 @@ CONFIG		-= app_bundle
 TEMPLATE	= app
 
 # Files to include while building
-SOURCES		+= main.cc getTime.cc master/master.cc room/room.cc user/User.cc message/message.cc
+SOURCES		+= main.cc getTime.cc master/master.cc room/room.cc user/User.cc message/message.cc serverclass/server.cc serverclass/thread.cc
 
-HEADERS		+= master/master.h room/room.h message/message.h
+HEADERS		+= master/master.h room/room.h message/message.h serverclass/thread.h serverclass/server.h
 
