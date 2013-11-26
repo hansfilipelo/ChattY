@@ -7,10 +7,12 @@ BESKRIVNING:
 
 #include "server.h"
 
+
 using namespace std;
 
-Server::Server(QObject *parent) : QTcpServer(parent)
+Server::Server(Master* masterptr, QObject *parent) : QTcpServer(parent)
 {
+    masterPointer=masterptr;
 }
 
 
@@ -30,8 +32,8 @@ void Server::startServer()
 void Server::incomingConnection(qintptr handle)
 {
     qDebug() << handle <<"Connecting...";
-    Thread *currentThread = new Thread(handle,this);
+    Thread *currentThread = new Thread(handle, masterPointer, this);
+    
     connect(currentThread,SIGNAL(finished()),currentThread,SLOT(deleteLater()));
     currentThread->start();
 }
-

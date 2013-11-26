@@ -22,6 +22,6 @@ CONFIG		-= app_bundle
 TEMPLATE	= app
 
 # Files to include while building
-SOURCES		+= main.cc server.cc thread.cc
-HEADERS		+= server.h thread.h
+SOURCES		+= main.cc server.cc thread.cc ../master/master.cc ../user/User.cc
+HEADERS		+= server.h thread.h ../master/master.h ../room/room.h
 

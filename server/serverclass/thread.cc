@@ -9,8 +9,9 @@ BESKRIVNING:
 
 using namespace std;
 
-Thread::Thread(qintptr ID,QObject *parent) : QThread(parent)
+Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 {
+    masterPointer=masterptr;
     this->socketDescriptor = ID;
 }
 
@@ -18,15 +19,18 @@ void Thread::run()
 {
     //thread starts here
     qDebug() << socketDescriptor << "starting thread";
-    chattySocket = new QTcpSocket();
-    if(!chattySocket->setSocketDescriptor(this->socketDescriptor))
+    TcpSocket = new QTcpSocket();
+    
+    
+    if(!TcpSocket->setSocketDescriptor(this->socketDescriptor))
     {
-        emit error(chattySocket->error());
+        emit error(TcpSocket->error());
         return;
     }
     
-    connect(chattySocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
-    connect(chattySocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
+    connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
+    
+    connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
     qDebug() << socketDescriptor << "client connected";
     
     //creates a messageloop
@@ -36,19 +40,39 @@ void Thread::run()
 
 void Thread::readyRead()
 {
-    QByteArray Data =chattySocket->readAll();
+    QByteArray Data = TcpSocket->readAll();
     
-    qDebug() << socketDescriptor << "Data in: "<< Data;
-
-    chattySocket->write(Data);
+    string inData = Data.data();
+    
+    string commandName;
+    while (inData.front!="*")
+    {
+        commandName.append[inData.front()];
+        inData.erase(inData.begin());
+    }
+    switch (commandName)
+    {
+        case "/initiate": userPointer = masterPointer->createUser(inData);
+            break;
+            /*
+        case "/message": userPointer->createMessage(inData);
+            break;
+        case "/room": userPointer->createRoom(inData);
+            break;*/
+        default: TcpSocket->write("Ej giltigt kommando");
+            break;
+    }
+   // qDebug() << socketDescriptor << "Data in: "<< inData;
 }
+
+
 
 
 void Thread::disconnected()
 {
     qDebug() << socketDescriptor << "Disconnected";
     
-    chattySocket->deleteLater();
+    TcpSocket->deleteLater();
     //exits the thread
     exit(0);
 }

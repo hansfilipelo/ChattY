@@ -41,7 +41,9 @@ void NetClient::test(){
 
 void NetClient::connected(){
     qDebug() << "Connected!";
-    tcpSocket->write("hej \r\n");
+    QByteArray array = "/initiate*Nikki*";
+    
+    tcpSocket->write(array);
     
     }
 
