@@ -82,6 +82,7 @@ User* Master::createUser(string name){
         temp->chooseRoom(topRoom);
         
         rooms.push_back(temp);
+        cout << name << endl;
         return temp;
     }
     

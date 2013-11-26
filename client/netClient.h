@@ -14,6 +14,7 @@ BESKRIVNING:
 #include <QHostAddress>
 #include <QAbstractSocket>
 #include <QTcpSocket>
+#include <QString>
 
 class NetClient : public QObject
 {
@@ -34,7 +35,7 @@ public slots:
 
 private:
     QTcpSocket *tcpSocket;
-    std::string name;
+    QString name;
     
 };
 

@@ -21,7 +21,7 @@ class Thread : public QThread {
     
     Q_OBJECT
 public:
-    Thread(qintptr, Master*, QObject *parent=nullptr);
+    Thread(qintptr ID, Master* masterptr, QObject *parent=nullptr);
     void run();
     
 signals:
