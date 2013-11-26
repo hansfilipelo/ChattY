@@ -14,10 +14,21 @@ NetClient::NetClient(string username, QObject *parent) : QObject(parent){
 
     name=username;
 }
-void NetClient::test2(){
 
-    tcpSocket->write("Hej2 \n\r");
+
+void NetClient::start(){
+    tcpSocket = new QTcpSocket(this);
+    
+    if(!tcpSocket->waitForConnected(1000)){
+        qDebug() << "Error: " << tcpSocket->errorString();
+    }
+    connect(tcpSocket,SIGNAL(connected()),this,SLOT(connected()));
+    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
+    
+    qDebug() << "connecting...";
+    tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
 }
+
 
 void NetClient::test(){
     tcpSocket = new QTcpSocket(this);
@@ -31,9 +42,7 @@ void NetClient::test(){
     
     tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
     
-    if(!tcpSocket->waitForConnected(1000)){
-        qDebug() << "Error: " << tcpSocket->errorString();
-    }
+
 
 }
 
