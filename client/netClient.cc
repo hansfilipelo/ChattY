@@ -19,32 +19,18 @@ NetClient::NetClient(string username, QObject *parent) : QObject(parent){
 void NetClient::start(){
     tcpSocket = new QTcpSocket(this);
     
-    if(!tcpSocket->waitForConnected(1000)){
-        qDebug() << "Error: " << tcpSocket->errorString();
-    }
-    connect(tcpSocket,SIGNAL(connected()),this,SLOT(connected()));
-    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
-    
-    qDebug() << "connecting...";
-    tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
-}
-
-
-void NetClient::test(){
-    tcpSocket = new QTcpSocket(this);
-    //Connect all signals and slots
     connect(tcpSocket,SIGNAL(connected()),this,SLOT(connected()));
     connect(tcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
-    connect(tcpSocket,SIGNAL(bytesWritten(qint64)),this,SLOT(bytesWritten(qint64)));
     
     qDebug() << "connecting...";
-    
     tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
     
-
-
+    if(!tcpSocket->waitForConnected(1000)){
+        qDebug() << "Error: " << tcpSocket->errorString();
+    }
 }
+
 
 //------Slots---------
 
@@ -70,7 +56,10 @@ void NetClient::bytesWritten(qint64 bytes){
 void NetClient::readyRead(){
     qDebug() << "reading...";
     qDebug() << tcpSocket->readAll();
-    this->test2();
+}
+
+void NetClient::sendMessage(string message){
+    qDebug() <<"message sent";
 }
 
 

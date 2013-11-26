@@ -25,5 +25,25 @@ int main(int argc,char *argv[])
     NetClient client(name);
     client.start();
     
+    
+    string input;
+    cout<<name<<": ";
+    while(cin>>input)
+    {
+        if (input=="message")
+        {
+            client.sendMessage(name);
+        }
+        else if (input=="username")
+        {
+            cout<<name;
+        }
+        else
+        {
+            cout<<"unknown command";
+        }
+    }
+        
+    
     return a.exec();
 }
