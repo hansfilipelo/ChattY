@@ -199,3 +199,7 @@ Message Room::getMessage(unsigned int i){
 void Room::chooseRoom(Room*) {
     throw logic_error{"You're a retard since you're trying to move a room."};
 }
+
+Room* Room::getParentRoom() {
+    return parentRoom;
+}

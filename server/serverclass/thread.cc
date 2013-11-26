@@ -41,20 +41,25 @@ void Thread::run()
 void Thread::readyRead()
 {
     QByteArray Data = TcpSocket->readAll();
-    
     string inData = Data.data();
     
+    // Sepparate the command from the operand
     string commandName;
     while (inData.front() != '*' )
     {
         commandName += inData.front();
         inData.erase(inData.begin());
     }
-    
     inData.erase(inData.begin());
     
+    // Check which command that's supposed to run
     if ( commandName == "/initiate") {
         userPointer = masterPointer->createUser(inData);
+        //userPointer->setThread(this);
+    }
+    else if ( commandName == "/message" ) {
+        Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
+        userPointer->sendMessage(message);
     }
     else {
         TcpSocket->write("Ej giltigt kommando");

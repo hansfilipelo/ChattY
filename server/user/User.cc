@@ -28,6 +28,12 @@ void User::chooseRoom(Room* newRoom){
 
 void User::receiveMessage(Message inMessage){
     log.push_back(inMessage); //tbd
+    
+//    string tcpString;
+//    tcpString += inMessage.getFrom();
+//    tcpString += ":      ";
+//    tcpString += inMessage.getMessage();
+//    thread->sendMessage(tcpString);
 }
 
 // ----------------------------------
@@ -42,3 +48,9 @@ void User::sendMessage(Message outMessage){
 void User::initRoom(string name){
     parentRoom->addRoom(masterPointer->createRoom(name));
 }
+
+// ----------------------------------
+
+//void User::setThread(class Thread* inThread) {
+//    thread = inThread;
+//}

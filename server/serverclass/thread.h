@@ -15,7 +15,7 @@ BESKRIVNING:
 #include <string>
 #include "../master/master.h"
 #include "../room/room.h"
-
+#include "../message/message.h"
 
 class Thread : public QThread {
     
@@ -32,6 +32,7 @@ signals:
 public slots:
     void readyRead();
     void disconnected();
+//    void sendMessage(std::string);
     
 private:
     QTcpSocket* TcpSocket;
