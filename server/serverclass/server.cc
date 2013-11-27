@@ -18,7 +18,7 @@ Server::Server(Master* masterptr, QObject *parent) : QTcpServer(parent)
 
 void Server::start()
 {
-    if(!this->listen(QHostAddress::Any,1234))
+    if(!this->listen(QHostAddress::Any,400001))
     {
         qDebug() <<"could not start server";
     }
