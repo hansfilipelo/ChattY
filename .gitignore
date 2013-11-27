@@ -16,6 +16,8 @@ client/Makefile
 server/server
 server/serverclass/server
 client/client
+server/moc_thread.cpp
+*.orig
 
 # Networking in Qt creates .cpp-files
 client/moc_netClient.cpp
