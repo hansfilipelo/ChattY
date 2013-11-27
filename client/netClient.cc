@@ -25,7 +25,7 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
     qDebug() << "connecting...";
-    TcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
+    TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!TcpSocket->waitForConnected(1000)){
         qDebug() << "Error: " << TcpSocket->errorString();
@@ -61,7 +61,7 @@ void NetClient::readyRead(){
 
 void NetClient::sendMessage(string message){
     QByteArray array = "/message*";
-    array += message;
+    array += QString::fromStdString(message);
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(3000);
