@@ -11,11 +11,12 @@ BESKRIVNING:
 #include <QThread>
 #include <QTcpSocket>
 #include <QDebug>
+#include <QString>
 #include <iostream>
 #include <string>
 #include "../master/master.h"
-#include "../room/room.h"
-#include "../message/message.h"
+
+class User;
 
 class Thread : public QThread {
     
@@ -23,6 +24,7 @@ class Thread : public QThread {
 public:
     Thread(qintptr ID, Master* masterptr, QObject *parent=nullptr);
     void run();
+    void sendMessage(std::string);
     
 signals:
     void error(QTcpSocket::SocketError socketerror);
@@ -32,15 +34,12 @@ signals:
 public slots:
     void readyRead();
     void disconnected();
-//    void sendMessage(std::string);
     
 private:
     QTcpSocket* TcpSocket;
     qintptr socketDescriptor;
     Master* masterPointer;
     User* userPointer;
-
-
 };
 
 #endif

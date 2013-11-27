@@ -60,21 +60,23 @@ protected:
 // --------------------
 // User
 
+class Thread;
+
 class User : public Room
 {
 public:
     User(std::string inName, Master* master) : Room(inName,master) {};
     ~User();
-//    std::string name;
+    std::string name;
     void sendMessage(Message);
     void receiveMessage(Message);
     
     void chooseRoom(Room*);
     void initRoom(std::string);
-    void setThread(class Thread*);
+    void setThread(Thread*);
     
 protected:
-//    class Thread* thread;
+    Thread* thread;
     
 };
 
