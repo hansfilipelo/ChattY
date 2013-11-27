@@ -60,7 +60,7 @@ void NetClient::readyRead(){
 
 void NetClient::sendMessage(string message){
     QByteArray array = "/message*";
-    array += message;
+    array += QString::fromStdString(message);
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(3000);

@@ -22,7 +22,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 void Thread::run()
 {
     //thread starts here
-    cout << socketDescriptor << "starting thread";
+    cout << socketDescriptor << " starting thread"<<endl;
     TcpSocket = new QTcpSocket();
     
     
@@ -35,7 +35,7 @@ void Thread::run()
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
     
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
-    cout << socketDescriptor << "client connected";
+    cout << socketDescriptor << " client connected"<<endl;
     
     //creates a messageloop
     exec();
@@ -66,11 +66,11 @@ void Thread::readyRead()
     else if (commandName == "/message" ) {
         Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
         userPointer->sendMessage(message);
-        cout<<
+        cout<<userPointer->getName()<<" said: "<<inData<<endl;
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
-        cout << socketDescriptor << "Data in: "<< inData;
+        cout << socketDescriptor << "Data in: "<< inData<<endl;
     }
 }
 
@@ -78,7 +78,7 @@ void Thread::readyRead()
 
 void Thread::disconnected()
 {
-    cout << socketDescriptor << "Disconnected";
+    cout << socketDescriptor << "Disconnected"<<endl;
     
     TcpSocket->deleteLater();
     //exits the thread
