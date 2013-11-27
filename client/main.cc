@@ -22,7 +22,15 @@ int main(int argc,char *argv[])
         cout << "Skriv in ditt namn: ";
         cin >> name;
     }
-    NetClient client(name);
+    
+    string address;
+    while (address.size() == 0)
+    {
+        cout << "Skriv in serveraddress: ";
+        cin >> address;
+    }
+    
+    NetClient client(name,address);
     client.start();
     
     

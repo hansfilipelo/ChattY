@@ -20,7 +20,7 @@ class NetClient : public QObject
 {
     Q_OBJECT
 public:
-    NetClient(std::string, QObject *parent = 0);
+    NetClient(std::string, std::string, QObject *parent = 0);
     void start();
     void sendMessage(std::string);
     
@@ -35,6 +35,7 @@ public slots:
 private:
     QTcpSocket *tcpSocket;
     QString name;
+    QString address;
     
 };
 

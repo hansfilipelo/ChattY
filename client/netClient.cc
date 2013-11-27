@@ -10,9 +10,10 @@ BESKRIVNING:
 
 using namespace std;
 
-NetClient::NetClient(string username, QObject *parent) : QObject(parent){
+NetClient::NetClient(string username, string inAddress, QObject *parent) : QObject(parent){
     
     name=QString::fromStdString(username);
+    address=QString::fromStdString(inAddress);
 }
 
 
@@ -24,7 +25,7 @@ void NetClient::start(){
     connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
     qDebug() << "connecting...";
-    tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
+    tcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!tcpSocket->waitForConnected(1000)){
         qDebug() << "Error: " << tcpSocket->errorString();
