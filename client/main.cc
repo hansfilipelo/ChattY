@@ -17,27 +17,19 @@ int main(int argc,char *argv[])
 {
     QCoreApplication a(argc,argv);
     
+    cout << "Skriv in serveraddress: ";
+    
+    std::string address;
+    std::getline(std::cin,address);
+    if (address.empty() ){
+    address = "127.0.0.1";
+    }
+    
+    
     string name;
     cout << "Skriv in ditt namn: ";
     cin >> name;
     
-    string address;
-    cout << "Skriv in serveraddress: ";
-    
-    cin.ignore(256,' ');
-    for (std::string line; std::getline(std::cin, line);)
-    {
-        cout<<"vi kom in i for"<<endl;
-        if (line.empty()){
-            address="127.0.0.1";
-            break;
-        }
-        else {
-            address=line;
-            cout<<address<<endl;
-            break;
-        }
-    }
     
     NetClient client(name,address);
     client.start();
