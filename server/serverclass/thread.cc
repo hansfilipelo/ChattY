@@ -87,13 +87,13 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(string inMessage) {
-    QString Data;
+    QString Data ="sent: ";
     Data += QString::fromStdString(inMessage);
     
     QByteArray sendData;
     sendData.append(Data);
-    
     TcpSocket->write(sendData);
+    TcpSocket->waitForBytesWritten(3000);
 }
 
 
