@@ -10,9 +10,10 @@ BESKRIVNING:
 
 using namespace std;
 
-NetClient::NetClient(string username, QObject *parent) : QObject(parent){
+NetClient::NetClient(string username, string inAddress, QObject *parent) : QObject(parent){
     
     name=QString::fromStdString(username);
+    address=QString::fromStdString(inAddress);
 }
 
 
