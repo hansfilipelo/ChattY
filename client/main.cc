@@ -50,9 +50,7 @@ int main(int argc,char *argv[])
         }
         else if(input !="")
         {
-            cout<<input.substr(0,5);
             client.sendMessage(input);
-            
         }
     }
         

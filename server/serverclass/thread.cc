@@ -79,6 +79,7 @@ void Thread::readyRead()
 void Thread::disconnected()
 {
     cout << socketDescriptor << "Disconnected"<<endl;
+    masterPointer->removeUser(userPointer->getName());
     
     TcpSocket->deleteLater();
     //exits the thread
