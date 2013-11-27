@@ -79,6 +79,7 @@ void Thread::readyRead()
 void Thread::disconnected()
 {
     cout << socketDescriptor << "Disconnected"<<endl;
+    masterPointer->removeUser(userPointer->getName());
     
     TcpSocket->deleteLater();
     //exits the thread
@@ -87,7 +88,7 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(string inMessage) {
-    QString Data ="sent: ";
+    QString Data;
     Data += QString::fromStdString(inMessage);
     
     QByteArray sendData;

@@ -138,6 +138,7 @@ void Room::sendMessageAll(Message inMessage) {
         if ( userTemp == nullptr ) {
             continue;
         }
+        cout << userTemp->getName() << endl;
         rooms.at(i)->receiveMessage(inMessage);
     }
 }

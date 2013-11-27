@@ -24,6 +24,8 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
+    connect(TcpSocket,SIGNAL(bytesWritten(qint64)),this,SLOT(bytesWritten(qint64)));
+    
     qDebug() << "connecting...";
 
     TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
@@ -42,7 +44,7 @@ void NetClient::connected(){
     array += name;
     
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(3000);
+    TcpSocket->waitForBytesWritten(1000);
     }
 
 void NetClient::disconnected(){
@@ -63,9 +65,8 @@ void NetClient::readyRead(){
 void NetClient::sendMessage(string message){
     QByteArray array = "/message*";
     array += QString::fromStdString(message);
-    
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(3000);
+    TcpSocket->waitForBytesWritten(1000);
 }
 
 
