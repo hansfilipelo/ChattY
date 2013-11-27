@@ -53,22 +53,19 @@ void Thread::readyRead()
     inData.erase(inData.begin());
     
     // Check which command that's supposed to run
-    if ( commandName == "/initiate") {
+    if (commandName == "/initiate") {
         userPointer = masterPointer->createUser(inData);
-        //userPointer->setThread(this);
     }
-    else if ( commandName == "/message" ) {
+    else if (commandName == "/message" ) {
         Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
         userPointer->sendMessage(message);
+        cout<<
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
         // qDebug() << socketDescriptor << "Data in: "<< inData;
     }
 }
-
-
-
 
 void Thread::disconnected()
 {

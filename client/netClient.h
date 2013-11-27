@@ -33,7 +33,7 @@ public slots:
     void readyRead();
 
 private:
-    QTcpSocket *tcpSocket;
+    QTcpSocket *TcpSocket;
     QString name;
     
 };
