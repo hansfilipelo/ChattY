@@ -88,7 +88,7 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(string inMessage) {
-    QString Data ="sent: ";
+    QString Data;
     Data += QString::fromStdString(inMessage);
     
     QByteArray sendData;
