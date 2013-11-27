@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <stdio.h>
 #include "netClient.h"
 #include <QCoreApplication>
 
@@ -17,17 +18,25 @@ int main(int argc,char *argv[])
     QCoreApplication a(argc,argv);
     
     string name;
-    while (name.size() == 0)
-    {
-        cout << "Skriv in ditt namn: ";
-        cin >> name;
-    }
+    cout << "Skriv in ditt namn: ";
+    cin >> name;
     
     string address;
-    while (address.size() == 0)
+    cout << "Skriv in serveraddress: ";
+    
+    cin.ignore(256,' ');
+    for (std::string line; std::getline(std::cin, line);)
     {
-        cout << "Skriv in serveraddress: ";
-        cin >> address;
+        cout<<"vi kom in i for"<<endl;
+        if (line.empty()){
+            address="127.0.0.1";
+            break;
+        }
+        else {
+            address=line;
+            cout<<address<<endl;
+            break;
+        }
     }
     
     NetClient client(name,address);
@@ -37,6 +46,7 @@ int main(int argc,char *argv[])
     string input;
     
     cout<<name<<": ";
+    
     //hanterar tyvärr inte hela meddelandet
     while(cin >> input)
     {
@@ -55,7 +65,7 @@ int main(int argc,char *argv[])
             
         }
     }
-        
+    
     
     return 0;
 }

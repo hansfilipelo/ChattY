@@ -25,6 +25,7 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
     qDebug() << "connecting...";
+
     TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!TcpSocket->waitForConnected(1000)){
