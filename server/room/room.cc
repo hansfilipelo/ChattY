@@ -7,6 +7,7 @@
 
 #include "room.h"
 
+
 using namespace std;
 
 // ----------------------------------
@@ -131,16 +132,13 @@ void Room::receiveMessage(Message inMessage) {
 // ----------------------------------
 
 void Room::sendMessageAll(Message inMessage) {
-    string to = inMessage.getTo();
-    
-    unsigned int pos = getPosOfRoom(to);
     
     for (unsigned int i = 0; i < rooms.size(); i++) {
-        User* userTemp = dynamic_cast<User*>(rooms.at(pos));
+        User* userTemp = dynamic_cast<User*>(rooms.at(i));
         if ( userTemp == nullptr ) {
             continue;
         }
-        rooms.at(pos)->receiveMessage(inMessage);
+        rooms.at(i)->receiveMessage(inMessage);
     }
 }
 

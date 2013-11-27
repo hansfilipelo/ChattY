@@ -6,6 +6,8 @@
  */
 
 #include "thread.h"
+#include "../message/message.h"
+#include "../room/room.h"
 
 using namespace std;
 
@@ -15,10 +17,12 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     this->socketDescriptor = ID;
 }
 
+// ---------------------------------------
+
 void Thread::run()
 {
     //thread starts here
-    qDebug() << socketDescriptor << "starting thread";
+    cout << socketDescriptor << " starting thread"<<endl;
     TcpSocket = new QTcpSocket();
     
     
@@ -31,12 +35,14 @@ void Thread::run()
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
     
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
-    qDebug() << socketDescriptor << "client connected";
+    cout << socketDescriptor << " client connected"<<endl;
     
     //creates a messageloop
     exec();
     
 }
+
+// ---------------------------------------
 
 void Thread::readyRead()
 {
@@ -53,28 +59,41 @@ void Thread::readyRead()
     inData.erase(inData.begin());
     
     // Check which command that's supposed to run
-    if ( commandName == "/initiate") {
+    if (commandName == "/initiate") {
         userPointer = masterPointer->createUser(inData);
-        //userPointer->setThread(this);
+        userPointer->setThread(this);
     }
-    else if ( commandName == "/message" ) {
+    else if (commandName == "/message" ) {
         Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
         userPointer->sendMessage(message);
+        cout<<userPointer->getName()<<" said: "<<inData<<endl;
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
-        // qDebug() << socketDescriptor << "Data in: "<< inData;
+        cout << socketDescriptor << "Data in: "<< inData<<endl;
     }
 }
 
-
-
+// ---------------------------------------
 
 void Thread::disconnected()
 {
-    qDebug() << socketDescriptor << "Disconnected";
+    cout << socketDescriptor << "Disconnected"<<endl;
     
     TcpSocket->deleteLater();
     //exits the thread
     exit(0);
 }
+
+//svarar klienten
+void Thread::sendMessage(string inMessage) {
+    QString Data ="sent: ";
+    Data += QString::fromStdString(inMessage);
+    
+    QByteArray sendData;
+    sendData.append(Data);
+    TcpSocket->write(sendData);
+    TcpSocket->waitForBytesWritten(3000);
+}
+
+

@@ -10,24 +10,25 @@ BESKRIVNING:
 
 using namespace std;
 
-NetClient::NetClient(string username, QObject *parent) : QObject(parent){
+NetClient::NetClient(string username, string inAddress, QObject *parent) : QObject(parent){
     
     name=QString::fromStdString(username);
+    address=QString::fromStdString(inAddress);
 }
 
 
 void NetClient::start(){
-    tcpSocket = new QTcpSocket(this);
+    TcpSocket = new QTcpSocket(this);
     
-    connect(tcpSocket,SIGNAL(connected()),this,SLOT(connected()));
-    connect(tcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
-    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
+    connect(TcpSocket,SIGNAL(connected()),this,SLOT(connected()));
+    connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
+    connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
     qDebug() << "connecting...";
-    tcpSocket->connectToHost(QHostAddress("127.0.0.1"),quint16(1234));
+    TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
-    if(!tcpSocket->waitForConnected(1000)){
-        qDebug() << "Error: " << tcpSocket->errorString();
+    if(!TcpSocket->waitForConnected(1000)){
+        qDebug() << "Error: " << TcpSocket->errorString();
     }
 }
 
@@ -39,8 +40,8 @@ void NetClient::connected(){
     QByteArray array = "/initiate*";
     array += name;
     
-    tcpSocket->write(array);
-    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(3000);
     }
 
 void NetClient::disconnected(){
@@ -55,11 +56,15 @@ void NetClient::bytesWritten(qint64 bytes){
 
 void NetClient::readyRead(){
     qDebug() << "reading...";
-    qDebug() << tcpSocket->readAll();
+    qDebug() << TcpSocket->readAll();
 }
 
 void NetClient::sendMessage(string message){
-    qDebug() <<"message sent";
+    QByteArray array = "/message*";
+    array += QString::fromStdString(message);
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(3000);
 }
 
 
