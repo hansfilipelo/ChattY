@@ -21,6 +21,8 @@ client/client
 client/moc_netClient.cpp
 server/serverclass/moc_server.cpp
 server/serverclass/moc_thread.cpp
+server/moc_server.cpp
+server/thread.cpp
 
 # Davids sketna projektfiler #
 ##############################
