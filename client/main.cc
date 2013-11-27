@@ -35,23 +35,27 @@ int main(int argc,char *argv[])
     
     
     string input;
+    
     cout<<name<<": ";
-    while(cin>>input)
+    //hanterar tyvärr inte hela meddelandet
+    while(cin >> input)
     {
-        if (input=="message")
-        {
-            client.sendMessage(name);
-        }
-        else if (input=="username")
+        if (input.substr(0,8)=="/username")
         {
             cout<<name;
         }
-        else
+        else if(input.substr(0,5)=="/exit")
         {
-            cout<<"unknown command";
+            break;
+        }
+        else if(input !="")
+        {
+            cout<<input.substr(0,5);
+            client.sendMessage(input);
+            
         }
     }
         
     
-    return a.exec();
+    return 0;
 }
