@@ -11,6 +11,7 @@
 server/Makefile
 server/serverclass/Makefile
 client/Makefile
+client/makefile
 
 # Our own xecutables
 server/server
