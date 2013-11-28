@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        chatwindow.cpp
+        chatwindow.cpp \
+    logindialog.cpp
 
-HEADERS  += chatwindow.h
+HEADERS  += chatwindow.h \
+    logindialog.h
 
-FORMS    += chatwindow.ui
+FORMS    += chatwindow.ui \
+    logindialog.ui

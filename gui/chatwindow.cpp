@@ -2,12 +2,14 @@
 #include "ui_chatwindow.h"
 #include "QString"
 #include "QColor"
+#include "logindialog.h"
 
 ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
+
 }
 
 ChatWindow::~ChatWindow()
@@ -45,6 +47,7 @@ void ChatWindow::on_sendButton_clicked()
 void ChatWindow::on_messageInput_returnPressed()
 {
     on_sendButton_clicked();
+
 }
 
 
