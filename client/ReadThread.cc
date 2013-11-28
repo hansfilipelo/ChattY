@@ -21,10 +21,10 @@ void ReadThread::run() {
     
     while (true)
     {
-        cout << name << ": ";
         cin >> ws;
         
         getline(cin, input);
+        flush(cout);
         
         if (input.substr(0,8)=="/username")
         {
@@ -36,7 +36,6 @@ void ReadThread::run() {
         }
         else if(input !="")
         {
-            cout << "\r";
             client->sendMessage(input);
         }
         

@@ -15,6 +15,7 @@ BESKRIVNING:
 #include <QAbstractSocket>
 #include <QTcpSocket>
 #include <QString>
+#include <iostream>
 
 class NetClient : public QObject
 {
