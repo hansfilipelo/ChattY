@@ -45,7 +45,7 @@ Room::~Room() {
     else {
         
         parentRoom->removeRoom(this);
-    
+        
         for_each(rooms.begin(), rooms.end(), throwUp);
         parentRoom = nullptr;
     }
@@ -138,10 +138,8 @@ void Room::sendMessageAll(Message inMessage) {
         if ( userTemp == nullptr ) {
             continue;
         }
-        if ( inMessage.getFrom() != rooms.at(i)->getName() ) {
-            cout << userTemp->getName() << endl;
-            rooms.at(i)->receiveMessage(inMessage);
-        }
+        cout << userTemp->getName() << endl;
+        rooms.at(i)->receiveMessage(inMessage);
     }
 }
 

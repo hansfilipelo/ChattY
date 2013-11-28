@@ -21,8 +21,6 @@ void ReadThread::run() {
     
     while (true)
     {
-        cout << name << ": ";
-        
         cin >> ws;
         
         getline(cin, input);
