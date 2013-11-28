@@ -24,7 +24,6 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
-    connect(TcpSocket,SIGNAL(bytesWritten(qint64)),this,SLOT(bytesWritten(qint64)));
     
     qDebug() << "connecting...";
 
@@ -49,11 +48,6 @@ void NetClient::connected(){
 
 void NetClient::disconnected(){
     qDebug() << "disconnected";
-    
-}
-
-void NetClient::bytesWritten(qint64 bytes){
-    qDebug() << "we wrote: " << bytes;
     
 }
 
