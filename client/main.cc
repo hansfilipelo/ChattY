@@ -34,7 +34,7 @@ int main(int argc,char *argv[])
     NetClient client(name,address);
     client.start();
     
-    ReadThread readLoop(&client);
+    ReadThread readLoop(&client,name);
     readLoop.start();
     
     return app.exec();

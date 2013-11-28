@@ -10,8 +10,9 @@ BESKRIVNING:
 using namespace std;
 
 
-ReadThread::ReadThread(NetClient* inClient){
+ReadThread::ReadThread(NetClient* inClient, string inName){
     client = inClient;
+    name = inName;
 }
 
 void ReadThread::run() {
@@ -21,9 +22,10 @@ void ReadThread::run() {
     //hanterar tyvärr inte hela meddelandet
     while(cin >> input)
     {
+        cout << name << ": ";
         if (input.substr(0,8)=="/username")
         {
-            break;
+            cout << name;
         }
         else if(input.substr(0,5)=="/exit")
         {

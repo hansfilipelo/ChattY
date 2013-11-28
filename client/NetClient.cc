@@ -58,7 +58,6 @@ void NetClient::bytesWritten(qint64 bytes){
 }
 
 void NetClient::readyRead(){
-    qDebug() << "reading...";
     qDebug() << TcpSocket->readAll();
 }
 
