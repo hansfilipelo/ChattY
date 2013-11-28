@@ -11,8 +11,5 @@ int main(int argc, char *argv[])
     l.setModal(true);
     l.show();
 
-
-
-
     return a.exec();
 }
