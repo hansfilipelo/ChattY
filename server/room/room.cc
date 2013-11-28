@@ -138,8 +138,10 @@ void Room::sendMessageAll(Message inMessage) {
         if ( userTemp == nullptr ) {
             continue;
         }
-        cout << userTemp->getName() << endl;
-        rooms.at(i)->receiveMessage(inMessage);
+        if ( inMessage.getFrom() != rooms.at(i)->getName() ) {
+            cout << userTemp->getName() << endl;
+            rooms.at(i)->receiveMessage(inMessage);
+        }
     }
 }
 
@@ -155,7 +157,7 @@ void Room::addRoom(Room* inRoom) {
 // ----------------------------------
 
 void Room::saveToFile(Message inMessage) {
-    cout << inMessage.getMessage() << endl;
+    cout << inMessage.getFrom() << ": " << inMessage.getMessage() << endl;
     return;
 }
 

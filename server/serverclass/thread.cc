@@ -66,7 +66,6 @@ void Thread::readyRead()
     else if (commandName == "/message" ) {
         Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
         userPointer->sendMessage(message);
-        cout<<userPointer->getName()<<" said: "<<inData<<endl;
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
