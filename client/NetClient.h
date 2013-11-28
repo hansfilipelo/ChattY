@@ -1,5 +1,5 @@
 /*
-FILNAMN: 		netClient.h
+FILNAMN: 		NetClient.h
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
 SKAPAD DATUM:	2013-11-19
 BESKRIVNING:	

@@ -21,6 +21,6 @@ CONFIG		-= app_bundle
 TEMPLATE	= app
 
 # Files to include while building
-SOURCES		+= main.cc netClient.cc
-HEADERS		+= netClient.h
+SOURCES		+= main.cc netClient.cc ReadThread.cc
+HEADERS		+= netClient.h ReadThread.h
 

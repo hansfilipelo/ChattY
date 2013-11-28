@@ -7,55 +7,35 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "netClient.h"
+#include "NetClient.h"
 #include <QCoreApplication>
+#include <QEventLoop>
+#include "ReadThread.h"
 
 
 using namespace std;
 
 int main(int argc,char *argv[])
 {
-    QCoreApplication a(argc,argv);
+    QCoreApplication app(argc,argv);
     
     cout << "Skriv in serveraddress: ";
     
     std::string address;
     std::getline(std::cin,address);
     if (address.empty() ){
-    address = "127.0.0.1";
+        address = "127.0.0.1";
     }
-    
     
     string name;
     cout << "Skriv in ditt namn: ";
     cin >> name;
     
-    
     NetClient client(name,address);
     client.start();
     
+    ReadThread readLoop(&client);
+    readLoop.start();
     
-    string input;
-    
-    cout<<name<<": ";
-    
-    //hanterar tyvärr inte hela meddelandet
-    while(cin >> input)
-    {
-        if (input.substr(0,8)=="/username")
-        {
-            cout<<name;
-        }
-        else if(input.substr(0,5)=="/exit")
-        {
-            break;
-        }
-        else if(input !="")
-        {
-            client.sendMessage(input);
-        }
-    }
-    
-    
-    return 0;
+    return app.exec();
 }

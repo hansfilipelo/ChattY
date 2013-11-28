@@ -1,11 +1,11 @@
 /*
-FILNAMN: 		netClient.cc
+FILNAMN: 		NetClient.cc
 PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
 SKAPAD DATUM:	2013-11-19
 BESKRIVNING:	
 */
 
-#include "netClient.h"
+#include "NetClient.h"
 #include <QTest>
 
 using namespace std;
