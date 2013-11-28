@@ -20,6 +20,8 @@ void ReadThread::run() {
     string input;
     
     //hanterar tyvärr inte hela meddelandet
+    
+    getline (char* s, streamsize n, char delim );
     while(cin >> input)
     {
         cout << name << ": ";
