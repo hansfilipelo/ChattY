@@ -21,6 +21,7 @@ void ReadThread::run() {
     
     while (true)
     {
+        cout << name << ": ";
         cin >> ws;
         
         getline(cin, input);
@@ -35,6 +36,7 @@ void ReadThread::run() {
         }
         else if(input !="")
         {
+            cout << "\r";
             client->sendMessage(input);
         }
         

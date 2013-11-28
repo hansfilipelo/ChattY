@@ -52,7 +52,6 @@ void NetClient::disconnected(){
 }
 
 void NetClient::readyRead(){
-    qDebug() << "";
     qDebug() << TcpSocket->readAll();
 }
 
