@@ -4,14 +4,20 @@
 #
 #-------------------------------------------------
 
-QT	+= core gui
-ICON	= icon/ChattY.icns
+QMAKE_CXX	= g++
+QMAKE_CC	= gcc
+
+QT		+= core gui
+ICON		= icon/ChattY.icns
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ChattY
-TEMPLATE = app
+TARGET		= ChattY
+TEMPLATE	= app
 
+CONFIG		+= c++11
+
+# ---- Files ----
 
 SOURCES += main.cpp\
         chatwindow.cpp \
