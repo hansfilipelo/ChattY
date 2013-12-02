@@ -41,6 +41,7 @@ void ChatWindow::on_sendButton_clicked()
     ui->sendButton->setText("Send");
     receiver="";
 
+
 }
 
 // send messaeg on return
@@ -85,4 +86,40 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 }
 
 void ChatWindow::messageReceived(const QString to, const QString from, const QString message, const QString time){
+}
+
+
+void ChatWindow::on_actionBlack_triggered(bool checked)
+{
+    ui->messageInput->setStyleSheet("color: black;"
+                                    "background-color: grey;"
+                                    "selection-color: black;"
+                                    "selection-background-color: white");
+    ui->treeView->setStyleSheet("color: black;"
+                                "background-color: grey;"
+                                "selection-color: black;"
+                                "selection-background-color: white");
+    ui->messageHistory->setStyleSheet("color: black;"
+                             "background-color: grey;"
+                             "selection-color: black;"
+                             "selection-background-color: white");
+    this->setStyleSheet("color: white;"
+                             "background-color: black;"
+                             "selection-color: black;"
+                             "selection-background-color: white");
+    ui->mainToolBar->setStyleSheet("color: white;"
+                               "background-color: black;"
+                               "selection-color: black;"
+                               "selection-background-color: white");
+
+}
+
+void ChatWindow::on_actionDefault_triggered(bool checked)
+{
+    ui->messageInput->setStyleSheet("");
+    ui->treeView->setStyleSheet("");
+    ui->messageHistory->setStyleSheet("");
+    this->setStyleSheet("");
+    ui->mainToolBar->setStyleSheet("");
+
 }

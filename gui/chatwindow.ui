@@ -50,6 +50,20 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuCustomize">
+    <property name="title">
+     <string>Customize</string>
+    </property>
+    <widget class="QMenu" name="menuChange_theme">
+     <property name="title">
+      <string>Change theme</string>
+     </property>
+     <addaction name="actionBlack"/>
+     <addaction name="actionDefault"/>
+    </widget>
+    <addaction name="menuChange_theme"/>
+   </widget>
+   <addaction name="menuCustomize"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -60,6 +74,24 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSetColorscheme">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Change color</string>
+   </property>
+  </action>
+  <action name="actionBlack">
+   <property name="text">
+    <string>Black</string>
+   </property>
+  </action>
+  <action name="actionDefault">
+   <property name="text">
+    <string>Default</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

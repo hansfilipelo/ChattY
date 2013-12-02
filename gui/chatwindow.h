@@ -23,6 +23,10 @@ private slots:
 
     void on_messageInput_textEdited(const QString &arg1);
 
+    void on_actionBlack_triggered(bool checked);
+
+    void on_actionDefault_triggered(bool checked);
+
 private:
     QString receiver;
     Ui::ChatWindow *ui;
