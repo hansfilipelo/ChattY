@@ -51,4 +51,6 @@ gui/moc_chatwindow.cpp
 gui/moc_logindialog.cpp
 gui/ui_chatwindow.h
 gui/ui_logindialog.h
+# Build
+build-ChatGUI-Desktop_Qt_5_2_0_clang_64bit-Debug
 
