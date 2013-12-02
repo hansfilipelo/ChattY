@@ -7,6 +7,8 @@
 *.o
 *.so
 *.xcodeproj
+*.app
+*.user
 
 # Automated makefile created with Qt
 server/Makefile
@@ -42,3 +44,11 @@ server/moc_thread.cpp
 .Trashes
 ehtthumbs.db
 Thumbs.db
+
+# GUI files
+gui/Makefile
+gui/moc_chatwindow.cpp
+gui/moc_logindialog.cpp
+gui/ui_chatwindow.h
+gui/ui_logindialog.h
+
