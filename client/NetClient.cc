@@ -39,7 +39,8 @@ void NetClient::start(){
 
 void NetClient::connected(){
     qDebug() << "Connected!";
-    QByteArray array = "/initiate*";
+    QByteArray array = "/initiate";
+    array += 0x1F; //unit separator
     array += name;
     
     TcpSocket->write(array);
@@ -56,8 +57,11 @@ void NetClient::readyRead(){
 }
 
 void NetClient::sendMessage(string message){
-    QByteArray array = "/message*";
+    QByteArray array = "/message";
+    array += 0x1F; //unit separator
     array += QString::fromStdString(message);
+    
+    
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
 }

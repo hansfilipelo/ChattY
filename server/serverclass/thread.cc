@@ -47,16 +47,17 @@ void Thread::run()
 void Thread::readyRead()
 {
     QByteArray Data = TcpSocket->readAll();
-    string inData = Data.data();
     
-    // Sepparate the command from the operand
-    string commandName;
-    while (inData.front() != '*' )
-    {
-        commandName += inData.front();
-        inData.erase(inData.begin());
-    }
-    inData.erase(inData.begin());
+    // Separate the command from the operand    
+    QByteArray compare;
+    compare += 0x1F;
+    
+    int i = Data.indexOf(compare);
+    
+    QString commandName = Data.left(i);
+    QString temp = Data.mid(i);
+    
+    string inData = temp.toStdString();
     
     // Check which command that's supposed to run
     if (commandName == "/initiate") {
