@@ -94,13 +94,8 @@ void Thread::readyRead()
         string stdContents = contents.toStdString();
         inData = inData.mid(i+1);
         
-        Message message(stdFrom, stdTo, stdContents);
+        Message message(stdContents, stdFrom, stdTo);
         userPointer->sendMessage(message);
-        
-        qDebug()<<from;
-        qDebug()<<to;
-        qDebug()<<contents;
-        
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
@@ -126,7 +121,6 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(Message messageObject){
-
     QByteArray array = "/message";
     array += 0x1F; //unit separator
     array += QString::fromStdString(messageObject.getFrom());
