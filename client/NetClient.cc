@@ -74,6 +74,7 @@ void NetClient::readyRead(){
         Gui::userNameTaken();
     }
     else (commandName == "/message") {
+        TcpSocket->readAll();
 
     
 }
