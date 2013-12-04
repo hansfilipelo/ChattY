@@ -6,7 +6,7 @@
  */
 
 #include "NetClient.h"
-#include "../Gui/Gui.h"
+#include "../gui/gui.h"
 #include <QTest>
 
 using namespace std;
@@ -41,13 +41,13 @@ void NetClient::start(){
 //------Slots---------
 
 void NetClient::connected(){
-    qDebug() << "Connected!";
     QByteArray array = "/initiate";
     array += 0x1F; //unit separator
     array += name;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
+    guiPointer->connected();
 }
 
 void NetClient::disconnected(){

@@ -107,11 +107,15 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 
+<<<<<<< HEAD
 void ChatWindow::sendMessage(){
     guiPointer->sendMessage(name,receiver,ui->messageInput->text());
 }
 
 void ChatWindow::on_actionBlack_triggered(bool checked)
+=======
+void ChatWindow::on_actionBlack_triggered()
+>>>>>>> b6d55f626fcdb47108ad5812a7f62ce9df96ba67
 {
     ui->messageInput->setStyleSheet("color: black;"
                                     "background-color: grey;"
@@ -136,7 +140,7 @@ void ChatWindow::on_actionBlack_triggered(bool checked)
 
 }
 
-void ChatWindow::on_actionDefault_triggered(bool checked)
+void ChatWindow::on_actionDefault_triggered()
 {
     ui->messageInput->setStyleSheet("");
     ui->treeView->setStyleSheet("");

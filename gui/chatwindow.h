@@ -28,9 +28,9 @@ private slots:
 
     void on_messageInput_textEdited(const QString &arg1);
 
-    void on_actionBlack_triggered(bool checked);
+    void on_actionBlack_triggered();
 
-    void on_actionDefault_triggered(bool checked);
+    void on_actionDefault_triggered();
 
 private:
     QString receiver;
