@@ -118,6 +118,8 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(Message messageObject){
+    qDebug()<<"hit kom vi";
+    
     QByteArray array = "/message";
     array += 0x1F; //unit separator
     array += QString::fromStdString(messageObject.getFrom());
