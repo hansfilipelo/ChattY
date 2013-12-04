@@ -17,6 +17,8 @@ BESKRIVNING:
 #include <QString>
 #include <iostream>
 
+class Gui;
+
 class NetClient : public QObject
 {
     Q_OBJECT
@@ -33,6 +35,7 @@ public slots:
     void readyRead();
 
 private:
+    Gui* guiPointer
     QTcpSocket *TcpSocket;
     QString name;
     QString address;
