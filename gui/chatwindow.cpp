@@ -104,7 +104,6 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 
-
 void ChatWindow::on_actionBlack_triggered(bool checked)
 {
     ui->messageInput->setStyleSheet("color: black;"
