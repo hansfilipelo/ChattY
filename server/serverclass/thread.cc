@@ -6,8 +6,6 @@
  */
 
 #include "thread.h"
-#include "../message/message.h"
-#include "../room/room.h"
 
 using namespace std;
 
@@ -106,7 +104,11 @@ void Thread::readyRead()
 void Thread::disconnected()
 {
     cout << socketDescriptor << "Disconnected"<<endl;
-    masterPointer->removeUser(userPointer->getName());
+    try {
+        masterPointer->removeUser(userPointer->getName());
+    } catch (...) {
+        
+    }
     
     TcpSocket->deleteLater();
     //exits the thread
@@ -114,12 +116,17 @@ void Thread::disconnected()
 }
 
 //svarar klienten
-void Thread::sendMessage(string inMessage){
+void Thread::sendMessage(Message messageObject){
     QByteArray array = "/message";
     array += 0x1F; //unit separator
-    
-    QString Data;
-    Data += QString::fromStdString(inMessage);
+    array += QString::fromStdString(messageObject.getFrom());
+    array += 0x1F;
+    array += QString::fromStdString(messageObject.getTo());
+    array += 0x1F;
+    array += QString::fromStdString(messageObject.getMessage());
+    array += 0x1F;
+    array += QString::fromStdString(messageObject.getServerTime());
+    array += 0x1F;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -132,7 +139,5 @@ void Thread::reinitiate(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
-    
 }
-
 

@@ -14,7 +14,9 @@ BESKRIVNING:
 #include <QString>
 #include <iostream>
 #include <string>
+#include "../message/message.h"
 #include "../master/master.h"
+#include "../room/room.h"
 
 class User;
 
@@ -24,8 +26,9 @@ class Thread : public QThread {
 public:
     Thread(qintptr ID, Master* masterptr, QObject *parent=nullptr);
     void run();
-    void sendMessage(std::string);
+    void sendMessage(Message);
     void reinitiate();
+    void sendVector();
     
     
 signals:

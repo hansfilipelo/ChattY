@@ -15,7 +15,7 @@ Message::Message(const std::string message_, const std::string from_,const std::
     message = message_;
     from = from_;
     to = to_;
-    localTime = currentDateTime();
+    serverTime = currentDateTime();
 }
 
 string Message::getMessage() const
@@ -31,16 +31,6 @@ string Message::getFrom() const
 string Message::getTo()const
 {
     return to;
-}
-
-string Message::getLocalTime() const
-{
-    return localTime;
-}
-
-void Message::setServerTime(const string serverTime_)
-{
-    serverTime = serverTime_;
 }
 
 string Message::getServerTime() const

@@ -68,26 +68,47 @@ void NetClient::readyRead(){
     
     // Check which command that's supposed to run
     if (commandName == "/reinitiate") {
-        //reprompt
         guiPointer->userNameTaken();
     }
+    
     else (commandName == "/message") {
-        TcpSocket->readAll();
+        
+        // Get from
+        i = inData.indexOf(compare);
+        QString from = inData.left(i);
+        inData = inData.mid(i);
+        
+        // Get to
+        i = inData.indexOf(compare);
+        QString to = inData.left(i);
+        inData = inData.mid(i);
+        
+        // Get message
+        i = inData.indexOf(compare);
+        QString contents = inData.left(i);
+        inData = inData.mid(i);
+        
+        // Get time
+        QString dateTime = inData;
+        
+        guiPointer->receiveMssage(from, to, contents, dateTime);
     }
 }
 
-void NetClient::sendMessage(string message){
+void NetClient::sendMessage(QString from, QString to, QString message){
     QByteArray array = "/message";
     array += 0x1F; //unit separator
-    array += QString::fromStdString(message);
-    
+    array += from;
+    array += 0x1F;
+    array += to;
+    array += 0x1F;
+    array += message;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
 }
 
-void NetClient::setName(Qstring inName)
-{
+void NetClient::setName(Qstring inName) {
     name=inName;
 }
 
