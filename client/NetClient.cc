@@ -109,17 +109,17 @@ void NetClient::readyRead(){
         // Get from
         i = inData.indexOf(compare);
         QString from = inData.left(i);
-        inData = inData.mid(i);
+        inData = inData.mid(i+1);
         
         // Get to
         i = inData.indexOf(compare);
         QString to = inData.left(i);
-        inData = inData.mid(i);
+        inData = inData.mid(i+1);
         
         // Get message
         i = inData.indexOf(compare);
         QString contents = inData.left(i);
-        inData = inData.mid(i);
+        inData = inData.mid(i+1);
         
         // Get time
         QString dateTime = inData;
