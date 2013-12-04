@@ -11,7 +11,7 @@ BESKRIVNING:
 
 using namespace std;
 
-NetClient::NetClient(string username, string inAddress, QObject *parent, Gui* myGui) : QObject(parent){
+NetClient::NetClient(string username, string inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
     name=QString::fromStdString(username);
     address=QString::fromStdString(inAddress);
