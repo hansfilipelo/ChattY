@@ -2,6 +2,7 @@
 #define CHATWINDOW_H
 
 #include <QMainWindow>
+#include <fstream>
 class Gui;
 
 namespace Ui {
@@ -19,6 +20,7 @@ public:
     void setName(QString inName);
     Gui* chatGui;
     void sendMessage();
+    std::ofstream debug;
 
 
 private slots:

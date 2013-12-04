@@ -14,6 +14,9 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->parent();
     chatGui = guiPointer;
+    debug.open("debug.txt");
+    debug<<"test"<<std::endl;
+    debug.close();
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -58,6 +61,7 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory
 void ChatWindow::on_sendButton_clicked()
 {
+    debug<<"innan sendMessage() i send button clicked"<<"\n";
     sendMessage();
     ui->messageInput->clear();
     receiver="root";
@@ -66,9 +70,10 @@ void ChatWindow::on_sendButton_clicked()
 //observera at root är en templösning
 }
 
-// send messaeg on return
+// send message on return
 void ChatWindow::on_messageInput_returnPressed()
 {
+    debug<<"innan sendMessage() i send returned clicked"<<"\n";
     on_sendButton_clicked();
 
 }

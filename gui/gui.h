@@ -18,9 +18,9 @@ public:
     void sendMessage(QString from, QString to, QString message);
     // void Gui::updateStruct(vector);
 protected:
-    NetClient* client;
-    LoginDialog* loginWindow;
-    ChatWindow* mainWindow;
+    NetClient* client = nullptr;
+    LoginDialog* loginWindow = nullptr;
+    ChatWindow* mainWindow = nullptr;
 };
 
 #endif // GUI_H

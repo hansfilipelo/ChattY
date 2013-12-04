@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="25,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="25,75">
       <item>
        <widget class="QTreeView" name="treeView"/>
       </item>
