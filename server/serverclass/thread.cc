@@ -71,7 +71,26 @@ void Thread::readyRead()
     }
     
     else if (commandName == "/message") {
-        Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
+        
+        QString to;
+        i = inData.indexOf(compare);
+        to = inData.left(i);
+        string stdto = to.toStdString();
+        inData = inData.mid(i);
+        
+        QString from;
+        i = inData.indexOf(compare);
+        from = inData.left(i);
+        string stdFrom = from.toStdString();
+        inData = inData.mid(i);
+        
+        QString contents;
+        i = inData.indexOf(compare);
+        contents = inData.left(i);
+        stdContents = contents.toStdString();
+        inData = inData.mid(i);
+        
+        Message message(stdFrom, stdTo, stdContents);
         userPointer->sendMessage(message);
     }
     else {
