@@ -61,7 +61,7 @@ void NetClient::readyRead(){
     
     // Separate the command from the operand
     QByteArray compare;
-    compare = 0x1F;
+    compare += 0x1F;
     
     int i = Data.indexOf(compare);
     
