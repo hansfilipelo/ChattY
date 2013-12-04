@@ -3,6 +3,7 @@
 #include "QString"
 #include "QColor"
 #include "gui.h"
+//
 
 ChatWindow::ChatWindow(Gui* guiPointer) :
     QMainWindow(nullptr),
@@ -16,7 +17,6 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
-    QString outMessage;
 
     if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
@@ -58,7 +58,6 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory
 void ChatWindow::on_sendButton_clicked()
 {
-    outMessage = ui->messageInput->text();
     ui->sendButton->setText("Send");
 
 
