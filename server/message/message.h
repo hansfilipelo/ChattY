@@ -28,9 +28,7 @@ public:
     std::string getMessage() const;
     std::string getFrom() const;
     std::string getTo() const;
-    std::string getLocalTime() const;
     std::string getServerTime() const;
-    void setServerTime(const std::string serverTime);
     void print() const;
     
 private:

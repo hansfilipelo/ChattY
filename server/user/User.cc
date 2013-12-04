@@ -30,12 +30,7 @@ void User::chooseRoom(Room* newRoom){
 
 void User::receiveMessage(Message inMessage){
     log.push_back(inMessage); //tbd
-    
-    string tcpString;
-    tcpString += inMessage.getFrom();
-    tcpString += ":      ";
-    tcpString += inMessage.getMessage();
-    thread->sendMessage(tcpString);
+    thread->sendMessage(inMessage);
 }
 
 // ----------------------------------
