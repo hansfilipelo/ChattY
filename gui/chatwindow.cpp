@@ -27,7 +27,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
 
     }
-    else if (from == name && to != ""){
+    else if (from == name && to != "root"){
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText("You whisper to " + to + ": ");
         ui->messageHistory->setTextColor(Qt::black);

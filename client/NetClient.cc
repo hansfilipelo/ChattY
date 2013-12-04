@@ -66,7 +66,7 @@ void NetClient::readyRead(){
     int i = Data.indexOf(compare);
     
     QString commandName = Data.left(i);
-    QString inData = Data.mid(i);
+    QString inData = Data.mid(i+1);
     
     // Check which command that's supposed to run
     if (commandName == "/reinitiate") {
