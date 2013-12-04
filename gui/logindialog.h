@@ -1,8 +1,10 @@
 #ifndef LOGINDIALOG_H
 #define LOGINDIALOG_H
-
+#include "chatwindow.h"
 #include <QDialog>
 #include <QString>
+class Gui;
+
 namespace Ui {
 class LoginDialog;
 }
@@ -12,8 +14,13 @@ class LoginDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LoginDialog(QWidget *parent = 0);
+    explicit LoginDialog(ChatWindow* chatPointer, Gui* guiPointer);
     ~LoginDialog();
+    void connected();
+    ChatWindow* mainWindow;
+    Gui* chatGui;
+    void userNameTaken();
+    void noConnection();
 
 private slots:
     void on_buttonBox_rejected();

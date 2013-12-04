@@ -2,16 +2,17 @@
 #include "ui_chatwindow.h"
 #include "QString"
 #include "QColor"
-#include "logindialog.h"
+#include "gui.h"
 
-ChatWindow::ChatWindow(QWidget *parent) :
-    QMainWindow(parent),
+ChatWindow::ChatWindow(Gui* guiPointer) :
+    QMainWindow(nullptr),
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
     ui->treeView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->parent();
+    chatGui = guiPointer;
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -19,23 +20,33 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
 
     if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
-        ui->messageHistory->insertPlainText(from +" whisper to " + to + ": ");
+        ui->messageHistory->insertPlainText(from +" whispers to you: ");
         ui->messageHistory->setTextColor(Qt::black);
 
     }
-   else{
+    else if (from == name && to != ""){
+        ui->messageHistory->setTextColor(Qt::magenta);
+        ui->messageHistory->insertPlainText("You whisper to " + to + ": ");
+        ui->messageHistory->setTextColor(Qt::black);
+    }
+
+    else if (from == name && to == ""){
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText("You say: ");
         ui->messageHistory->setTextColor(Qt::black);
+
     }
-    ui->messageHistory->insertPlainText(outMessage);
-    ui->messageInput->clear();
+    else {
+        ui->messageHistory->setTextColor(Qt::blue);
+        ui->messageHistory->insertPlainText(from + " says: ");
+        ui->messageHistory->setTextColor(Qt::black);
+    }
+    ui->messageHistory->insertPlainText(message);
     ui->messageHistory->insertPlainText("\n");
-    //client->sendMessage(outMessage,reciever)
-    ui->sendButton->setText("Send");
-    receiver="";
+}
 
-
+void ChatWindow::setName(QString inName){
+    name = inName;
 }
 
 ChatWindow::~ChatWindow()
@@ -48,6 +59,7 @@ ChatWindow::~ChatWindow()
 void ChatWindow::on_sendButton_clicked()
 {
     outMessage = ui->messageInput->text();
+    ui->sendButton->setText("Send");
 
 
 }

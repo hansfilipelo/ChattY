@@ -1,10 +1,9 @@
 #ifndef GUI_H
 #define GUI_H
-#include "logindialog.h"
-#include "chatwindow.h"
 #include <QString>
-
 class NetClient;
+class LoginDialog;
+class ChatWindow;
 
 class Gui
 {
@@ -14,6 +13,8 @@ public:
     void userNameTaken();
     void connectionTimeOut();
     void connected();
+    void createClient(QString inName, QString inAddress);
+    void noConnection();
     // void Gui::updateStruct(vector);
 protected:
     NetClient* client;
