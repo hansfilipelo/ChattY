@@ -53,15 +53,16 @@ void Thread::readyRead()
     int i = Data.indexOf(compare);
     
     QString commandName = Data.left(i);
-    QString temp = Data.mid(i);
-    
-    string inData = temp.toStdString();
+    QString inData = Data.mid(i);
+    QString temp = inData;
+    string stdInData = temp.toStdString();
     
     // Check which command that's supposed to run
     if (commandName == "/initiate") {
+        
         try
         {
-            userPointer = masterPointer->createUser(inData);
+            userPointer = masterPointer->createUser(stdInData);
             userPointer->setThread(this);
         }
         catch (...)
@@ -75,7 +76,7 @@ void Thread::readyRead()
         QString to;
         i = inData.indexOf(compare);
         to = inData.left(i);
-        string stdto = to.toStdString();
+        string stdTo = to.toStdString();
         inData = inData.mid(i);
         
         QString from;
@@ -87,7 +88,7 @@ void Thread::readyRead()
         QString contents;
         i = inData.indexOf(compare);
         contents = inData.left(i);
-        stdContents = contents.toStdString();
+        string stdContents = contents.toStdString();
         inData = inData.mid(i);
         
         Message message(stdFrom, stdTo, stdContents);
@@ -95,7 +96,7 @@ void Thread::readyRead()
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
-        cout << socketDescriptor << "Data in: "<< inData<<endl;
+        cout << socketDescriptor << "Data in: "<< stdInData<<endl;
     }
 }
 
