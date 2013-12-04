@@ -19,7 +19,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     debug.close();
 }
 
-void ChatWindow::receiveMessage(const QString to, const QString from, const QString message, const QString time){
+void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
 
     if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
