@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <fstream>
+#include <QScrollBar>
 class Gui;
 
 namespace Ui {

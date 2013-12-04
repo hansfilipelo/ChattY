@@ -14,9 +14,6 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->parent();
     chatGui = guiPointer;
-    debug.open("debug.txt");
-    debug<<"test"<<std::endl;
-    debug.close();
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -46,6 +43,8 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     }
     ui->messageHistory->insertPlainText(message);
     ui->messageHistory->insertPlainText("\n");
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+
 }
 
 void ChatWindow::setName(QString inName){
