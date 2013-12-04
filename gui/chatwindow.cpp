@@ -61,7 +61,6 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory
 void ChatWindow::on_sendButton_clicked()
 {
-    debug<<"innan sendMessage() i send button clicked"<<"\n";
     sendMessage();
     ui->messageInput->clear();
     receiver="root";
@@ -73,7 +72,6 @@ void ChatWindow::on_sendButton_clicked()
 // send message on return
 void ChatWindow::on_messageInput_returnPressed()
 {
-    debug<<"innan sendMessage() i send returned clicked"<<"\n";
     on_sendButton_clicked();
 
 }
@@ -112,7 +110,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 void ChatWindow::sendMessage(){
-    guiPointer->sendMessage(name,receiver,ui->messageInput->text());
+    chatGui->sendMessage(name,receiver,ui->messageInput->text());
 }
 void ChatWindow::on_actionBlack_triggered()
 {

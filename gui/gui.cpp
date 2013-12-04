@@ -27,7 +27,6 @@ void Gui::createClient(QString inName, QString inAddress){
     delete client;
     client = new NetClient(inName, inAddress, this);
     client->start();
-    client->sendMessage("Erik","root","debug");
 }
 
 void Gui::userNameTaken(){
