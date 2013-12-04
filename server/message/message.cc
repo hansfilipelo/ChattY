@@ -10,7 +10,7 @@ BESKRIVNING:
 #include "message.h"
 using namespace std;
 
-Message::Message(const std::string message_, const std::string from_,const std::string to_)
+Message::Message(const std::string message_, const std::string from_,const std::string to_,)
 {
     message = message_;
     from = from_;
