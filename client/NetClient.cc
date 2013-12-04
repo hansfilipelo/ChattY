@@ -6,7 +6,7 @@
  */
 
 #include "NetClient.h"
-#include "../../Gui/Gui.h"
+#include "../Gui/Gui.h"
 #include <QTest>
 
 using namespace std;
@@ -31,6 +31,7 @@ void NetClient::start(){
     TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!TcpSocket->waitForConnected(1000)){
+        guiPointer->noConnection();
         qDebug() << "Error: " << TcpSocket->errorString();
     }
 }
