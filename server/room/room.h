@@ -43,6 +43,7 @@ public:
     Room* getRoom(std::string);
     Message getMessage(unsigned int i);
     virtual void chooseRoom(Room*);
+    std::vector<Message> log;
     
 protected:
     friend void throwUp(Room* inRoom);
@@ -52,7 +53,6 @@ protected:
     void sendMessageAll(Message);
     std::string name;
     std::vector<Room*> rooms;
-    std::vector<Message> log;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
 };

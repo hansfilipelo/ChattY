@@ -134,6 +134,32 @@ void Thread::sendMessage(Message messageObject){
     
 }
 
+
+void Thread::sendHistory(){
+    QByteArray array = "/reinitiate";
+    array += 0x1F; //unit separator
+    
+    
+    for (unsigned int i=0; i<userPointer->getParentRoom()->log.size(); ++i)
+    {
+        Message tempMessage = userPointer->getParentRoom()->log.at(i);
+        
+        array += QString::fromStdString(tempMessage.getFrom());
+        array += 0x1F; //unit separator
+        array += QString::fromStdString(tempMessage.getTo());
+        array += 0x1F; //unit separator
+        array += QString::fromStdString(tempMessage.getMessage());
+        array += 0x1F; //unit separator
+        array += QString::fromStdString(tempMessage.getServerTime());
+        array += 0x1F; //unit separator
+    }
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+    
+}
+
+
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
     array += 0x1F; //unit separator

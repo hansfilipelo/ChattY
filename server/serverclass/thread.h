@@ -29,7 +29,7 @@ public:
     void sendMessage(Message);
     void reinitiate();
     void sendVector();
-    
+    void sendHistory();
     
 signals:
     void error(QTcpSocket::SocketError socketerror);
