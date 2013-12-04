@@ -9,23 +9,17 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
-
+    ui->treeView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->treeView->parent();
 }
 
-ChatWindow::~ChatWindow()
-{
-    delete ui;
-}
-
-
-//If sendbutton is pressed display sent from text and message in messagehistory
-void ChatWindow::on_sendButton_clicked()
-{
+void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
     QString outMessage;
-    outMessage = ui->messageInput->text();
-    if(receiver != ""){
+
+    if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
-        ui->messageHistory->insertPlainText("You whisper to " + receiver + ": ");
+        ui->messageHistory->insertPlainText(from +" whisper to " + to + ": ");
         ui->messageHistory->setTextColor(Qt::black);
 
     }
@@ -40,6 +34,20 @@ void ChatWindow::on_sendButton_clicked()
     //client->sendMessage(outMessage,reciever)
     ui->sendButton->setText("Send");
     receiver="";
+
+
+}
+
+ChatWindow::~ChatWindow()
+{
+    delete ui;
+}
+
+
+//If sendbutton is pressed display sent from text and message in messagehistory
+void ChatWindow::on_sendButton_clicked()
+{
+    outMessage = ui->messageInput->text();
 
 
 }

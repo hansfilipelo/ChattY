@@ -1,9 +1,9 @@
 /*
-FILNAMN: 		NetClient.cc
-PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
-SKAPAD DATUM:	2013-11-19
-BESKRIVNING:	
-*/
+ FILNAMN: 		NetClient.cc
+ PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
+ SKAPAD DATUM:	2013-11-19
+ BESKRIVNING:
+ */
 
 #include "NetClient.h"
 #include "../../Gui/Gui.h"
@@ -27,7 +27,7 @@ void NetClient::start(){
     
     
     qDebug() << "connecting...";
-
+    
     TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!TcpSocket->waitForConnected(1000)){
@@ -46,7 +46,7 @@ void NetClient::connected(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
-    }
+}
 
 void NetClient::disconnected(){
     qDebug() << "disconnected";
@@ -72,9 +72,8 @@ void NetClient::readyRead(){
         guiPointer->userNameTaken();
     }
     else (commandName == "/message") {
-        cout <<"nothing" << endl;
-
-    
+        TcpSocket->readAll();
+    }
 }
 
 void NetClient::sendMessage(string message){
@@ -85,6 +84,11 @@ void NetClient::sendMessage(string message){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
+}
+
+void NetClient::setName(Qstring inName)
+{
+    name=inName;
 }
 
 

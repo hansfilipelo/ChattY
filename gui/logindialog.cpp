@@ -23,5 +23,5 @@ void LoginDialog::on_buttonBox_rejected()
 
 void LoginDialog::on_buttonBox_accepted()
 {
-
+    this->close();
 }

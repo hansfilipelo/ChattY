@@ -1,15 +1,13 @@
 #include "chatwindow.h"
 #include "logindialog.h"
 #include <QApplication>
+#include "gui.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    LoginDialog l;
-    ChatWindow w;
-    w.show();
-    l.setModal(true);
-    l.show();
+    Gui g;
+
 
     return a.exec();
 }

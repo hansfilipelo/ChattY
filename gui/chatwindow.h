@@ -13,7 +13,7 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = 0);
-    void messageReceived(const QString to, const QString from, const QString message, const QString time);
+    void receiveMessage(const QString to, const QString from, const QString message, const QString time);
     ~ChatWindow();
 
 private slots:
@@ -30,6 +30,7 @@ private slots:
 private:
     QString receiver;
     Ui::ChatWindow *ui;
+    QString name;
 };
 
 #endif // CHATWINDOW_H
