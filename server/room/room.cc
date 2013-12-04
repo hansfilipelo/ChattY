@@ -78,9 +78,11 @@ void Room::removeRoom(Room* inRoom) {
 
 void Room::sendMessage(Message inMessage) {
     string to = inMessage.getTo();
+    string from = inMessage.getFrom();
     
     try {
         getRoom(to)->receiveMessage(inMessage);
+        getRoom(from)->receiveMessage(inMessage);
     } catch (...) {
         Message errorMessage("No such user in this room.",name,inMessage.getFrom());
     }
