@@ -23,7 +23,7 @@ class NetClient : public QObject
 {
     Q_OBJECT
 public:
-    NetClient(std::string, std::string, Gui*, QObject *parent = 0);
+    NetClient(QString, QString, Gui*, QObject *parent = 0);
     void start();
     void sendMessage(QString from, QString to, QString message);
     void setName(QString);

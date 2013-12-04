@@ -11,11 +11,11 @@
 
 using namespace std;
 
-NetClient::NetClient(string username, string inAddress, Gui* myGui, QObject *parent) : QObject(parent){
+NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
     guiPointer = myGui;
-    name=QString::fromStdString(username);
-    address=QString::fromStdString(inAddress);
+    name=username;
+    address=inAddress;
 }
 
 
@@ -41,13 +41,13 @@ void NetClient::start(){
 //------Slots---------
 
 void NetClient::connected(){
-    qDebug() << "Connected!";
     QByteArray array = "/initiate";
     array += 0x1F; //unit separator
     array += name;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
+    guiPointer->connected();
 }
 
 void NetClient::disconnected(){
