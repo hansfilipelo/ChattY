@@ -36,3 +36,7 @@ void Gui::userNameTaken(){
 void Gui::noConnection(){
     loginWindow->noConnection();
 }
+
+void Gui::sendMessage(QString from, QString to, QString message){
+    client->sendMessage(from,to,message);
+}

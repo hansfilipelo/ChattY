@@ -15,6 +15,7 @@ public:
     void connected();
     void createClient(QString inName, QString inAddress);
     void noConnection();
+    void sendMessage(QString from, QString to, QString message);
     // void Gui::updateStruct(vector);
 protected:
     NetClient* client;

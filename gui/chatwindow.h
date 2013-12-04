@@ -18,6 +18,8 @@ public:
     ~ChatWindow();
     void setName(QString inName);
     Gui* chatGui;
+    void sendMessage();
+
 
 private slots:
     void on_sendButton_clicked();

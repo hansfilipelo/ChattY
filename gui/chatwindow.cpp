@@ -58,9 +58,12 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory
 void ChatWindow::on_sendButton_clicked()
 {
+    sendMessage();
+    ui->messageInput->clear();
+    receiver="root";
     ui->sendButton->setText("Send");
 
-
+//observera at root är en templösning
 }
 
 // send messaeg on return
@@ -102,6 +105,10 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
             ui->messageInput->clear();
         }
     }
+}
+
+void ChatWindow::sendMessage(){
+    guiPointer->sendMessage(name,receiver,ui->messageInput->text());
 }
 
 void ChatWindow::on_actionBlack_triggered(bool checked)
