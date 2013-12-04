@@ -104,10 +104,6 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 
-void ChatWindow::messageReceived(const QString to, const QString from, const QString message, const QString time){
-}
-
-
 void ChatWindow::on_actionBlack_triggered(bool checked)
 {
     ui->messageInput->setStyleSheet("color: black;"

@@ -8,6 +8,7 @@ QMAKE_CXX	= g++
 QMAKE_CC	= gcc
 
 QT		+= core gui
+QT              +=network gui testlib
 ICON		= icon/ChattY.icns
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
