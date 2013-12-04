@@ -35,7 +35,7 @@ private slots:
     void on_actionDefault_triggered();
 
 private:
-    QString receiver;
+    QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
     Gui* guiPointer;

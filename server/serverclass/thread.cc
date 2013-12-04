@@ -44,6 +44,8 @@ void Thread::run()
 
 void Thread::readyRead()
 {
+    
+    
     QByteArray Data = TcpSocket->readAll();
     
     // Separate the command from the operand
@@ -53,7 +55,7 @@ void Thread::readyRead()
     int i = Data.indexOf(compare);
     
     QString commandName = Data.left(i);
-    QString inData = Data.mid(i);
+    QString inData = Data.mid(i+1);
     QString temp = inData;
     string stdInData = temp.toStdString();
     
@@ -72,27 +74,33 @@ void Thread::readyRead()
     }
     
     else if (commandName == "/message") {
-        
-        QString to;
-        i = inData.indexOf(compare);
-        to = inData.left(i);
-        string stdTo = to.toStdString();
-        inData = inData.mid(i);
+
         
         QString from;
         i = inData.indexOf(compare);
         from = inData.left(i);
         string stdFrom = from.toStdString();
-        inData = inData.mid(i);
+        inData = inData.mid(i+1);
+        
+        QString to;
+        i = inData.indexOf(compare);
+        to = inData.left(i);
+        string stdTo = to.toStdString();
+        inData = inData.mid(i+1);
         
         QString contents;
         i = inData.indexOf(compare);
         contents = inData.left(i);
         string stdContents = contents.toStdString();
-        inData = inData.mid(i);
+        inData = inData.mid(i+1);
         
         Message message(stdFrom, stdTo, stdContents);
         userPointer->sendMessage(message);
+        
+        qDebug()<<from;
+        qDebug()<<to;
+        qDebug()<<contents;
+        
     }
     else {
         TcpSocket->write("Ej giltigt kommando");
@@ -118,8 +126,7 @@ void Thread::disconnected()
 
 //svarar klienten
 void Thread::sendMessage(Message messageObject){
-    qDebug()<<"hit kom vi";
-    
+
     QByteArray array = "/message";
     array += 0x1F; //unit separator
     array += QString::fromStdString(messageObject.getFrom());
