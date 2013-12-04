@@ -104,7 +104,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 
-void ChatWindow::on_actionBlack_triggered(bool checked)
+void ChatWindow::on_actionBlack_triggered()
 {
     ui->messageInput->setStyleSheet("color: black;"
                                     "background-color: grey;"
@@ -129,7 +129,7 @@ void ChatWindow::on_actionBlack_triggered(bool checked)
 
 }
 
-void ChatWindow::on_actionDefault_triggered(bool checked)
+void ChatWindow::on_actionDefault_triggered()
 {
     ui->messageInput->setStyleSheet("");
     ui->treeView->setStyleSheet("");
