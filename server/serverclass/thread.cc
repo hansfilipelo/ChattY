@@ -48,7 +48,7 @@ void Thread::readyRead()
 {
     QByteArray Data = TcpSocket->readAll();
     
-    // Separate the command from the operand    
+    // Separate the command from the operand
     QByteArray compare;
     compare += 0x1F;
     
@@ -61,10 +61,18 @@ void Thread::readyRead()
     
     // Check which command that's supposed to run
     if (commandName == "/initiate") {
-        userPointer = masterPointer->createUser(inData);
-        userPointer->setThread(this);
+        try
+        {
+            userPointer = masterPointer->createUser(inData);
+            userPointer->setThread(this);
+        }
+        catch (...)
+        {
+            reinitiate();
+        }
     }
-    else if (commandName == "/message" ) {
+    
+    else if (commandName == "/message") {
         Message message(inData, userPointer->getName(), userPointer->getParentRoom()->getName());
         userPointer->sendMessage(message);
     }
@@ -87,14 +95,25 @@ void Thread::disconnected()
 }
 
 //svarar klienten
-void Thread::sendMessage(string inMessage) {
+void Thread::sendMessage(string inMessage){
+    QByteArray array = "/message";
+    array += 0x1F; //unit separator
+    
     QString Data;
     Data += QString::fromStdString(inMessage);
     
-    QByteArray sendData;
-    sendData.append(Data);
-    TcpSocket->write(sendData);
-    TcpSocket->waitForBytesWritten(3000);
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+    
+}
+
+void Thread::reinitiate(){
+    QByteArray array = "/reinitiate";
+    array += 0x1F; //unit separator
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+    
 }
 
 

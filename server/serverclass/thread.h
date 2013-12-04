@@ -25,6 +25,8 @@ public:
     Thread(qintptr ID, Master* masterptr, QObject *parent=nullptr);
     void run();
     void sendMessage(std::string);
+    void reinitiate();
+    
     
 signals:
     void error(QTcpSocket::SocketError socketerror);
