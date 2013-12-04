@@ -31,6 +31,7 @@ void NetClient::start(){
     TcpSocket->connectToHost(QHostAddress(address),quint16(1234));
     
     if(!TcpSocket->waitForConnected(1000)){
+        guiPointer->noConnection();
         qDebug() << "Error: " << TcpSocket->errorString();
     }
 }
