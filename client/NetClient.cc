@@ -11,11 +11,11 @@
 
 using namespace std;
 
-NetClient::NetClient(string username, string inAddress, Gui* myGui, QObject *parent) : QObject(parent){
+NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
     guiPointer = myGui;
-    name=QString::fromStdString(username);
-    address=QString::fromStdString(inAddress);
+    name=username;
+    address=inAddress;
 }
 
 
