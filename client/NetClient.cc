@@ -64,17 +64,15 @@ void NetClient::readyRead(){
     int i = Data.indexOf(compare);
     
     QString commandName = Data.left(i);
-    QString temp = Data.mid(i);
-    
-    string inData = temp.toStdString();
+    QString inData = Data.mid(i);
     
     // Check which command that's supposed to run
     if (commandName == "/reinitiate") {
         //reprompt
-        Gui::userNameTaken();
+        guiPointer->userNameTaken();
     }
     else (commandName == "/message") {
-        TcpSocket->readAll();
+        cout <<"nothing" << endl;
 
     
 }
