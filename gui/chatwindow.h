@@ -36,6 +36,7 @@ private:
     QString receiver;
     Ui::ChatWindow *ui;
     QString name;
+    Gui* guiPointer;
 };
 
 #endif // CHATWINDOW_H
