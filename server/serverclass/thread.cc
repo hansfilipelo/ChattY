@@ -94,6 +94,12 @@ void Thread::readyRead()
         string stdContents = contents.toStdString();
         inData = inData.mid(i+1);
         
+        cout << "readyRead" << endl;
+        cout << stdFrom << endl;
+        cout << stdTo << endl;
+        cout << stdContents << endl;
+        
+        
         Message message(stdContents, stdFrom, stdTo);
         userPointer->sendMessage(message);
     }
