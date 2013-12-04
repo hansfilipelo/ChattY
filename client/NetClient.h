@@ -16,6 +16,7 @@ BESKRIVNING:
 #include <QTcpSocket>
 #include <QString>
 #include <iostream>
+#include <stdexcept>
 
 class Gui;
 
