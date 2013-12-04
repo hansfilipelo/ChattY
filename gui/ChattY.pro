@@ -19,12 +19,10 @@ CONFIG		+= c++11
 
 # ---- Files ----
 
-SOURCES += main.cpp\
-        chatwindow.cpp \
-    logindialog.cpp
+SOURCES += main.cpp chatwindow.cpp logindialog.cpp ../client/NetClient.cc \
+    gui.cpp
 
-HEADERS  += chatwindow.h \
-    logindialog.h
+HEADERS  += chatwindow.h logindialog.h ../client/NetClient.h \
+    gui.h
 
-FORMS    += chatwindow.ui \
-    logindialog.ui
+FORMS    += chatwindow.ui logindialog.ui
