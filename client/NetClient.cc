@@ -6,7 +6,7 @@
  */
 
 #include "NetClient.h"
-#include "../Gui/Gui.h"
+#include "../gui/gui.h"
 #include <QTest>
 
 using namespace std;
