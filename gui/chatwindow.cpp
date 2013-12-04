@@ -33,7 +33,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
     }
 
-    else if (from == name && to == ""){
+    else if (from == name && to == "root"){
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText("You say: ");
         ui->messageHistory->setTextColor(Qt::black);
