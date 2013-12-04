@@ -2,6 +2,7 @@
 #define CHATWINDOW_H
 
 #include <QMainWindow>
+class Gui;
 
 namespace Ui {
 class ChatWindow;
@@ -12,9 +13,11 @@ class ChatWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ChatWindow(QWidget *parent = 0);
+    explicit ChatWindow(Gui* guiPointer);
     void receiveMessage(const QString to, const QString from, const QString message, const QString time);
     ~ChatWindow();
+    void setName(QString inName);
+    Gui* chatGui;
 
 private slots:
     void on_sendButton_clicked();

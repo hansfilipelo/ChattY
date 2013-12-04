@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Gui g;
+    Gui chatGui;
 
 
     return a.exec();
