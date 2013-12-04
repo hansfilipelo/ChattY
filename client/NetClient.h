@@ -25,7 +25,7 @@ class NetClient : public QObject
 public:
     NetClient(std::string, std::string, Gui*, QObject *parent = 0);
     void start();
-    void sendMessage(std::string);
+    void sendMessage(QString from, QString to, QString message);
     void setName(QString);
     
 signals:

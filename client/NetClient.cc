@@ -13,6 +13,7 @@ using namespace std;
 
 NetClient::NetClient(string username, string inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
+    guiPointer = myGui;
     name=QString::fromStdString(username);
     address=QString::fromStdString(inAddress);
 }
@@ -72,7 +73,7 @@ void NetClient::readyRead(){
         guiPointer->userNameTaken();
     }
     
-    else (commandName == "/message") {
+    else if (commandName == "/message") {
         
         // Get from
         i = inData.indexOf(compare);
@@ -92,8 +93,12 @@ void NetClient::readyRead(){
         // Get time
         QString dateTime = inData;
         
-        guiPointer->receiveMssage(from, to, contents, dateTime);
+        guiPointer->receiveMessage(from, to, contents, dateTime);
     }
+    else{
+        throw logic_error("Unknown command, fatal error");
+    }
+    
 }
 
 void NetClient::sendMessage(QString from, QString to, QString message){
@@ -109,7 +114,7 @@ void NetClient::sendMessage(QString from, QString to, QString message){
     TcpSocket->waitForBytesWritten(1000);
 }
 
-void NetClient::setName(Qstring inName) {
+void NetClient::setName(QString inName) {
     name=inName;
 }
 
