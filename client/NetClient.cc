@@ -6,11 +6,12 @@ BESKRIVNING:
 */
 
 #include "NetClient.h"
+#include "../../Gui/Gui.h"
 #include <QTest>
 
 using namespace std;
 
-NetClient::NetClient(string username, string inAddress, QObject *parent) : QObject(parent){
+NetClient::NetClient(string username, string inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
     name=QString::fromStdString(username);
     address=QString::fromStdString(inAddress);
@@ -53,7 +54,28 @@ void NetClient::disconnected(){
 }
 
 void NetClient::readyRead(){
-    qDebug() << TcpSocket->readAll();
+    //Recieve commando
+    QByteArray Data = TcpSocket->readAll();
+    
+    // Separate the command from the operand
+    QByteArray compare;
+    compare += 0x1F;
+    
+    int i = Data.indexOf(compare);
+    
+    QString commandName = Data.left(i);
+    QString temp = Data.mid(i);
+    
+    string inData = temp.toStdString();
+    
+    // Check which command that's supposed to run
+    if (commandName == "/reinitiate") {
+        //reprompt
+        Gui::userNameTaken();
+    }
+    else (commandName == "/message") {
+
+    
 }
 
 void NetClient::sendMessage(string message){
