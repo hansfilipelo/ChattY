@@ -73,6 +73,37 @@ void NetClient::readyRead(){
         guiPointer->userNameTaken();
     }
     
+    else if (commandName == "/history") {
+        QVector<QString> history;
+        while(inData.size()>1){
+            
+            // Get from
+            i = inData.indexOf(compare);
+            QString from = inData.left(i);
+            inData = inData.mid(i);
+            history.push_back(from);
+            
+            // Get to
+            i = inData.indexOf(compare);
+            QString to = inData.left(i);
+            inData = inData.mid(i);
+            history.push_back(to);
+            
+            // Get message
+            i = inData.indexOf(compare);
+            QString contents = inData.left(i);
+            inData = inData.mid(i);
+            history.push_back(contents);
+            
+            //Get time
+            i = inData.indexOf(compare);
+            QString time = inData.left(i);
+            inData = inData.mid(i);
+            history.push_back(time);
+            
+        }
+    }
+    
     else if (commandName == "/message") {
         
         // Get from
