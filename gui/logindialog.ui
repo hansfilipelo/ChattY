@@ -23,7 +23,11 @@
    <item row="0" column="1">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLineEdit" name="inputServer"/>
+      <widget class="QLineEdit" name="inputServer">
+       <property name="text">
+        <string>hfelo.se</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="inputName"/>
