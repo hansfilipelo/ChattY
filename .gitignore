@@ -54,3 +54,6 @@ gui/ui_logindialog.h
 # Build
 build-ChatGUI-Desktop_Qt_5_2_0_clang_64bit-Debug
 
+# Chatlog is a text file
+*.txt
+
