@@ -16,6 +16,7 @@ using namespace std;
 Room::Room(string inName,Master* master) {
     masterPointer = master;
     name = inName;
+    readAllFromFile();
 }
 
 // ----------------------------------------
@@ -123,7 +124,6 @@ void Room::receiveMessage(Message inMessage) {
         log.push_back(inMessage);
         
         sendMessageAll(inMessage);
-        
         saveToFile(inMessage);
     }
     else{
@@ -156,9 +156,39 @@ void Room::addRoom(Room* inRoom) {
 // ----------------------------------
 
 void Room::saveToFile(Message inMessage) {
-    cout << inMessage.getFrom() << ": " << inMessage.getMessage() << endl;
-    return;
+    ofstream logfile;
+    logfile.open ("log.txt", std::ios_base::app);
+    
+    logfile << inMessage.getServerTime() << endl << inMessage.getFrom() << endl;
+    logfile << inMessage.getTo() << endl << inMessage.getMessage() << endl;
+    
+    logfile.close();
 }
+
+void Room::readAllFromFile() {
+    
+    string line;
+    ifstream logfile ("log.txt");
+    if (logfile.is_open())
+    {
+        for (unsigned int i=0; i<99 and getline (logfile,line); ++i) {
+            vector<string> tempVector;
+            
+            for (unsigned int k=0; k<4; ++k) {
+                getline (logfile,line);
+                tempVector.push_back(line);
+            }
+            
+            Message tempMessage(tempVector.at(3),tempVector.at(1),tempVector.at(2));
+            log.push_back(tempMessage);
+        }
+        logfile.close();
+        cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
+    }
+    else cout << "Unable to open file";
+}
+
+
 
 // ------------------------------------
 
