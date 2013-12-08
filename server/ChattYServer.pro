@@ -13,7 +13,7 @@ QT		+= core
 QT		+= network
 QT		-= gui
 
-TARGET		= server
+TARGET		= ChattYServer
 
 # Use C++11 standard
 CONFIG		+= console c++11
