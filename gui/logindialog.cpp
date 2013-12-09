@@ -25,7 +25,7 @@ void LoginDialog::on_buttonBox_rejected()
 }
 
 void LoginDialog::on_buttonBox_accepted()
-{   if (ui->inputServer->text() == "hfelo.se"){
+{   if (ui->inputServer->text() == "hfelo.se"){  //Denna kod skall bort sen
         ui->inputServer->setText("85.228.199.40");
     }
         chatGui->createClient(ui->inputName->text(),ui->inputServer->text());

@@ -17,7 +17,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
-
+    ui->messageHistory->moveCursor(QTextCursor::End);
     if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText(from +" whispers to you: ");

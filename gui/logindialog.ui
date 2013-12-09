@@ -24,6 +24,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLineEdit" name="inputServer">
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>hfelo.se</string>
        </property>
