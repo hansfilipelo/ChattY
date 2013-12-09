@@ -17,6 +17,7 @@ BESKRIVNING:
 #include <QString>
 #include <iostream>
 #include <stdexcept>
+#include <QHostInfo>
 
 class Gui;
 

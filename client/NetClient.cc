@@ -29,7 +29,9 @@ void NetClient::start(){
     
     qDebug() << "connecting...";
     
-    TcpSocket->connectToHost(QHostAddress(address),quint16(40001));
+    QHostInfo info = QHostInfo::fromName(address);
+    
+    TcpSocket->connectToHost(info.addresses().at(0),quint16(40001));
     
     if(!TcpSocket->waitForConnected(1000)){
         guiPointer->noConnection();
