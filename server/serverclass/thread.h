@@ -40,11 +40,17 @@ public slots:
     void readyRead();
     void disconnected();
     
+protected:
+    void handleMessage(QString);
+    void handleInitiate(std::string);
+    void handleStructure();
+    
 private:
     QTcpSocket* TcpSocket;
     qintptr socketDescriptor;
     Master* masterPointer;
     User* userPointer;
+    QByteArray compare;
 };
 
 #endif

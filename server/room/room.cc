@@ -233,3 +233,30 @@ void Room::chooseRoom(Room*) {
 Room* Room::getParentRoom() {
     return parentRoom;
 }
+
+// -----------------------------------
+
+vector<string> User::getStruct() {
+    parentRoom->getStruct();
+}
+
+// -----------------------------------
+
+vector<string> Room::getStruct() {
+    vector<string> structure;
+    structure.push_back("User");
+    
+    for (unsigned int i = 0; i < rooms.size() ; i++) {
+        User* userTemp = dynamic_cast<User*>(rooms.at(i));
+        if ( userTemp == nullptr ) {
+            structure.insert(structure.begin(),rooms.at(i)->getName());
+        }
+        else {
+            structure.push_back(rooms.at(i)->getName());
+        }
+    }
+    
+    return structure;
+}
+
+

@@ -9,10 +9,81 @@
 
 using namespace std;
 
+
+// ---------------------------------------
+// Helper functions
+
+void Thread::handleMessage(QString inData){
+    int i;
+    
+    QString from;
+    i = inData.indexOf(compare);
+    from = inData.left(i);
+    string stdFrom = from.toStdString();
+    inData = inData.mid(i+1);
+    
+    QString to;
+    i = inData.indexOf(compare);
+    to = inData.left(i);
+    string stdTo = to.toStdString();
+    inData = inData.mid(i+1);
+    
+    QString contents;
+    i = inData.indexOf(compare);
+    contents = inData.left(i);
+    string stdContents = contents.toStdString();
+    inData = inData.mid(i+1);
+    
+    cout << "readyRead" << endl;
+    cout << stdFrom << endl;
+    cout << stdTo << endl;
+    cout << stdContents << endl;
+    
+    
+    Message message(stdContents, stdFrom, stdTo);
+    userPointer->sendMessage(message);
+}
+
+// ----------------------
+
+void Thread::handleInitiate(string stdInData) {
+    try
+    {
+        userPointer = masterPointer->createUser(stdInData);
+        userPointer->setThread(this);
+    }
+    catch (...)
+    {
+        reinitiate();
+    }
+}
+
+// ----------------------
+
+void Thread::handleStructure() {
+    vector<string> structure = userPointer->getStruct();
+    
+    QByteArray sendData;
+    sendData += "/structure";
+    sendData += compare;
+    
+    for (unsigned int i = 0; i < structure.size() ; i++) {
+        sendData += QString::fromStdString(structure.at(i));
+        sendData += compare;
+    }
+    
+    TcpSocket->write(sendData);
+    
+}
+
+
+// ---------------------------------------
+
 Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 {
     masterPointer=masterptr;
     this->socketDescriptor = ID;
+    compare += 0x1F;
 }
 
 // ---------------------------------------
@@ -48,10 +119,6 @@ void Thread::readyRead()
     
     QByteArray Data = TcpSocket->readAll();
     
-    // Separate the command from the operand
-    QByteArray compare;
-    compare += 0x1F;
-    
     int i = Data.indexOf(compare);
     
     QString commandName = Data.left(i);
@@ -61,48 +128,17 @@ void Thread::readyRead()
     
     // Check which command that's supposed to run
     if (commandName == "/initiate") {
-        
-        try
-        {
-            userPointer = masterPointer->createUser(stdInData);
-            userPointer->setThread(this);
-        }
-        catch (...)
-        {
-            reinitiate();
-        }
+        handleInitiate(stdInData);
     }
     
     else if (commandName == "/message") {
-
-        
-        QString from;
-        i = inData.indexOf(compare);
-        from = inData.left(i);
-        string stdFrom = from.toStdString();
-        inData = inData.mid(i+1);
-        
-        QString to;
-        i = inData.indexOf(compare);
-        to = inData.left(i);
-        string stdTo = to.toStdString();
-        inData = inData.mid(i+1);
-        
-        QString contents;
-        i = inData.indexOf(compare);
-        contents = inData.left(i);
-        string stdContents = contents.toStdString();
-        inData = inData.mid(i+1);
-        
-        cout << "readyRead" << endl;
-        cout << stdFrom << endl;
-        cout << stdTo << endl;
-        cout << stdContents << endl;
-        
-        
-        Message message(stdContents, stdFrom, stdTo);
-        userPointer->sendMessage(message);
+        handleMessage(inData);
     }
+    
+    else if ( commandName == "/structure" ) {
+        handleStructure();
+    }
+    
     else {
         TcpSocket->write("Ej giltigt kommando");
         cout << socketDescriptor << "Data in: "<< stdInData<<endl;
