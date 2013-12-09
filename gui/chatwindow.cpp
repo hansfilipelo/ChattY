@@ -87,7 +87,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 
     if(w == "/w " or w =="/W "){
 
-        to.remove("/w ",Qt::CaseInsensitive);
+        to.remove("/w ",Qt::CaseInsensitive);  /*Skall delas upp i funktioner och istället bara ha en lista med kommandon t.ex. /w.*/
         if(to.length() > 0 && to.endsWith(" ")){
             to.chop(1);
             receiver = to;

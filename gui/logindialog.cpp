@@ -9,6 +9,9 @@ ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
     this->setFixedSize(this->width(),this->height());
+    ui->inputServer->setPlaceholderText("Example: name.server.com");
+    ui->inputName->setPlaceholderText("Example: Name (max 32 characters)");
+    ui->inputName->setInputMask("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
     mainWindow = chatPointer;
     chatGui = guiPointer;
 }
@@ -25,8 +28,9 @@ void LoginDialog::on_buttonBox_rejected()
 }
 
 void LoginDialog::on_buttonBox_accepted()
-{
-    chatGui->createClient(ui->inputName->text(),ui->inputServer->text());
+{   ui->errorMessage->setText("");
+        chatGui->createClient(ui->inputName->text(),ui->inputServer->text());
+
 }
 
 void LoginDialog::connected(){

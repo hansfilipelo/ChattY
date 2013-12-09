@@ -3,6 +3,7 @@
 #include "chatwindow.h"
 #include <QDialog>
 #include <QString>
+#include <iostream>
 class Gui;
 
 namespace Ui {
@@ -29,6 +30,7 @@ private slots:
 
 private:
     Ui::LoginDialog *ui;
+
 
 };
 
