@@ -16,9 +16,40 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="25,75">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,75">
       <item>
-       <widget class="QTreeView" name="treeView"/>
+       <widget class="QTreeWidget" name="roomTree">
+        <column>
+         <property name="text">
+          <string>(Server name)</string>
+         </property>
+        </column>
+        <item>
+         <property name="text">
+          <string>Top room</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Sub room</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>User1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>User2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>User3</string>
+           </property>
+          </item>
+         </item>
+        </item>
+       </widget>
       </item>
       <item>
        <widget class="QTextBrowser" name="messageHistory">

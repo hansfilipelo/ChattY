@@ -10,9 +10,6 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
-    ui->treeView->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->treeView->parent();
     chatGui = guiPointer;
 }
 
@@ -43,7 +40,13 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     }
     ui->messageHistory->insertPlainText(message);
     ui->messageHistory->insertPlainText("\n");
-    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+    if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
+    {
+
+    }
+    else{
+        ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+    }
 
 }
 
@@ -117,7 +120,7 @@ void ChatWindow::on_actionBlack_triggered()
                                     "background-color: grey;"
                                     "selection-color: black;"
                                     "selection-background-color: white");
-    ui->treeView->setStyleSheet("color: black;"
+    ui->roomTree->setStyleSheet("color: black;"
                                 "background-color: grey;"
                                 "selection-color: black;"
                                 "selection-background-color: white");
@@ -139,7 +142,7 @@ void ChatWindow::on_actionBlack_triggered()
 void ChatWindow::on_actionDefault_triggered()
 {
     ui->messageInput->setStyleSheet("");
-    ui->treeView->setStyleSheet("");
+    ui->roomTree->setStyleSheet("");
     ui->messageHistory->setStyleSheet("");
     this->setStyleSheet("");
     ui->mainToolBar->setStyleSheet("");
