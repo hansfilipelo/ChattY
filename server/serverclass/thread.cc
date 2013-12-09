@@ -44,6 +44,8 @@ void Thread::handleMessage(QString inData){
     userPointer->sendMessage(message);
 }
 
+// ----------------------
+
 void Thread::handleInitiate(string stdInData) {
     try
     {
@@ -55,6 +57,25 @@ void Thread::handleInitiate(string stdInData) {
         reinitiate();
     }
 }
+
+// ----------------------
+
+void Thread::handleStructure() {
+    vector<string> structure = userPointer->getStruct();
+    
+    QByteArray sendData;
+    sendData += "/structure";
+    sendData += compare;
+    
+    for (unsigned int i = 0; i < structure.size() ; i++) {
+        sendData += QString::fromStdString(structure.at(i));
+        sendData += compare;
+    }
+    
+    TcpSocket->write(sendData);
+    
+}
+
 
 // ---------------------------------------
 
@@ -114,9 +135,9 @@ void Thread::readyRead()
         handleMessage(inData);
     }
     
-//    else if ( commandName == "/structure" ) {
-//        handleStructure(inData);
-//    }
+    else if ( commandName == "/structure" ) {
+        handleStructure();
+    }
     
     else {
         TcpSocket->write("Ej giltigt kommando");

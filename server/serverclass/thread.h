@@ -43,6 +43,7 @@ public slots:
 protected:
     void handleMessage(QString);
     void handleInitiate(std::string);
+    void handleStructure();
     
 private:
     QTcpSocket* TcpSocket;
