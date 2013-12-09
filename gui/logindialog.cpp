@@ -29,7 +29,12 @@ void LoginDialog::on_buttonBox_rejected()
 
 void LoginDialog::on_buttonBox_accepted()
 {   ui->errorMessage->setText("");
+    if (ui->inputName->text()=="User"){
+        ui->errorMessage->setText("Name not allowed");
+    }
+    else{
         chatGui->createClient(ui->inputName->text(),ui->inputServer->text());
+    }
 
 }
 
