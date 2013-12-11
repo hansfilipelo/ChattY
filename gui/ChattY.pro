@@ -27,3 +27,6 @@ HEADERS  += chatwindow.h logindialog.h ../client/NetClient.h \
     gui.h
 
 FORMS    += chatwindow.ui logindialog.ui
+
+RESOURCES += \
+    myResources.qrc

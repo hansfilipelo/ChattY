@@ -16,7 +16,9 @@ public:
     void createClient(QString inName, QString inAddress);
     void noConnection();
     void sendMessage(QString from, QString to, QString message);
-    // void Gui::updateStruct(vector);
+    void updateStruct(QVector<QString> treeStruct);
+    void getStruct();
+
 protected:
     NetClient* client = nullptr;
     LoginDialog* loginWindow = nullptr;

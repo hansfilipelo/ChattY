@@ -21,7 +21,7 @@
        <widget class="QTreeWidget" name="roomTree">
         <column>
          <property name="text">
-          <string>(Server name)</string>
+          <string/>
          </property>
         </column>
         <item>

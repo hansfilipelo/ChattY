@@ -40,3 +40,11 @@ void Gui::noConnection(){
 void Gui::sendMessage(QString from, QString to, QString message){
     client->sendMessage(from,to,message);
 }
+
+void Gui::updateStruct(QVector<QString> treeStruct){
+    mainWindow->updateStruct(treeStruct);
+}
+
+void Gui::getStruct(){
+    mainWindow->updateStruct(client->getStruct());
+}

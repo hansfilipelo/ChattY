@@ -54,6 +54,46 @@ void ChatWindow::setName(QString inName){
     name = inName;
 }
 
+void ChatWindow::setServer(QString serverName){
+     server = serverName;
+     ui->roomTree->setHeaderLabel(server);
+}
+
+void ChatWindow::updateStruct(QVector<QString> treeStruct){
+    QTreeWidgetItem* treeParent=new QTreeWidgetItem(ui->roomTree);
+    treeParent=addRoot(treeStruct.at(0));
+    for (int i=1; i<= treeStruct.size(); i++){
+        if (treeStruct.at(i)=="User"){
+            while (i+1 <= treeStruct.size()){
+                addLeaf(treeParent,treeStruct.at(i+1));
+                i++;
+            }
+        }
+        treeParent=addSubRoot(treeParent,treeStruct.at(i));
+    }
+}
+
+QTreeWidgetItem* ChatWindow::addRoot(const QString rootName){
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
+    item->setText(0,rootName);
+    ui->roomTree->addTopLevelItem(item);
+    return item;
+
+}
+
+QTreeWidgetItem* ChatWindow::addSubRoot(QTreeWidgetItem *parent,const QString childName){
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
+    item->setText(0,childName);
+    parent->addChild(item);
+    return item;
+}
+
+void ChatWindow::addLeaf(QTreeWidgetItem *parent,const QString leafName){
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
+    item->setText(0,leafName);
+    parent->addChild(item);
+}
+
 ChatWindow::~ChatWindow()
 {
     delete ui;
@@ -90,7 +130,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 
     if(w == "/w " or w =="/W "){
 
-        to.remove("/w ",Qt::CaseInsensitive);  /*Skall delas upp i funktioner och istället bara ha en lista med kommandon t.ex. /w.*/
+        to.remove("/w ",Qt::CaseInsensitive);
         if(to.length() > 0 && to.endsWith(" ")){
             to.chop(1);
             receiver = to;
@@ -98,8 +138,6 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
             ui->messageInput->clear();
         }
     }
-
-
     if(whisper == "/whisper " or whisper =="/Whisper "){
 
         to.remove("/whisper ",Qt::CaseInsensitive);
@@ -110,10 +148,18 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
             ui->messageInput->clear();
         }
     }
+  //  if(w=="/r " or w=="/R "){
+
 }
 void ChatWindow::sendMessage(){
     chatGui->sendMessage(name,receiver,ui->messageInput->text());
+
 }
+
+
+
+                         }
+
 void ChatWindow::on_actionBlack_triggered()
 {
     ui->messageInput->setStyleSheet("color: black;"
@@ -146,5 +192,5 @@ void ChatWindow::on_actionDefault_triggered()
     ui->messageHistory->setStyleSheet("");
     this->setStyleSheet("");
     ui->mainToolBar->setStyleSheet("");
-
 }
+
