@@ -193,7 +193,6 @@ void ChatWindow::on_actionDefault_triggered()
     ui->mainToolBar->setStyleSheet("");
 }
 
-}
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
     for(int i = 0;i==historyVector.size(); i+=4){
