@@ -155,6 +155,13 @@ void NetClient::setName(QString inName) {
     name=inName;
 }
 
+void NetClient::getStruct(){
+    QByteArray array = "/structure";
+    array += 0x1F;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}
 
 //--------------------------------------------
 //Helpfunctions

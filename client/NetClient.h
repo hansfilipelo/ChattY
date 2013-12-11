@@ -29,6 +29,7 @@ public:
     void start();
     void sendMessage(QString, QString, QString);
     void setName(QString);
+    void getStruct();
     
 signals:
     
