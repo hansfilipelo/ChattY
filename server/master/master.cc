@@ -70,6 +70,14 @@ Room* Master::createRoom(string name) {
     catch(...){
         Room* temp = new Room(name,this);
         rooms.push_back(temp);
+        
+        // Update structure on all clients
+        for (unsigned int i = 0; i < rooms.size(); i++) {
+            if ( userOrNot(rooms.at(i)) ) {
+                rooms.at(i)->requestStruct();
+            }
+        }
+        
         return temp;
     }
     throw logic_error("Trying to create room, but name is taken (Liam Neeson)");
@@ -103,6 +111,7 @@ User* Master::createUser(string name){
         
         cout << name <<" was connected!" <<endl;
         
+        // Update structure on all clients
         for (unsigned int i = 0; i < rooms.size(); i++) {
             if ( userOrNot(rooms.at(i)) ) {
                 rooms.at(i)->requestStruct();
