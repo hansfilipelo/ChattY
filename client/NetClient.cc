@@ -65,28 +65,27 @@ void NetClient::readyRead(){
     QByteArray Data = TcpSocket->readAll();
     
     int i;
-    int n;
     
     QString commandName;
     QString inData = Data;
+    int n = inData.indexOf(breaker);
+    
     
     QString rest;
-    while ( !inData.isEmpty() ) {
-        
-        i = inData.indexOf(compare);
-        
-        commandName = inData.left(i);
-        inData = inData.mid(i+1);
-        
+    while (n != -1 ) {
         n = inData.indexOf(breaker);
-        
-        if (inData.size() < 2) {
-            
+        if(n == -1){
             break;
         }
         rest = inData.mid(n+1);
-        
         inData = inData.left(n);
+        cout << "yo" <<n<< endl;
+        i = inData.indexOf(compare);
+        
+        commandName = inData.left(i);
+        
+        qDebug() << commandName;
+        inData = inData.mid(i+1);
         
         QString temp = inData;
         string stdInData = temp.toStdString();
@@ -98,31 +97,38 @@ void NetClient::readyRead(){
         
         else if (commandName == "/history") {
             QVector<QString> history;
-            while(inData.size()>1){
+            int i = inData.indexOf(compare);
+            while(i != -1 ){
                 
                 // Get from
                 i = inData.indexOf(compare);
                 QString from = inData.left(i);
                 inData = inData.mid(i+1);
                 history.push_back(from);
+                cout << from.toStdString() << endl;
                 
                 // Get to
                 i = inData.indexOf(compare);
                 QString to = inData.left(i);
                 inData = inData.mid(i+1);
                 history.push_back(to);
+                cout << to.toStdString() << endl;
                 
                 // Get message
                 i = inData.indexOf(compare);
                 QString contents = inData.left(i);
                 inData = inData.mid(i+1);
                 history.push_back(contents);
+                cout << contents.toStdString() << endl;
+                
                 
                 //Get time
                 i = inData.indexOf(compare);
                 QString time = inData.left(i);
                 inData = inData.mid(i+1);
                 history.push_back(time);
+                cout << time.toStdString() << endl;
+                
             }
             guiPointer->receiveHistory(history);
         }
@@ -151,19 +157,21 @@ void NetClient::readyRead(){
         }
         
         else if ( commandName == "/structure" ) {
-            guiPointer->updateStruct(handleStructure(inData));
+            //guiPointer->updateStruct(handleStructure(inData));
         }
         else {
             throw logic_error("Unknown command");
         }
         
         inData = rest;
+        n = inData.indexOf(breaker);
         
     }
 }
 
 void NetClient::sendMessage(QString from, QString to, QString message){
     QByteArray array = "/message";
+    qDebug() << "sendMessage";
     array += 0x1F; //unit separator
     array += from;
     array += 0x1F;
@@ -193,13 +201,19 @@ void NetClient::getStruct(){
 
 QVector<QString> NetClient::handleStructure(QString inData){
     QVector<QString> output;
-    while(inData.size() > 0){
+    int n = inData.size();
+    while(n  > 0){
         int i = inData.indexOf(compare);
+        cout << i << endl;
+        if (i == -1){
+            break;
+        }
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
+        n = inData.size();
+        cout << inData.size() << endl;
     }
     return output;
     
 }
-
