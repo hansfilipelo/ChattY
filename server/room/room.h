@@ -45,6 +45,7 @@ public:
     void listRooms();
     Room* getRoom(std::string);
     Message getMessage(unsigned int i);
+    
     virtual void chooseRoom(Room*);
     std::vector<Message> log;
     
@@ -55,6 +56,7 @@ protected:
     void saveToFile(Message);
     void readAllFromFile();
     void sendMessageAll(Message);
+    
     std::string name;
     std::vector<Room*> rooms;
     Room* parentRoom = nullptr;
