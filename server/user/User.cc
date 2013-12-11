@@ -52,6 +52,16 @@ void User::setThread(class Thread* inThread) {
     thread = inThread;
 }
 
+<<<<<<< HEAD
 void User::sendHistory(){
     thread->sendHistory();
 }
+=======
+// ----------------------------------
+
+void User::requestStruct() {
+    thread->requestStruct();
+}
+
+// ----------------------------------
+>>>>>>> 3a46789fab331f475e2ae49520cdfea00eb970e7

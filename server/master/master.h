@@ -33,6 +33,10 @@ public:
     void printVector(); // testing purposes 
     
 protected:
+    bool userOrNot(Room* inRoom);
+    
+    
+    void pushStructUpdate();
     unsigned int getPosOfRoom(std::string);
     std::vector<Room*> rooms;
     Room* topRoom;

@@ -32,6 +32,8 @@ public:
     virtual void receiveMessage(Message);
     virtual void sendMessage(Message);
     
+    virtual void requestStruct();
+    
     void createRoom(std::string);
     void addRoom(Room*);
     void removeRoom(Room*); // Throws error if room doesn't exist
@@ -77,6 +79,7 @@ public:
     void initRoom(std::string);
     void setThread(Thread*);
     std::vector<std::string> getStruct();
+    void requestStruct();
     
 protected:
     Thread* thread;

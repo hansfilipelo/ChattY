@@ -30,6 +30,7 @@ public:
     void reinitiate();
     void sendVector();
     void sendHistory();
+    void requestStruct();
     
 signals:
     void error(QTcpSocket::SocketError socketerror);
