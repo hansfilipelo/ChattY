@@ -75,6 +75,7 @@ public:
     void sendMessage(Message);
     void receiveMessage(Message);
     
+    void sendHistory();
     void chooseRoom(Room*);
     void initRoom(std::string);
     void setThread(Thread*);
