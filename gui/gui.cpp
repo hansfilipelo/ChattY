@@ -40,3 +40,7 @@ void Gui::noConnection(){
 void Gui::sendMessage(QString from, QString to, QString message){
     client->sendMessage(from,to,message);
 }
+
+void Gui::receiveHistory(QVector<QString> &historyVector){
+    mainWindow->receiveHistory(QVector<QString> historyVector);
+}

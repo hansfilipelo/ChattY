@@ -19,9 +19,10 @@ public:
     void receiveMessage(const QString from, const QString to, const QString message, const QString time);
     ~ChatWindow();
     void setName(QString inName);
-    Gui* chatGui;
     void sendMessage();
     std::ofstream debug;
+    void receiveHistory(QVector<QString> &historyVector);
+
 
 
 private slots:
@@ -39,7 +40,7 @@ private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
-    Gui* guiPointer;
+    Gui* chatGui;
 };
 
 #endif // CHATWINDOW_H

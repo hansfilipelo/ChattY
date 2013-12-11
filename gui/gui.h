@@ -16,6 +16,7 @@ public:
     void createClient(QString inName, QString inAddress);
     void noConnection();
     void sendMessage(QString from, QString to, QString message);
+    void receiveHistory(QVector<QString> &historyVector);
     // void Gui::updateStruct(vector);
 protected:
     NetClient* client = nullptr;
