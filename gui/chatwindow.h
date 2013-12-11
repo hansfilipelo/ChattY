@@ -27,7 +27,9 @@ public:
     void addLeaf(QTreeWidgetItem *parent,const QString leafName);
     Gui* chatGui;
     void sendMessage();
-    void whisper(QString to);
+    std::ofstream debug;
+    void receiveHistory(QVector<QString> &historyVector);
+
 
 
 private slots:
@@ -45,8 +47,6 @@ private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
-    Gui* guiPointer;
-    QString server;
 };
 
 #endif // CHATWINDOW_H

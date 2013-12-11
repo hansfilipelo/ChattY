@@ -19,6 +19,8 @@ public:
     void updateStruct(QVector<QString> treeStruct);
     void getStruct();
 
+    void receiveHistory(QVector<QString> &historyVector);
+    // void Gui::updateStruct(vector);
 protected:
     NetClient* client = nullptr;
     LoginDialog* loginWindow = nullptr;

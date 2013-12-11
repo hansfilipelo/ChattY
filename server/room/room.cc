@@ -259,4 +259,10 @@ vector<string> Room::getStruct() {
     return structure;
 }
 
+// -------------------------------------
+
+void Room::requestStruct() {
+    throw logic_error{"You're a retard since you're trying to do stuff to a room. You naughty naughty boy."};
+}
+
 

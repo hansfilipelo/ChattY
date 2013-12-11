@@ -51,6 +51,7 @@ void Thread::handleInitiate(string stdInData) {
     {
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
+        userPointer->sendHistory();
     }
     catch (...)
     {
@@ -161,6 +162,8 @@ void Thread::disconnected()
     exit(0);
 }
 
+// -----------------------------------------
+
 //svarar klienten
 void Thread::sendMessage(Message messageObject){
     QByteArray array = "/message";
@@ -179,14 +182,15 @@ void Thread::sendMessage(Message messageObject){
     
 }
 
+// -----------------------------------------
 
 void Thread::sendHistory(){
-    QByteArray array = "/reinitiate";
+    QByteArray array = "/history";
     array += 0x1F; //unit separator
     
-    
-    for (unsigned int i=0; i<userPointer->getParentRoom()->log.size(); ++i)
+    for (unsigned int i=0; i < userPointer->getParentRoom()->log.size(); i++)
     {
+        
         Message tempMessage = userPointer->getParentRoom()->log.at(i);
         
         array += QString::fromStdString(tempMessage.getFrom());
@@ -204,6 +208,7 @@ void Thread::sendHistory(){
     
 }
 
+// -----------------------------------------
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
@@ -213,3 +218,13 @@ void Thread::reinitiate(){
     TcpSocket->waitForBytesWritten(1000);
 }
 
+// -----------------------------------------
+
+
+void Thread::requestStruct() {
+    QByteArray array = "/structure";
+    array += 0x1F;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}

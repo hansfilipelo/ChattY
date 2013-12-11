@@ -151,14 +151,13 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
   //  if(w=="/r " or w=="/R "){
 
 }
+
+
 void ChatWindow::sendMessage(){
     chatGui->sendMessage(name,receiver,ui->messageInput->text());
 
 }
 
-
-
-                         }
 
 void ChatWindow::on_actionBlack_triggered()
 {
@@ -194,3 +193,11 @@ void ChatWindow::on_actionDefault_triggered()
     ui->mainToolBar->setStyleSheet("");
 }
 
+}
+
+void ChatWindow::receiveHistory(QVector<QString> &historyVector){
+    for(int i = 0;i==historyVector.size(); i+=4){
+        ui->messageHistory->insertPlainText(historyVector.at(i) + " says: " + historyVector.at(i+2) + "\n");
+    }
+
+}

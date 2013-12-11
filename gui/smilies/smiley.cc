@@ -12,7 +12,7 @@ using namespace std;
 
 Smiley::Smiley()
 {
-    const char* filename="smileys.txt";
+    const char* filename="smilies.txt";
     ifstream inputfile;
     inputfile.open(filename,ifstream::in);
     

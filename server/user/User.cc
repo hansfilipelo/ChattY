@@ -23,7 +23,6 @@ void User::chooseRoom(Room* newRoom){
 		parentRoom->removeRoom(this);
 	}
     newRoom->addRoom(this);
-    this->parentRoom = newRoom;
 }
 
 // ----------------------------------
@@ -51,3 +50,16 @@ void User::initRoom(string name){
 void User::setThread(class Thread* inThread) {
     thread = inThread;
 }
+
+
+void User::sendHistory(){
+    thread->sendHistory();
+}
+
+// ----------------------------------
+
+void User::requestStruct() {
+    thread->requestStruct();
+}
+
+// ----------------------------------

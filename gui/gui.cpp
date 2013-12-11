@@ -48,3 +48,7 @@ void Gui::updateStruct(QVector<QString> treeStruct){
 void Gui::getStruct(){
     mainWindow->updateStruct(client->getStruct());
 }
+
+void Gui::receiveHistory(QVector<QString> &historyVector){
+    mainWindow->receiveHistory(historyVector);
+}
