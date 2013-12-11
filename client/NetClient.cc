@@ -108,7 +108,7 @@ void NetClient::readyRead(){
             inData = inData.mid(i+1);
             history.push_back(time);
         }
-        guiPointer->receiveHistory(&history);
+        guiPointer->receiveHistory(history);
     }
     
     else if (commandName == "/message") {

@@ -187,9 +187,10 @@ void Thread::sendMessage(Message messageObject){
 void Thread::sendHistory(){
     QByteArray array = "/history";
     array += 0x1F; //unit separator
-
-    for (unsigned int i=0; i<userPointer->getParentRoom()->log.size(); ++i)
+    
+    for (unsigned int i=0; i < userPointer->getParentRoom()->log.size(); i++)
     {
+        
         Message tempMessage = userPointer->getParentRoom()->log.at(i);
         
         array += QString::fromStdString(tempMessage.getFrom());
@@ -211,7 +212,7 @@ void Thread::sendHistory(){
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
-    array += compare; //unit separator
+    array += 0x1F; //unit separator
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -219,9 +220,10 @@ void Thread::reinitiate(){
 
 // -----------------------------------------
 
+
 void Thread::requestStruct() {
     QByteArray array = "/structure";
-    array += compare;
+    array += 0x1F;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);

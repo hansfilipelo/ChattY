@@ -113,7 +113,7 @@ User* Master::createUser(string name){
         
         // Update structure on all clients
         for (unsigned int i = 0; i < rooms.size(); i++) {
-            if ( userOrNot(rooms.at(i)) ) {
+            if ( userOrNot(rooms.at(i)) and rooms.at(i)->getName() != name ) {
                 rooms.at(i)->requestStruct();
             }
         }
