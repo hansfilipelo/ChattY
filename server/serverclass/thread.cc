@@ -51,6 +51,7 @@ void Thread::handleInitiate(string stdInData) {
     {
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
+        userPointer->sendHistory();
     }
     catch (...)
     {
