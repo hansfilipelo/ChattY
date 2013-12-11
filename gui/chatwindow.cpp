@@ -201,8 +201,12 @@ void ChatWindow::on_actionDefault_triggered()
 
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
-    for(int i = 0;i==historyVector.size(); i+=4){
-        ui->messageHistory->insertPlainText(historyVector.at(i) + " says: " + historyVector.at(i+2) + "\n");
+    for(int i = 0;i<historyVector.size(); i+=4){
+        
+        ui->messageHistory->setTextColor(Qt::blue);
+        ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
+        ui->messageHistory->setTextColor(Qt::black);
+        ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
     }
 
 }

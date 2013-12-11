@@ -51,4 +51,5 @@ void Gui::getStruct(){
 
 void Gui::receiveHistory(QVector<QString> &historyVector){
     mainWindow->receiveHistory(historyVector);
+    
 }

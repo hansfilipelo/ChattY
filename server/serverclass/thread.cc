@@ -231,7 +231,6 @@ void Thread::sendHistory(){
         array += QString::fromStdString(tempMessage.getServerTime());
         array += 0x1E; //unit separator
     }
-    
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
     

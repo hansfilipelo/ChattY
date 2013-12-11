@@ -171,11 +171,13 @@ void Room::readAllFromFile() {
     ifstream logfile ("log.txt");
     if (logfile.is_open())
     {
-        for (unsigned int i=0; i<99 and getline (logfile,line); ++i) {
+        for (unsigned int i=0; getline (logfile,line); i++) {
             vector<string> tempVector;
+            cout<<tempVector.empty();
             
-            for (unsigned int k=0; k<4; ++k) {
+            for (unsigned int k=0; k<4; k++) {
                 getline (logfile,line);
+                cout << line << endl;
                 tempVector.push_back(line);
             }
             
@@ -183,6 +185,7 @@ void Room::readAllFromFile() {
             log.push_back(tempMessage);
         }
         logfile.close();
+        
         cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
     }
     else cout << "Unable to open file";
