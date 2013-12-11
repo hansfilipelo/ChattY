@@ -21,6 +21,7 @@ server/server
 server/serverclass/server
 client/client
 *.orig
+server/ChattYServer
 
 # Networking in Qt creates .cpp-files
 client/moc_netClient.cpp
@@ -28,6 +29,7 @@ server/serverclass/moc_server.cpp
 server/serverclass/moc_thread.cpp
 server/moc_server.cpp
 server/moc_thread.cpp
+gui/moc_NetClient.cpp
 
 # Davids sketna projektfiler #
 ##############################
