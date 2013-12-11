@@ -109,7 +109,7 @@ User* Master::createUser(string name){
         
         rooms.push_back(temp);
         
-        cout << name <<" was connected!" <<endl;
+        cout << name <<" was created!" <<endl;
         
         // Update structure on all clients
         for (unsigned int i = 0; i < rooms.size(); i++) {
