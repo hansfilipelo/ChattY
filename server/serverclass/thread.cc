@@ -34,12 +34,6 @@ void Thread::handleMessage(QString inData){
     string stdContents = contents.toStdString();
     inData = inData.mid(i+1);
     
-    cout << "readyRead" << endl;
-    cout << stdFrom << endl;
-    cout << stdTo << endl;
-    cout << stdContents << endl;
-    
-    
     Message message(stdContents, stdFrom, stdTo);
     userPointer->sendMessage(message);
 }
@@ -86,6 +80,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     masterPointer=masterptr;
     this->socketDescriptor = ID;
     compare += 0x1F;
+    exit += 0x1E;
 }
 
 // ---------------------------------------
@@ -115,35 +110,56 @@ void Thread::run()
 
 // ---------------------------------------
 
+
+// ---------------------------
+
 void Thread::readyRead()
 {
     
-    
     QByteArray Data = TcpSocket->readAll();
     
-    int i = Data.indexOf(compare);
+    int i;
+    int n;
     
-    QString commandName = Data.left(i);
-    QString inData = Data.mid(i+1);
-    QString temp = inData;
-    string stdInData = temp.toStdString();
+    QString commandName;
+    QString inData;
     
-    // Check which command that's supposed to run
-    if (commandName == "/initiate") {
-        handleInitiate(stdInData);
-    }
+    QString rest;
     
-    else if (commandName == "/message") {
-        handleMessage(inData);
-    }
-    
-    else if ( commandName == "/structure" ) {
-        handleStructure();
-    }
-    
-    else {
-        TcpSocket->write("Ej giltigt kommando");
-        cout << socketDescriptor << "Data in: "<< stdInData<<endl;
+    while ( !inData.empty() ) {
+        
+        i = Data.indexOf(compare);
+        
+        commandName = Data.left(i);
+        inData = Data.mid(i+1);
+        
+        n = inData.indexOf(exit);
+        rest = inData.mid(n+1);
+        inData = inData.left(n);
+        
+        QString temp = inData;
+        string stdInData = temp.toStdString();
+        
+        // Check which command that's supposed to run
+        if (commandName == "/initiate") {
+            handleInitiate(stdInData);
+        }
+        
+        else if (commandName == "/message") {
+            handleMessage(inData);
+        }
+        
+        else if ( commandName == "/structure" ) {
+            handleStructure();
+        }
+        
+        else {
+            TcpSocket->write("Ej giltigt kommando");
+            cout << socketDescriptor << "Data in: "<< stdInData<<endl;
+        }
+        
+        inData = rest;
+        
     }
 }
 
