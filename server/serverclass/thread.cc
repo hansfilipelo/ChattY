@@ -127,16 +127,16 @@ void Thread::readyRead()
     int n;
     
     QString commandName;
-    QString inData;
+    QString inData = Data;
     
     QString rest;
     
     while ( !inData.isEmpty() ) {
         
-        i = Data.indexOf(compare);
+        i = inData.indexOf(compare);
         
-        commandName = Data.left(i);
-        inData = Data.mid(i+1);
+        commandName = inData.left(i);
+        inData = inData.mid(i+1);
         
         n = inData.indexOf(breaker);
         
