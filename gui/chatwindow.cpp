@@ -60,11 +60,17 @@ void ChatWindow::setServer(QString serverName){
 }
 
 void ChatWindow::updateStruct(QVector<QString> treeStruct){
-    QTreeWidgetItem* treeParent=new QTreeWidgetItem(ui->roomTree);
+    qDebug() << "whileloop";
+    QTreeWidgetItem *treeParent= new QTreeWidgetItem(ui->roomTree);
+    qDebug() << "whileloop2";
     treeParent=addRoot(treeStruct.at(0));
-    for (int i=1; i<= treeStruct.size(); i++){
+    qDebug() << "whileloop3";
+    for (int i=1; i< treeStruct.size(); i++){
+        qDebug() << "whileloop4";
         if (treeStruct.at(i)=="User"){
-            while (i+1 <= treeStruct.size()){
+            qDebug() << "whileloop5";
+            while (i+1 < treeStruct.size()){
+                qDebug() << "whileloop";
                 addLeaf(treeParent,treeStruct.at(i+1));
                 i++;
             }

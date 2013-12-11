@@ -5,6 +5,7 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
+#include <QDebug>
 class Gui;
 
 namespace Ui {
