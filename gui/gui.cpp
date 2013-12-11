@@ -43,4 +43,5 @@ void Gui::sendMessage(QString from, QString to, QString message){
 
 void Gui::receiveHistory(QVector<QString> &historyVector){
     mainWindow->receiveHistory(historyVector);
+    
 }

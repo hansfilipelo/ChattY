@@ -57,6 +57,7 @@ protected:
     void readAllFromFile();
     void sendMessageAll(Message);
     
+    int fileCounter;
     std::string name;
     std::vector<Room*> rooms;
     Room* parentRoom = nullptr;

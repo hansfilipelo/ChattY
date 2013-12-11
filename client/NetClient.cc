@@ -77,7 +77,7 @@ void NetClient::readyRead(){
     }
     
     else if (commandName == "/structure") { //deserialisation of data.
-        guiPointer->updateStruct(handleStructure(inData));
+       // guiPointer->updateStruct(handleStructure(inData));
     }
     
     else if (commandName == "/history") {
