@@ -21,6 +21,7 @@ User::~User(){
 void User::chooseRoom(Room* newRoom){
     if(this->parentRoom != nullptr){
 		parentRoom->removeRoom(this);
+        thread->sendHistory();
 	}
     newRoom->addRoom(this);
     this->parentRoom = newRoom;

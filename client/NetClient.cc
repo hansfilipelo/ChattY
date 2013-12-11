@@ -102,8 +102,8 @@ void NetClient::readyRead(){
             QString time = inData.left(i);
             inData = inData.mid(i);
             history.push_back(time);
-            
         }
+        guiPointer->receiveHistory(&history);
     }
     
     else if (commandName == "/message") {
@@ -131,7 +131,6 @@ void NetClient::readyRead(){
     else{
         throw logic_error("Unknown command, fatal error");
     }
-    
 }
 
 void NetClient::sendMessage(QString from, QString to, QString message){
