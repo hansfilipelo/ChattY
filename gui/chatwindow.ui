@@ -24,31 +24,6 @@
           <string/>
          </property>
         </column>
-        <item>
-         <property name="text">
-          <string>Top room</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Sub room</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>User1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>User2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>User3</string>
-           </property>
-          </item>
-         </item>
-        </item>
        </widget>
       </item>
       <item>

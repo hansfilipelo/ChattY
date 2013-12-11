@@ -47,6 +47,7 @@ private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
+    QString server;
 };
 
 #endif // CHATWINDOW_H
