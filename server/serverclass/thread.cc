@@ -161,6 +161,8 @@ void Thread::disconnected()
     exit(0);
 }
 
+// -----------------------------------------
+
 //svarar klienten
 void Thread::sendMessage(Message messageObject){
     QByteArray array = "/message";
@@ -179,6 +181,7 @@ void Thread::sendMessage(Message messageObject){
     
 }
 
+// -----------------------------------------
 
 void Thread::sendHistory(){
     QByteArray array = "/reinitiate";
@@ -204,12 +207,22 @@ void Thread::sendHistory(){
     
 }
 
+// -----------------------------------------
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
-    array += 0x1F; //unit separator
+    array += compare; //unit separator
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
 }
 
+// -----------------------------------------
+
+void Thread::requestStruct() {
+    QByteArray array = "/structure";
+    array += compare;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}

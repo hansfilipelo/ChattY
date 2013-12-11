@@ -9,6 +9,24 @@
 
 using namespace std;
 
+//----------------------------------------
+// Helper function
+
+bool Master::userOrNot(Room* inRoom) {
+    User* userTemp = dynamic_cast<User*>(inRoom);
+    
+    if (userTemp == nullptr) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+// ------------------------
+
+
+
 
 // ---------------------------------------
 // Constructor
@@ -84,6 +102,13 @@ User* Master::createUser(string name){
         rooms.push_back(temp);
         
         cout << name <<" was connected!" <<endl;
+        
+        for (unsigned int i = 0; i < rooms.size(); i++) {
+            if ( userOrNot(rooms.at(i)) ) {
+                rooms.at(i)->requestStruct();
+            }
+        }
+        
         return temp;
     }
     
@@ -114,3 +139,5 @@ void Master::printVector(){
         cout << rooms.at(i)->getName() << endl;
     }
 }
+
+// ---------------------------------------------

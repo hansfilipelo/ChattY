@@ -51,3 +51,11 @@ void User::initRoom(string name){
 void User::setThread(class Thread* inThread) {
     thread = inThread;
 }
+
+// ----------------------------------
+
+void User::requestStruct() {
+    thread->requestStruct();
+}
+
+// ----------------------------------
