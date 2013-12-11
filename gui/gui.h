@@ -16,6 +16,9 @@ public:
     void createClient(QString inName, QString inAddress);
     void noConnection();
     void sendMessage(QString from, QString to, QString message);
+    void updateStruct(QVector<QString> treeStruct);
+    void getStruct();
+
     void receiveHistory(QVector<QString> &historyVector);
     // void Gui::updateStruct(vector);
 protected:

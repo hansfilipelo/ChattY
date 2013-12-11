@@ -52,6 +52,7 @@ private:
     Master* masterPointer;
     User* userPointer;
     QByteArray compare;
+    QByteArray breaker;
 };
 
 #endif

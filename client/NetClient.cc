@@ -17,6 +17,7 @@ NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *p
     name=username;
     address=inAddress;
     compare += 0x1F;
+    breaker +=0x1E;
 }
 
 
@@ -47,6 +48,7 @@ void NetClient::connected(){
     QByteArray array = "/initiate";
     array += 0x1F; //unit separator
     array += name;
+    array += breaker;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -59,82 +61,112 @@ void NetClient::disconnected(){
 }
 
 void NetClient::readyRead(){
-    //Recieve commando
+    
     QByteArray Data = TcpSocket->readAll();
     
-    // Separate the command from the operand
-    QByteArray compare;
-    compare += 0x1F;
+    int i;
+    int n;
     
-    int i = Data.indexOf(compare);
+    QString commandName;
+    QString inData = Data;
     
-    QString commandName = Data.left(i);
-    QString inData = Data.mid(i+1);
-    
-    // Check which command that's supposed to run
-    if (commandName == "/reinitiate") {
-        guiPointer->userNameTaken();
-    }
-    
+<<<<<<< HEAD
     else if (commandName == "/structure") { //deserialisation of data.
        // guiPointer->updateStruct(handleStructure(inData));
     }
+=======
+    QString rest;
+>>>>>>> ac811e24fdfe2a4f144e99db4f8e0c33928d8868
     
-    else if (commandName == "/history") {
-        QVector<QString> history;
-        while(inData.size()>1){
+    while ( !inData.isEmpty() ) {
+        
+        i = inData.indexOf(compare);
+        
+        commandName = inData.left(i);
+        inData = inData.mid(i+1);
+        
+        n = inData.indexOf(breaker);
+        
+        if (inData.size() < 2) {
             
+            break;
+        }
+        rest = inData.mid(n+1);
+        
+        inData = inData.left(n);
+        
+        QString temp = inData;
+        string stdInData = temp.toStdString();
+        
+        // Check which command that's supposed to run
+        if (commandName == "/reinitiate") {
+            guiPointer->userNameTaken();
+        }
+        
+        else if (commandName == "/history") {
+            QVector<QString> history;
+            while(inData.size()>1){
+                
+                // Get from
+                i = inData.indexOf(compare);
+                QString from = inData.left(i);
+                inData = inData.mid(i+1);
+                history.push_back(from);
+                
+                // Get to
+                i = inData.indexOf(compare);
+                QString to = inData.left(i);
+                inData = inData.mid(i+1);
+                history.push_back(to);
+                
+                // Get message
+                i = inData.indexOf(compare);
+                QString contents = inData.left(i);
+                inData = inData.mid(i+1);
+                history.push_back(contents);
+                
+                //Get time
+                i = inData.indexOf(compare);
+                QString time = inData.left(i);
+                inData = inData.mid(i+1);
+                history.push_back(time);
+            }
+            guiPointer->receiveHistory(history);
+        }
+        
+        
+        else if (commandName == "/message") {
             // Get from
             i = inData.indexOf(compare);
             QString from = inData.left(i);
             inData = inData.mid(i+1);
-            history.push_back(from);
             
             // Get to
             i = inData.indexOf(compare);
             QString to = inData.left(i);
             inData = inData.mid(i+1);
-            history.push_back(to);
             
             // Get message
             i = inData.indexOf(compare);
             QString contents = inData.left(i);
             inData = inData.mid(i+1);
-            history.push_back(contents);
             
-            //Get time
-            i = inData.indexOf(compare);
-            QString time = inData.left(i);
-            inData = inData.mid(i+1);
-            history.push_back(time);
+            // Get time
+            QString dateTime = inData;
+            
+            guiPointer->receiveMessage(from, to, contents, dateTime);
         }
-        guiPointer->receiveHistory(history);
-    }
-    
-    else if (commandName == "/message") {
         
-        // Get from
-        i = inData.indexOf(compare);
-        QString from = inData.left(i);
-        inData = inData.mid(i+1);
+        else if ( commandName == "/structure" ) {
+            guiPointer->updateStruct(handleStructure(inData));
+        }
         
-        // Get to
-        i = inData.indexOf(compare);
-        QString to = inData.left(i);
-        inData = inData.mid(i+1);
+        else {
+            throw logic_error("Unknown command");
+        }
         
-        // Get message
-        i = inData.indexOf(compare);
-        QString contents = inData.left(i);
-        inData = inData.mid(i+1);
+        inData = rest;
         
-        // Get time
-        QString dateTime = inData;
-        
-        guiPointer->receiveMessage(from, to, contents, dateTime);
-    }
-    else{
-        throw logic_error("Unknown command, fatal error");
     }
 }
 
@@ -146,6 +178,7 @@ void NetClient::sendMessage(QString from, QString to, QString message){
     array += to;
     array += 0x1F;
     array += message;
+    array += breaker;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -155,6 +188,13 @@ void NetClient::setName(QString inName) {
     name=inName;
 }
 
+void NetClient::getStruct(){
+    QByteArray array = "/structure";
+    array += 0x1E;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}
 
 //--------------------------------------------
 //Helpfunctions

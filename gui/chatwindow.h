@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <fstream>
 #include <QScrollBar>
+#include <QTreeWidget>
+#include <QDebug>
 class Gui;
 
 namespace Ui {
@@ -19,6 +21,12 @@ public:
     void receiveMessage(const QString from, const QString to, const QString message, const QString time);
     ~ChatWindow();
     void setName(QString inName);
+    void setServer(QString serverName);
+    void updateStruct(QVector<QString> treeStruct);
+    QTreeWidgetItem *addRoot(const QString rootName);
+    QTreeWidgetItem *addSubRoot(QTreeWidgetItem *parent,const QString childName);
+    void addLeaf(QTreeWidgetItem *parent,const QString leafName);
+    Gui* chatGui;
     void sendMessage();
     std::ofstream debug;
     void receiveHistory(QVector<QString> &historyVector);
@@ -36,11 +44,15 @@ private slots:
 
     void on_actionDefault_triggered();
 
+    void on_actionChatty_triggered();
+
+    void on_actionCezch_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
-    Gui* chatGui;
+    QString server;
 };
 
 #endif // CHATWINDOW_H

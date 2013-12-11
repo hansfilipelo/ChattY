@@ -34,12 +34,6 @@ void Thread::handleMessage(QString inData){
     string stdContents = contents.toStdString();
     inData = inData.mid(i+1);
     
-    cout << "readyRead" << endl;
-    cout << stdFrom << endl;
-    cout << stdTo << endl;
-    cout << stdContents << endl;
-    
-    
     Message message(stdContents, stdFrom, stdTo);
     userPointer->sendMessage(message);
 }
@@ -51,6 +45,7 @@ void Thread::handleInitiate(string stdInData) {
     {
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
+        requestStruct();
         userPointer->sendHistory();
     }
     catch (...)
@@ -68,10 +63,15 @@ void Thread::handleStructure() {
     sendData += "/structure";
     sendData += compare;
     
-    for (unsigned int i = 0; i < structure.size() ; i++) {
+    unsigned int i;
+    
+    for (i = 0; i+1 < structure.size() ; i++) {
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
     }
+    i++;
+    sendData += QString::fromStdString(structure.at(i));
+    sendData += breaker;
     
     TcpSocket->write(sendData);
     
@@ -85,6 +85,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     masterPointer=masterptr;
     this->socketDescriptor = ID;
     compare += 0x1F;
+    breaker += 0x1E;
 }
 
 // ---------------------------------------
@@ -114,35 +115,63 @@ void Thread::run()
 
 // ---------------------------------------
 
+
+// ---------------------------
+
 void Thread::readyRead()
 {
     
-    
     QByteArray Data = TcpSocket->readAll();
     
-    int i = Data.indexOf(compare);
+    int i;
+    int n;
     
-    QString commandName = Data.left(i);
-    QString inData = Data.mid(i+1);
-    QString temp = inData;
-    string stdInData = temp.toStdString();
+    QString commandName;
+    QString inData = Data;
     
-    // Check which command that's supposed to run
-    if (commandName == "/initiate") {
-        handleInitiate(stdInData);
-    }
+    QString rest;
     
-    else if (commandName == "/message") {
-        handleMessage(inData);
-    }
-    
-    else if ( commandName == "/structure" ) {
-        handleStructure();
-    }
-    
-    else {
-        TcpSocket->write("Ej giltigt kommando");
-        cout << socketDescriptor << "Data in: "<< stdInData<<endl;
+    while ( !inData.isEmpty() ) {
+        
+        i = inData.indexOf(compare);
+        
+        commandName = inData.left(i);
+        inData = inData.mid(i+1);
+        
+        n = inData.indexOf(breaker);
+        
+        if (inData.size() < 2) {
+            
+            break;
+        }
+        rest = inData.mid(n+1);
+        
+        inData = inData.left(n);
+        
+        QString temp = inData;
+        string stdInData = temp.toStdString();
+        
+        // Check which command that's supposed to run
+        if (commandName == "/initiate") {
+            handleInitiate(stdInData);
+        }
+        
+        else if (commandName == "/message") {
+            handleMessage(inData);
+        }
+        
+        else if ( commandName == "/structure" ) {
+            handleStructure();
+        }
+        
+        else {
+            qDebug() << commandName;
+            TcpSocket->write("Ej giltigt kommando");
+            cout << socketDescriptor << "Data in: "<< stdInData<<endl;
+        }
+        
+        inData = rest;
+        
     }
 }
 
@@ -175,7 +204,7 @@ void Thread::sendMessage(Message messageObject){
     array += QString::fromStdString(messageObject.getMessage());
     array += 0x1F;
     array += QString::fromStdString(messageObject.getServerTime());
-    array += 0x1F;
+    array += 0x1E;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -200,7 +229,7 @@ void Thread::sendHistory(){
         array += QString::fromStdString(tempMessage.getMessage());
         array += 0x1F; //unit separator
         array += QString::fromStdString(tempMessage.getServerTime());
-        array += 0x1F; //unit separator
+        array += 0x1E; //unit separator
     }
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -211,7 +240,7 @@ void Thread::sendHistory(){
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
-    array += 0x1F; //unit separator
+    array += 0x1E; //unit separator
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -222,7 +251,7 @@ void Thread::reinitiate(){
 
 void Thread::requestStruct() {
     QByteArray array = "/structure";
-    array += 0x1F;
+    array += 0x1E;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);

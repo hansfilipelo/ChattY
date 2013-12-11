@@ -21,34 +21,9 @@
        <widget class="QTreeWidget" name="roomTree">
         <column>
          <property name="text">
-          <string>(Server name)</string>
+          <string/>
          </property>
         </column>
-        <item>
-         <property name="text">
-          <string>Top room</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Sub room</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>User1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>User2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>User3</string>
-           </property>
-          </item>
-         </item>
-        </item>
        </widget>
       </item>
       <item>
@@ -91,7 +66,7 @@
      <x>0</x>
      <y>0</y>
      <width>972</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCustomize">
@@ -104,6 +79,8 @@
      </property>
      <addaction name="actionBlack"/>
      <addaction name="actionDefault"/>
+     <addaction name="actionChatty"/>
+     <addaction name="actionCezch"/>
     </widget>
     <addaction name="menuChange_theme"/>
    </widget>
@@ -134,6 +111,16 @@
   <action name="actionDefault">
    <property name="text">
     <string>Default</string>
+   </property>
+  </action>
+  <action name="actionChatty">
+   <property name="text">
+    <string>Chatty</string>
+   </property>
+  </action>
+  <action name="actionCezch">
+   <property name="text">
+    <string>Czech</string>
    </property>
   </action>
  </widget>

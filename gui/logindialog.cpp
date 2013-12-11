@@ -40,6 +40,7 @@ void LoginDialog::on_buttonBox_accepted()
 
 void LoginDialog::connected(){
     mainWindow->setName(ui->inputName->text());
+    mainWindow->setServer("Server: " + ui->inputServer->text());
     this->close();
 }
 

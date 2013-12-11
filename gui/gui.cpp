@@ -41,6 +41,14 @@ void Gui::sendMessage(QString from, QString to, QString message){
     client->sendMessage(from,to,message);
 }
 
+void Gui::updateStruct(QVector<QString> treeStruct){
+    mainWindow->updateStruct(treeStruct);
+}
+
+void Gui::getStruct(){
+    client->getStruct();
+}
+
 void Gui::receiveHistory(QVector<QString> &historyVector){
     mainWindow->receiveHistory(historyVector);
     
