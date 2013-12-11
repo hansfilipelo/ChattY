@@ -184,10 +184,9 @@ void Thread::sendMessage(Message messageObject){
 // -----------------------------------------
 
 void Thread::sendHistory(){
-    QByteArray array = "/reinitiate";
+    QByteArray array = "/history";
     array += 0x1F; //unit separator
-    
-    
+
     for (unsigned int i=0; i<userPointer->getParentRoom()->log.size(); ++i)
     {
         Message tempMessage = userPointer->getParentRoom()->log.at(i);

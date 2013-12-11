@@ -82,28 +82,28 @@ void NetClient::readyRead(){
             // Get from
             i = inData.indexOf(compare);
             QString from = inData.left(i);
-            inData = inData.mid(i);
+            inData = inData.mid(i+1);
             history.push_back(from);
             
             // Get to
             i = inData.indexOf(compare);
             QString to = inData.left(i);
-            inData = inData.mid(i);
+            inData = inData.mid(i+1);
             history.push_back(to);
             
             // Get message
             i = inData.indexOf(compare);
             QString contents = inData.left(i);
-            inData = inData.mid(i);
+            inData = inData.mid(i+1);
             history.push_back(contents);
             
             //Get time
             i = inData.indexOf(compare);
             QString time = inData.left(i);
-            inData = inData.mid(i);
+            inData = inData.mid(i+1);
             history.push_back(time);
-            
         }
+        guiPointer->receiveHistory(&history);
     }
     
     else if (commandName == "/message") {
@@ -131,7 +131,6 @@ void NetClient::readyRead(){
     else{
         throw logic_error("Unknown command, fatal error");
     }
-    
 }
 
 void NetClient::sendMessage(QString from, QString to, QString message){
