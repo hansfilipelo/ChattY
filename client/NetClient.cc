@@ -69,11 +69,8 @@ void NetClient::readyRead(){
     
     QString commandName;
     QString inData = Data;
-
-    else if (commandName == "/structure") { //deserialisation of data.
-       // guiPointer->updateStruct(handleStructure(inData));
-    }
-   QString rest;    
+    
+    QString rest;
     while ( !inData.isEmpty() ) {
         
         i = inData.indexOf(compare);
