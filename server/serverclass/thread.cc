@@ -63,10 +63,15 @@ void Thread::handleStructure() {
     sendData += "/structure";
     sendData += compare;
     
-    for (unsigned int i = 0; i < structure.size() ; i++) {
+    unsigned int i;
+    
+    for (i = 0; i+1 < structure.size() ; i++) {
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
     }
+    i++;
+    sendData += QString::fromStdString(structure.at(i));
+    sendData += breaker;
     
     TcpSocket->write(sendData);
     
@@ -80,7 +85,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     masterPointer=masterptr;
     this->socketDescriptor = ID;
     compare += 0x1F;
-    exit += 0x1E;
+    breaker += 0x1E;
 }
 
 // ---------------------------------------
@@ -126,15 +131,21 @@ void Thread::readyRead()
     
     QString rest;
     
-    while ( !inData.empty() ) {
+    while ( !inData.isEmpty() ) {
         
         i = Data.indexOf(compare);
         
         commandName = Data.left(i);
         inData = Data.mid(i+1);
         
-        n = inData.indexOf(exit);
+        n = inData.indexOf(breaker);
+        
+        if (inData.size() < 2) {
+            
+            break;
+        }
         rest = inData.mid(n+1);
+        
         inData = inData.left(n);
         
         QString temp = inData;
@@ -192,7 +203,7 @@ void Thread::sendMessage(Message messageObject){
     array += QString::fromStdString(messageObject.getMessage());
     array += 0x1F;
     array += QString::fromStdString(messageObject.getServerTime());
-    array += 0x1F;
+    array += 0x1E;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -217,7 +228,7 @@ void Thread::sendHistory(){
         array += QString::fromStdString(tempMessage.getMessage());
         array += 0x1F; //unit separator
         array += QString::fromStdString(tempMessage.getServerTime());
-        array += 0x1F; //unit separator
+        array += 0x1E; //unit separator
     }
     
     TcpSocket->write(array);
@@ -229,7 +240,7 @@ void Thread::sendHistory(){
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
-    array += 0x1F; //unit separator
+    array += 0x1E; //unit separator
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -240,7 +251,7 @@ void Thread::reinitiate(){
 
 void Thread::requestStruct() {
     QByteArray array = "/structure";
-    array += 0x1F;
+    array += 0x1E;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
