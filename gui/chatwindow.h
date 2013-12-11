@@ -44,6 +44,10 @@ private slots:
 
     void on_actionDefault_triggered();
 
+    void on_actionChatty_triggered();
+
+    void on_actionCezch_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;

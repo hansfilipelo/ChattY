@@ -206,3 +206,21 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
     }
 
 }
+
+void ChatWindow::on_actionChatty_triggered()
+{
+    setStyleSheet("ChatWindow{border-image:url(:/files/icon/ChattY.png) 0 0 0 0 stretch stretch;}");
+    ui->menuBar->setStyleSheet("background-color: transparent;");
+    ui->statusBar->setStyleSheet("background-color: transparent;");
+    ui->centralWidget->setStyleSheet("background-color: transparent;");
+    ui->sendButton->setStyleSheet("background-color: none;");
+}
+
+void ChatWindow::on_actionCezch_triggered()
+{
+    setStyleSheet("ChatWindow{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 255, 255, 255), stop:0.373979 rgba(255, 255, 255, 255), stop:0.373991 rgba(33, 30, 255, 255), stop:0.624018 rgba(33, 30, 255, 255), stop:0.624043 rgba(255, 0, 0, 255), stop:1 rgba(255, 0, 0, 255));}");
+    ui->menuBar->setStyleSheet("background-color: transparent;");
+    ui->statusBar->setStyleSheet("background-color: transparent;");
+    ui->centralWidget->setStyleSheet("background-color: transparent;");
+    ui->sendButton->setStyleSheet("background-color: none;");
+}
