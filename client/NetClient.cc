@@ -154,7 +154,6 @@ void NetClient::readyRead(){
         else if ( commandName == "/structure" ) {
             guiPointer->updateStruct(handleStructure(inData));
         }
-        
         else {
             throw logic_error("Unknown command");
         }
