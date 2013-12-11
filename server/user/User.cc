@@ -21,10 +21,9 @@ User::~User(){
 void User::chooseRoom(Room* newRoom){
     if(this->parentRoom != nullptr){
 		parentRoom->removeRoom(this);
-        thread->sendHistory();
 	}
     newRoom->addRoom(this);
-    this->parentRoom = newRoom;
+    thread->sendHistory();
 }
 
 // ----------------------------------
@@ -51,6 +50,11 @@ void User::initRoom(string name){
 
 void User::setThread(class Thread* inThread) {
     thread = inThread;
+}
+
+
+void User::sendHistory(){
+    thread->sendHistory();
 }
 
 // ----------------------------------
