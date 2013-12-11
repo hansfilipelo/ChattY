@@ -166,29 +166,36 @@ void Room::saveToFile(Message inMessage) {
 }
 
 void Room::readAllFromFile() {
+    log.clear();
     
     string line;
     ifstream logfile ("log.txt");
     if (logfile.is_open())
     {
-        for (unsigned int i=0; getline (logfile,line); i++) {
-            vector<string> tempVector;
-            cout<<tempVector.empty();
+        while (getline(logfile,line)) {
+            string time = line;
+            cout << time << endl;
+            getline (logfile,line);
+            string from = line;
+            cout << from << endl;
+            getline (logfile,line);
+            string to = line;
+            cout << to << endl;
+            getline (logfile,line);
+            string message = line;
+            cout << message << endl;
             
-            for (unsigned int k=0; k<4; k++) {
-                getline (logfile,line);
-                cout << line << endl;
-                tempVector.push_back(line);
-            }
-            
-            Message tempMessage(tempVector.at(3),tempVector.at(1),tempVector.at(2));
+            Message tempMessage(message,from,to);
             log.push_back(tempMessage);
         }
+        
         logfile.close();
         
         cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
     }
-    else cout << "Unable to open file";
+    else {
+        cout << "Unable to open file";
+    }
 }
 
 
