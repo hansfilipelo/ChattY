@@ -38,10 +38,12 @@ public slots:
     void readyRead();
 
 private:
+    QVector<QString> handleStructure(QString);
     Gui* guiPointer;
     QTcpSocket *TcpSocket;
     QString name;
     QString address;
+    QByteArray compare;
     
 };
 

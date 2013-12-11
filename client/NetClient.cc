@@ -16,6 +16,7 @@ NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *p
     guiPointer = myGui;
     name=username;
     address=inAddress;
+    compare += 0x1F;
 }
 
 
@@ -73,6 +74,10 @@ void NetClient::readyRead(){
     // Check which command that's supposed to run
     if (commandName == "/reinitiate") {
         guiPointer->userNameTaken();
+    }
+    
+    else if (commandName == "/structure") { //deserialisation of data.
+        guiPointer->updateStruct(handleStructure(inData));
     }
     
     else if (commandName == "/history") {
@@ -151,4 +156,19 @@ void NetClient::setName(QString inName) {
     name=inName;
 }
 
+
+//--------------------------------------------
+//Helpfunctions
+
+QVector<QString> NetClient::handleStructure(QString inData){
+    QVector<QString> output;
+    while(inData.size() > 0){
+        int i = inData.indexOf(compare);
+        QString data = inData.left(i);
+        inData = inData.mid(i+1);
+        output.push_back(data);
+    }
+    return output;
+    
+}
 
