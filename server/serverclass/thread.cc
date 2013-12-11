@@ -153,19 +153,22 @@ void Thread::readyRead()
         
         // Check which command that's supposed to run
         if (commandName == "/initiate") {
+            cout <<"Initiate. " << stdInData << endl;
             handleInitiate(stdInData);
         }
         
         else if (commandName == "/message") {
+            qDebug() << "/message thread";
             handleMessage(inData);
         }
         
         else if ( commandName == "/structure" ) {
-            handleStructure();
+            //handleStructure();
+            cout << "Handled structure, but not really" << endl;
         }
         
         else {
-            qDebug() << commandName;
+            cout << "Ej giltigt kommando" << commandName.toStdString() << endl;
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
@@ -216,9 +219,9 @@ void Thread::sendMessage(Message messageObject){
 void Thread::sendHistory(){
     QByteArray array = "/history";
     array += 0x1F; //unit separator
+    unsigned int logSize = userPointer->getParentRoom()->log.size();
     
-    for (unsigned int i=0; i < userPointer->getParentRoom()->log.size(); i++)
-    {
+    for (unsigned int i = 0; i < logSize; i++){
         
         Message tempMessage = userPointer->getParentRoom()->log.at(i);
         
@@ -229,7 +232,12 @@ void Thread::sendHistory(){
         array += QString::fromStdString(tempMessage.getMessage());
         array += 0x1F; //unit separator
         array += QString::fromStdString(tempMessage.getServerTime());
-        array += 0x1E; //unit separator
+        if ( i+1 == logSize ){
+            cout << "0x1E" << endl;
+            array += 0x1E;
+            break;
+        }
+        array += 0x1F; //unit separator
     }
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -240,6 +248,7 @@ void Thread::sendHistory(){
 
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
+    array += 0x1F;
     array += 0x1E; //unit separator
     
     TcpSocket->write(array);
@@ -251,6 +260,7 @@ void Thread::reinitiate(){
 
 void Thread::requestStruct() {
     QByteArray array = "/structure";
+    array += 0x1F;
     array += 0x1E;
     
     TcpSocket->write(array);
