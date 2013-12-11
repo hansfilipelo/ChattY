@@ -165,6 +165,7 @@ void Thread::readyRead()
         }
         
         else {
+            qDebug() << commandName;
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
