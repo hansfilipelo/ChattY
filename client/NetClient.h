@@ -45,6 +45,7 @@ private:
     QString name;
     QString address;
     QByteArray compare;
+    QByteArray breaker;
     
 };
 

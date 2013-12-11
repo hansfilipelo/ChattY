@@ -17,6 +17,7 @@ NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *p
     name=username;
     address=inAddress;
     compare += 0x1F;
+    breaker +=0x1E;
 }
 
 
@@ -47,6 +48,7 @@ void NetClient::connected(){
     QByteArray array = "/initiate";
     array += 0x1F; //unit separator
     array += name;
+    array += breaker;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -146,6 +148,7 @@ void NetClient::sendMessage(QString from, QString to, QString message){
     array += to;
     array += 0x1F;
     array += message;
+    array += breaker;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
@@ -157,7 +160,7 @@ void NetClient::setName(QString inName) {
 
 void NetClient::getStruct(){
     QByteArray array = "/structure";
-    array += 0x1F;
+    array += 0x1E;
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
