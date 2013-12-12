@@ -61,21 +61,25 @@ void ChatWindow::setServer(QString serverName){
 
 void ChatWindow::updateStruct(QVector<QString> treeStruct){
     qDebug() << "whileloop";
-    QTreeWidgetItem *treeParent= new QTreeWidgetItem(ui->roomTree);
+    QTreeWidgetItem *treeParent;
     qDebug() << "whileloop2";
+    qDebug() << "Här"+treeStruct.at(0)+"Här";
     treeParent=addRoot(treeStruct.at(0)); //This line crashes.
     qDebug() << "whileloop3";
     for (int i=1; i< treeStruct.size(); i++){
         qDebug() << "whileloop4";
         if (treeStruct.at(i)=="User"){
+            treeStruct.remove(i);
             qDebug() << "whileloop5";
-            while (i+1 < treeStruct.size()){
-                qDebug() << "whileloop";
-                addLeaf(treeParent,treeStruct.at(i+1));
+            while (i < treeStruct.size()){
+                qDebug() << "whileloop6";
+                addLeaf(treeParent,treeStruct.at(i));
                 i++;
             }
         }
+        else {qDebug() << "whileloop7";
         treeParent=addSubRoot(treeParent,treeStruct.at(i));
+        }
     }
 }
 
@@ -87,15 +91,15 @@ QTreeWidgetItem* ChatWindow::addRoot(const QString rootName){
 
 }
 
-QTreeWidgetItem* ChatWindow::addSubRoot(QTreeWidgetItem *parent,const QString childName){
-    QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
-    item->setText(0,childName);
+QTreeWidgetItem* ChatWindow::addSubRoot(QTreeWidgetItem *parent,const QString subRootName){
+    QTreeWidgetItem* item = new QTreeWidgetItem();
+    item->setText(0,subRootName);
     parent->addChild(item);
     return item;
 }
 
 void ChatWindow::addLeaf(QTreeWidgetItem *parent,const QString leafName){
-    QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
+    QTreeWidgetItem* item = new QTreeWidgetItem();
     item->setText(0,leafName);
     parent->addChild(item);
 }
