@@ -46,6 +46,8 @@ private:
     QString address;
     QByteArray compare;
     QByteArray breaker;
+    void handleHistory(QString);
+    void handleMessage(QString);
     
 };
 

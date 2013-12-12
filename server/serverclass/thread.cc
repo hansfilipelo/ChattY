@@ -153,7 +153,6 @@ void Thread::readyRead()
         
         // Check which command that's supposed to run
         if (commandName == "/initiate") {
-            cout <<"Initiate. " << stdInData << endl;
             handleInitiate(stdInData);
         }
         
@@ -233,7 +232,6 @@ void Thread::sendHistory(){
         array += 0x1F; //unit separator
         array += QString::fromStdString(tempMessage.getServerTime());
         if ( i+1 == logSize ){
-            cout << "0x1E" << endl;
             array += 0x1E;
             break;
         }

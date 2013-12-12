@@ -68,23 +68,18 @@ void NetClient::readyRead(){
     
     QString commandName;
     QString inData = Data;
+    
     int n = inData.indexOf(breaker);
-    
-    
     QString rest;
-    while (n != -1 ) {
-        n = inData.indexOf(breaker);
-        if(n == -1){
-            break;
-        }
+    
+    
+    do {
         rest = inData.mid(n+1);
         inData = inData.left(n);
-        cout << "yo" <<n<< endl;
         i = inData.indexOf(compare);
         
         commandName = inData.left(i);
         
-        qDebug() << commandName;
         inData = inData.mid(i+1);
         
         QString temp = inData;
@@ -96,68 +91,17 @@ void NetClient::readyRead(){
         }
         
         else if (commandName == "/history") {
-            QVector<QString> history;
-            int i = inData.indexOf(compare);
-            while(i != -1 ){
-                
-                // Get from
-                i = inData.indexOf(compare);
-                QString from = inData.left(i);
-                inData = inData.mid(i+1);
-                history.push_back(from);
-                cout << from.toStdString() << endl;
-                
-                // Get to
-                i = inData.indexOf(compare);
-                QString to = inData.left(i);
-                inData = inData.mid(i+1);
-                history.push_back(to);
-                cout << to.toStdString() << endl;
-                
-                // Get message
-                i = inData.indexOf(compare);
-                QString contents = inData.left(i);
-                inData = inData.mid(i+1);
-                history.push_back(contents);
-                cout << contents.toStdString() << endl;
-                
-                
-                //Get time
-                i = inData.indexOf(compare);
-                QString time = inData.left(i);
-                inData = inData.mid(i+1);
-                history.push_back(time);
-                cout << time.toStdString() << endl;
-                
-            }
-            guiPointer->receiveHistory(history);
+            handleHistory(inData);
         }
         
         
         else if (commandName == "/message") {
-            // Get from
-            i = inData.indexOf(compare);
-            QString from = inData.left(i);
-            inData = inData.mid(i+1);
-            
-            // Get to
-            i = inData.indexOf(compare);
-            QString to = inData.left(i);
-            inData = inData.mid(i+1);
-            
-            // Get message
-            i = inData.indexOf(compare);
-            QString contents = inData.left(i);
-            inData = inData.mid(i+1);
-            
-            // Get time
-            QString dateTime = inData;
-            
-            guiPointer->receiveMessage(from, to, contents, dateTime);
+            handleMessage(inData);
         }
         
         else if ( commandName == "/structure" ) {
             //guiPointer->updateStruct(handleStructure(inData));
+            cout << "structure recieved, but not handled since function crashes" << endl;
         }
         else {
             throw logic_error("Unknown command");
@@ -166,7 +110,7 @@ void NetClient::readyRead(){
         inData = rest;
         n = inData.indexOf(breaker);
         
-    }
+    }while (n != -1 );
 }
 
 void NetClient::sendMessage(QString from, QString to, QString message){
@@ -198,6 +142,70 @@ void NetClient::getStruct(){
 
 //--------------------------------------------
 //Helpfunctions
+
+void NetClient::handleMessage(QString inData){
+    
+    int i;
+    // Get from
+    i = inData.indexOf(compare);
+    QString from = inData.left(i);
+    inData = inData.mid(i+1);
+    
+    // Get to
+    i = inData.indexOf(compare);
+    QString to = inData.left(i);
+    inData = inData.mid(i+1);
+    
+    // Get message
+    i = inData.indexOf(compare);
+    QString contents = inData.left(i);
+    inData = inData.mid(i+1);
+    
+    // Get time
+    QString dateTime = inData;
+    
+    guiPointer->receiveMessage(from, to, contents, dateTime);
+    
+}
+
+void NetClient::handleHistory(QString inData){
+    QVector<QString> history;
+    int i = inData.indexOf(compare);
+    while(i != -1 ){
+        
+        // Get from
+        i = inData.indexOf(compare);
+        QString from = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(from);
+        cout << from.toStdString() << endl;
+        
+        // Get to
+        i = inData.indexOf(compare);
+        QString to = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(to);
+        cout << to.toStdString() << endl;
+        
+        // Get message
+        i = inData.indexOf(compare);
+        QString contents = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(contents);
+        cout << contents.toStdString() << endl;
+        
+        
+        //Get time
+        i = inData.indexOf(compare);
+        QString time = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(time);
+        cout << time.toStdString() << endl;
+        
+    }
+    guiPointer->receiveHistory(history);
+}
+
 
 QVector<QString> NetClient::handleStructure(QString inData){
     QVector<QString> output;
