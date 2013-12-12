@@ -45,7 +45,7 @@ void Thread::handleInitiate(string stdInData) {
     {
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
-        requestStruct();
+        handleStructure();
         userPointer->sendHistory();
     }
     catch (...)
@@ -58,21 +58,24 @@ void Thread::handleInitiate(string stdInData) {
 
 void Thread::handleStructure() {
     vector<string> structure = userPointer->getStruct();
-    
+
     QByteArray sendData;
     sendData += "/structure";
     sendData += compare;
-    
     unsigned int i;
+    cout << structure.size()<< endl;
     
-    for (i = 0; i+1 < structure.size() ; i++) {
+    for (i = 0; i < (structure.size()-1)  ; i++) {
+        cout << i << endl;
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
+        cout << "hej" << endl;
     }
-    i++;
+    cout << i << endl;
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
+    cout << structure.at(0);
     TcpSocket->write(sendData);
     
 }
@@ -162,7 +165,7 @@ void Thread::readyRead()
         }
         
         else if ( commandName == "/structure" ) {
-            //handleStructure();
+            handleStructure();
             cout << "Handled structure, but not really" << endl;
         }
         

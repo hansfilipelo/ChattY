@@ -40,7 +40,7 @@ public:
     
     std::string getName();
     Room* getParentRoom();
-    virtual std::vector<std::string> getStruct();
+    virtual std::vector<std::string>& getStruct();
     void listUsers();
     void listRooms();
     Room* getRoom(std::string);
@@ -82,7 +82,7 @@ public:
     void chooseRoom(Room*);
     void initRoom(std::string);
     void setThread(Thread*);
-    std::vector<std::string> getStruct();
+    std::vector<std::string>& getStruct();
     void requestStruct();
     
 protected:

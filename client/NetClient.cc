@@ -100,8 +100,7 @@ void NetClient::readyRead(){
         }
         
         else if ( commandName == "/structure" ) {
-            //guiPointer->updateStruct(handleStructure(inData));
-            cout << "structure recieved, but not handled since function crashes" << endl;
+            handleStructure(inData);
         }
         else {
             throw logic_error("Unknown command");
@@ -178,21 +177,18 @@ void NetClient::handleHistory(QString inData){
         QString from = inData.left(i);
         inData = inData.mid(i+1);
         history.push_back(from);
-        cout << from.toStdString() << endl;
         
         // Get to
         i = inData.indexOf(compare);
         QString to = inData.left(i);
         inData = inData.mid(i+1);
         history.push_back(to);
-        cout << to.toStdString() << endl;
         
         // Get message
         i = inData.indexOf(compare);
         QString contents = inData.left(i);
         inData = inData.mid(i+1);
         history.push_back(contents);
-        cout << contents.toStdString() << endl;
         
         
         //Get time
@@ -200,19 +196,16 @@ void NetClient::handleHistory(QString inData){
         QString time = inData.left(i);
         inData = inData.mid(i+1);
         history.push_back(time);
-        cout << time.toStdString() << endl;
-        
     }
     guiPointer->receiveHistory(history);
 }
 
 
-QVector<QString> NetClient::handleStructure(QString inData){
+void NetClient::handleStructure(QString inData){
     QVector<QString> output;
     int n = inData.size();
     while(n  > 0){
         int i = inData.indexOf(compare);
-        cout << i << endl;
         if (i == -1){
             break;
         }
@@ -220,8 +213,8 @@ QVector<QString> NetClient::handleStructure(QString inData){
         inData = inData.mid(i+1);
         output.push_back(data);
         n = inData.size();
-        cout << inData.size() << endl;
     }
-    return output;
+    
+    guiPointer->updateStruct(output);
     
 }

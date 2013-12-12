@@ -63,7 +63,7 @@ void ChatWindow::updateStruct(QVector<QString> treeStruct){
     qDebug() << "whileloop";
     QTreeWidgetItem *treeParent= new QTreeWidgetItem(ui->roomTree);
     qDebug() << "whileloop2";
-    treeParent=addRoot(treeStruct.at(0));
+    treeParent=addRoot(treeStruct.at(0)); //This line crashes.
     qDebug() << "whileloop3";
     for (int i=1; i< treeStruct.size(); i++){
         qDebug() << "whileloop4";

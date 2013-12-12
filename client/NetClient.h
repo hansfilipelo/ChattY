@@ -39,7 +39,6 @@ public slots:
     void readyRead();
 
 private:
-    QVector<QString> handleStructure(QString);
     Gui* guiPointer;
     QTcpSocket *TcpSocket;
     QString name;
@@ -48,7 +47,7 @@ private:
     QByteArray breaker;
     void handleHistory(QString);
     void handleMessage(QString);
-    
+    void handleStructure(QString);
 };
 
 

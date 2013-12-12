@@ -246,27 +246,37 @@ Room* Room::getParentRoom() {
 
 // -----------------------------------
 
-vector<string> User::getStruct() {
+vector<string>& User::getStruct() {
     parentRoom->getStruct();
 }
 
 // -----------------------------------
 
-vector<string> Room::getStruct() {
-    vector<string> structure;
-    structure.push_back("User");
+vector<string>& Room::getStruct() {
+    vector<string>* structure;
+    structure = new vector<string>;
+    
+    structure->push_back("User");
+    cout << "User added" << endl;
     
     for (unsigned int i = 0; i < rooms.size() ; i++) {
+        cout << "in first for loop" << endl;
         User* userTemp = dynamic_cast<User*>(rooms.at(i));
+        cout << "Dyncast" << endl;
         if ( userTemp == nullptr ) {
-            structure.insert(structure.begin(),rooms.at(i)->getName());
+            cout << "in if" << endl;
+            structure->insert(structure->begin(),rooms.at(i)->getName());
         }
         else {
-            structure.push_back(rooms.at(i)->getName());
+            cout << "in else" << endl;
+            structure->push_back(rooms.at(i)->getName());
         }
     }
     
-    return structure;
+    structure->insert(structure->begin(),this->getName());
+    cout << "after parentroom" << endl;
+    cout << structure->size() << " : " << structure->at(0) << structure->at(1) << structure->at(2) << endl;
+    return *structure;
 }
 
 // -------------------------------------
