@@ -29,7 +29,7 @@ public:
     void sendMessage(Message);
     void reinitiate();
     void sendVector();
-    void sendHistory();
+    void sendHistory(); 
     void requestStruct();
     
 signals:

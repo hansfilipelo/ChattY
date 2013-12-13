@@ -216,18 +216,17 @@ void NetClient::handleHistory(QString inData){
 
 void NetClient::handleStructure(QString inData){
     QVector<QString> output;
-    int n = inData.size();
-    while(n  > 0){
-        int i = inData.indexOf(compare);
-        if (i == -1){
-            break;
-        }
+    int i = inData.indexOf(compare);
+    while(i  != -1){
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
         qDebug() << data;
-        n = inData.size();
+        
+        i = inData.indexOf(compare);
     }
+    
+    output.push_back(inData);
     
     guiPointer->updateStruct(output);
     
