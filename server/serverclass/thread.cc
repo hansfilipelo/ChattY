@@ -43,8 +43,19 @@ void Thread::handleMessage(QString inData){
 void Thread::handleInitiate(string stdInData) {
     try
     {
+        // Creates user
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
+        
+        // Sends "OK username is accepted" to client
+        QByteArray array = "/userAccepted";
+        array += compare;
+        array+= breaker;
+        
+        TcpSocket->write(array);
+        TcpSocket->waitForBytesWritten(1000);
+        
+        // Sends structure to "the other side"
         handleStructure();
         userPointer->sendHistory();
     }
