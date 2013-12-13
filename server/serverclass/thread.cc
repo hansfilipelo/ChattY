@@ -61,7 +61,6 @@ void Thread::handleInitiate(string stdInData) {
     }
     catch (...)
     {
-        cout << "reinitiate" << endl;
         reinitiate();
     }
 }
@@ -69,7 +68,6 @@ void Thread::handleInitiate(string stdInData) {
 // ----------------------
 
 void Thread::handleStructure() {
-    cout << "Thread::handleStructure" << endl;
     vector<string> structure = userPointer->getStruct();
     
     QByteArray sendData;
@@ -84,10 +82,7 @@ void Thread::handleStructure() {
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
-    cout << "User: " << structure.at(2  ) << endl;
     TcpSocket->write(sendData);
-    
-    cout << "Struct sent" << endl;
     
 }
 
@@ -163,7 +158,6 @@ void Thread::readyRead()
         }
         
         else if (commandName == "/message") {
-            qDebug() << "/message thread";
             handleMessage(inData);
         }
         
@@ -187,7 +181,6 @@ void Thread::readyRead()
 
 void Thread::disconnected()
 {
-    cout << socketDescriptor << "Disconnected"<<endl;
     try {
         if (userPointer != nullptr) {
             masterPointer->removeUser(userPointer->getName());

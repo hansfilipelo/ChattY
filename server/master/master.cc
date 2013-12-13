@@ -115,7 +115,6 @@ User* Master::createUser(string name){
                 rooms.at(i)->requestStruct();
             }
         }
-        cout << name <<" was created!" <<endl;
         return temp;
     }
     

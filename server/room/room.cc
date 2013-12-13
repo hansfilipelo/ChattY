@@ -198,10 +198,6 @@ void Room::readAllFromFile() {
         
         logfile.close();
         
-        cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
-    }
-    else {
-        cout << "Unable to open file"<<endl;
     }
 }
 
@@ -261,22 +257,16 @@ vector<string> Room::getStruct() {
     structure.push_back(name);
     structure.push_back("User");
     
-    cout << "Room::getStruct()" << endl;
-    cout << rooms.size() << endl;
     
     for (unsigned int i = 0; i < rooms.size() ; i++) {
         User* userTemp = dynamic_cast<User*>(rooms.at(i));
         if ( userTemp == nullptr ) {
-            cout << rooms.at(i)->getName() << endl;
             structure.insert(structure.begin(),rooms.at(i)->getName());
         }
         else {
-            cout << "User:" << rooms.at(i)->getName() << endl;
             structure.push_back(rooms.at(i)->getName());
         }
     }
-    
-    cout << "User: " << structure.at(2) << endl;
     
     return structure;
 }
