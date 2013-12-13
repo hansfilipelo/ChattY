@@ -148,3 +148,16 @@ void Master::printVector(){
 }
 
 // ---------------------------------------------
+
+void Master::updateStructForAll() {
+    for (unsigned int i = 0; i < rooms.size(); i++) {
+        
+        if ( userOrNot(rooms.at(i)) ) {
+            rooms.at(i)->requestStruct();
+        }
+    }
+}
+
+
+
+

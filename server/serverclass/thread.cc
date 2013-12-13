@@ -196,6 +196,8 @@ void Thread::disconnected()
         
     }
     
+    masterPointer->updateStructForAll();
+    
     TcpSocket->deleteLater();
     //exits the thread
     exit(0);
