@@ -10,8 +10,8 @@ ui(new Ui::LoginDialog)
     ui->setupUi(this);
     this->setFixedSize(this->width(),this->height());
     ui->inputServer->setPlaceholderText("Example: name.server.com");
-    ui->inputName->setPlaceholderText("Example: Name (max 32 characters)");
-    ui->inputName->setInputMask("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+    ui->inputName->setPlaceholderText("Example: Name (max 16 characters)");
+    ui->inputName->setInputMask("NNNNNNNNNNNNNNNN");
     mainWindow = chatPointer;
     chatGui = guiPointer;
 }
