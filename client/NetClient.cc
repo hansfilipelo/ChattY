@@ -55,7 +55,7 @@ void NetClient::connected(){
 }
 
 void NetClient::disconnected(){
-    qDebug() << "disconnected";
+    guiPointer->disconnectedFromServer();
     
 }
 

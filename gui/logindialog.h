@@ -22,6 +22,8 @@ public:
     Gui* chatGui;
     void userNameTaken();
     void noConnection();
+    
+    void disconnectedFromServer();
 
 private slots:
     void on_buttonBox_rejected();
