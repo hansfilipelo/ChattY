@@ -50,6 +50,7 @@ void Thread::handleInitiate(string stdInData) {
     }
     catch (...)
     {
+        cout << "reinitiate" << endl;
         reinitiate();
     }
 }
@@ -127,29 +128,22 @@ void Thread::readyRead()
     QByteArray Data = TcpSocket->readAll();
     
     int i;
-    int n;
     
     QString commandName;
     QString inData = Data;
     
+    int n = inData.indexOf(breaker);
     QString rest;
     
-    while ( !inData.isEmpty() ) {
-        
+    
+    do {
+        rest = inData.mid(n+1);
+        inData = inData.left(n);
         i = inData.indexOf(compare);
         
         commandName = inData.left(i);
+        
         inData = inData.mid(i+1);
-        
-        n = inData.indexOf(breaker);
-        
-        if (inData.size() < 2) {
-            
-            break;
-        }
-        rest = inData.mid(n+1);
-        
-        inData = inData.left(n);
         
         QString temp = inData;
         string stdInData = temp.toStdString();
@@ -173,10 +167,11 @@ void Thread::readyRead()
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
-        
+
         inData = rest;
+        n = inData.indexOf(breaker);
         
-    }
+    }while (n != -1 );
 }
 
 // ---------------------------------------
