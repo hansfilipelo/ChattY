@@ -18,6 +18,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     ui->messageHistory->moveCursor(QTextCursor::End);
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
+
     if(to == name){
         lastWhisper=from;
         ui->messageHistory->setTextColor(Qt::magenta);
@@ -45,8 +46,9 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     ui->messageHistory->insertPlainText(message);
 
 
-    ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='30' height='30'>");
+    ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
     ui->messageHistory->insertPlainText("\n");
+    ui->messageHistory->moveCursor(QTextCursor::End);
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
     {
 
@@ -170,7 +172,12 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 }
 
 void ChatWindow::sendMessage(){
+    if (ui->messageInput->text()==""){
+        return;
+    }
+     else{
     chatGui->sendMessage(name,receiver,ui->messageInput->text());
+    }
 
 }
 
@@ -219,6 +226,7 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
         ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
         ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+        ui->messageHistory->moveCursor(QTextCursor::End);
 
     }
 }

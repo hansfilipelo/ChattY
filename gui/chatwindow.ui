@@ -28,6 +28,12 @@
       </item>
       <item>
        <widget class="QTextBrowser" name="messageHistory">
+        <property name="font">
+         <font>
+          <family>Geeza Pro</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
         <property name="mouseTracking">
          <bool>false</bool>
         </property>
@@ -66,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>972</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCustomize">
