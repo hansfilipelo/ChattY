@@ -259,6 +259,7 @@ void Thread::reinitiate(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
+    disconnected();
 }
 
 // -----------------------------------------
