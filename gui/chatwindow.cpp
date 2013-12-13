@@ -42,6 +42,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
     }
     ui->messageHistory->insertPlainText(message);
+    ui->messageHistory->insertHtml("border-image:url(:/files/icon/ChattY.png)");
     ui->messageHistory->insertPlainText("\n");
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
     {
