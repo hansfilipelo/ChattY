@@ -57,6 +57,7 @@ private:
     Ui::ChatWindow *ui;
     QString name;
     QString server;
+    QString lastWhisper;
 };
 
 #endif // CHATWINDOW_H

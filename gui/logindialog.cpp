@@ -56,3 +56,7 @@ void LoginDialog::userNameTaken(){
 void LoginDialog::noConnection(){
     ui->errorMessage->setText("Server timout. The server is down or invalid address!");
 }
+
+void LoginDialog::disconnectedFromServer(){
+    ui->errorMessage->setText("Disconnected from server!");
+}
