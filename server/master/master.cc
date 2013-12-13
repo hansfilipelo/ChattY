@@ -109,15 +109,13 @@ User* Master::createUser(string name){
         
         rooms.push_back(temp);
         
-        cout << name <<" was created!" <<endl;
-        
         // Update structure on all clients
         for (unsigned int i = 0; i < rooms.size(); i++) {
-            if ( userOrNot(rooms.at(i)) and rooms.at(i)->getName() != name ) {
+            if ( rooms.at(i)->getName() != name and userOrNot(rooms.at(i)) ) {
                 rooms.at(i)->requestStruct();
             }
         }
-        
+        cout << name <<" was created!" <<endl;
         return temp;
     }
     

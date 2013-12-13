@@ -50,6 +50,7 @@ void Thread::handleInitiate(string stdInData) {
     }
     catch (...)
     {
+        cout << "reinitiate" << endl;
         reinitiate();
     }
 }
@@ -57,26 +58,25 @@ void Thread::handleInitiate(string stdInData) {
 // ----------------------
 
 void Thread::handleStructure() {
+    cout << "Thread::handleStructure" << endl;
     vector<string> structure = userPointer->getStruct();
-
+    
     QByteArray sendData;
     sendData += "/structure";
     sendData += compare;
     unsigned int i;
-    cout << structure.size()<< endl;
     
     for (i = 0; i < (structure.size()-1)  ; i++) {
-        cout << i << endl;
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
-        cout << "hej" << endl;
     }
-    cout << i << endl;
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
-    cout << structure.at(0);
+    cout << "User: " << structure.at(2  ) << endl;
     TcpSocket->write(sendData);
+    
+    cout << "Struct sent" << endl;
     
 }
 
@@ -96,7 +96,6 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 void Thread::run()
 {
     //thread starts here
-    cout << socketDescriptor << " starting thread"<<endl;
     TcpSocket = new QTcpSocket();
     
     
@@ -109,7 +108,6 @@ void Thread::run()
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
     
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
-    cout << socketDescriptor << " client connected"<<endl;
     
     //creates a messageloop
     exec();
@@ -127,29 +125,22 @@ void Thread::readyRead()
     QByteArray Data = TcpSocket->readAll();
     
     int i;
-    int n;
     
     QString commandName;
     QString inData = Data;
     
+    int n = inData.indexOf(breaker);
     QString rest;
     
-    while ( !inData.isEmpty() ) {
-        
+    
+    do {
+        rest = inData.mid(n+1);
+        inData = inData.left(n);
         i = inData.indexOf(compare);
         
         commandName = inData.left(i);
+        
         inData = inData.mid(i+1);
-        
-        n = inData.indexOf(breaker);
-        
-        if (inData.size() < 2) {
-            
-            break;
-        }
-        rest = inData.mid(n+1);
-        
-        inData = inData.left(n);
         
         QString temp = inData;
         string stdInData = temp.toStdString();
@@ -166,7 +157,6 @@ void Thread::readyRead()
         
         else if ( commandName == "/structure" ) {
             handleStructure();
-            cout << "Handled structure, but not really" << endl;
         }
         
         else {
@@ -174,10 +164,11 @@ void Thread::readyRead()
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
-        
+
         inData = rest;
+        n = inData.indexOf(breaker);
         
-    }
+    }while (n != -1 );
 }
 
 // ---------------------------------------
@@ -260,7 +251,7 @@ void Thread::reinitiate(){
 
 
 void Thread::requestStruct() {
-    QByteArray array = "/structure";
+    QByteArray array = "/requestStruct";
     array += 0x1F;
     array += 0x1E;
     
