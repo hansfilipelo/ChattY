@@ -30,6 +30,8 @@ public:
     Room* getRoom(std::string);
     Room* getTop();
     
+    void updateStructForAll();
+    
     void printVector(); // testing purposes 
     
 protected:

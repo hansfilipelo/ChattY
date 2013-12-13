@@ -31,7 +31,6 @@ void Server::start()
 
 void Server::incomingConnection(qintptr handle)
 {
-    qDebug() << handle <<"Connecting...";
     Thread *currentThread = new Thread(handle, masterPointer, this);
     
     connect(currentThread,SIGNAL(finished()),currentThread,SLOT(deleteLater()));

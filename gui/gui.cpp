@@ -53,3 +53,8 @@ void Gui::receiveHistory(QVector<QString> &historyVector){
     mainWindow->receiveHistory(historyVector);
     
 }
+
+void Gui::disconnectedFromServer() {
+    loginWindow->show();
+    loginWindow->disconnectedFromServer();
+}

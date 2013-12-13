@@ -21,6 +21,10 @@ public:
 
     void receiveHistory(QVector<QString> &historyVector);
     // void Gui::updateStruct(vector);
+    
+    // Disconnected from server
+    void disconnectedFromServer();
+    
 protected:
     NetClient* client = nullptr;
     LoginDialog* loginWindow = nullptr;
