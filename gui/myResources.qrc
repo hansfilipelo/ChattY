@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/files">
         <file>icon/ChattY.png</file>
-        <file>smilies/images/=|.gif</file>
-        <file>smilies/images/=(.png</file>
+        <file>smilies/images/ledsen.png</file>
     </qresource>
 </RCC>
