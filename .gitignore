@@ -6,7 +6,6 @@
 *.exe
 *.o
 *.so
-*.xcodeproj
 *.app
 *.user
 
@@ -31,11 +30,12 @@ server/moc_server.cpp
 server/moc_thread.cpp
 gui/moc_NetClient.cpp
 
-# Davids sketna projektfiler #
+# Various projectfiles #
 ##############################
 *.dev
 *.layout
 *.win
+*.xcodeproj
 
 # OS generated files #
 ######################
@@ -53,6 +53,7 @@ gui/moc_chatwindow.cpp
 gui/moc_logindialog.cpp
 gui/ui_chatwindow.h
 gui/ui_logindialog.h
+
 # Build
 build-ChatGUI-Desktop_Qt_5_2_0_clang_64bit-Debug
 
