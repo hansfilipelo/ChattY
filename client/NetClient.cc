@@ -99,6 +99,10 @@ void NetClient::readyRead(){
             handleMessage(inData);
         }
         
+        else if ( commandName == "/requestStruct") {
+            handleRequestStruct();
+        }
+        
         else if ( commandName == "/structure" ) {
             handleStructure(inData);
         }
@@ -141,6 +145,15 @@ void NetClient::getStruct(){
 
 //--------------------------------------------
 //Helpfunctions
+
+void NetClient::handleRequestStruct(){
+    QByteArray array = "/structure";
+    array += compare;
+    array += breaker;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}
 
 void NetClient::handleMessage(QString inData){
     
