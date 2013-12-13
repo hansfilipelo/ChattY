@@ -48,6 +48,8 @@ private slots:
 
     void on_actionCezch_triggered();
 
+    void on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
