@@ -43,7 +43,8 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     }
     ui->messageHistory->insertPlainText(message);
 
-    //ui->messageHistory->insertHtml("<p><img src=\":/files/smilies/images/=(.png\"></p>");
+
+    ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='30' height='30'>");
     ui->messageHistory->insertPlainText("\n");
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
     {

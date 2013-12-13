@@ -6,6 +6,8 @@
 #include <QScrollBar>
 #include <QTreeWidget>
 #include <QDebug>
+#include "smilies/smiley.h"
+
 class Gui;
 
 namespace Ui {
