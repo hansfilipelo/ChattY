@@ -52,7 +52,6 @@ void NetClient::connected(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
-    guiPointer->connected();
 }
 
 void NetClient::disconnected(){
@@ -88,6 +87,10 @@ void NetClient::readyRead(){
         // Check which command that's supposed to run
         if (commandName == "/reinitiate") {
             guiPointer->userNameTaken();
+        }
+        
+        else if ( commandName == "/userAccepted") {
+            guiPointer->connected();
         }
         
         else if (commandName == "/history") {
