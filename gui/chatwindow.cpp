@@ -78,6 +78,7 @@ void ChatWindow::updateStruct(QVector<QString> treeStruct){
         treeParent=addSubRoot(treeParent,treeStruct.at(i));
         }
     }
+    ui->roomTree->expandAll();
 }
 
 QTreeWidgetItem* ChatWindow::addRoot(const QString rootName){
