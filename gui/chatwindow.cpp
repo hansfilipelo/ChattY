@@ -19,6 +19,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
     if(to == name){
+        lastWhisper=from;
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText(from +" whispers to you: ");
         ui->messageHistory->setTextColor(Qt::black);
@@ -158,10 +159,14 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
             ui->messageInput->clear();
         }
     }
-  //  if(w=="/r " or w=="/R "){
+    if(w=="/r " or w=="/R "){
+        to.remove("/r ",Qt::CaseInsensitive);
+        receiver=lastWhisper;
+        ui->sendButton->setText("To " + receiver);
+        ui->messageInput->clear();
 
+    }
 }
-
 
 void ChatWindow::sendMessage(){
     chatGui->sendMessage(name,receiver,ui->messageInput->text());
@@ -215,8 +220,8 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
         ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
 
     }
-
 }
+
 
 void ChatWindow::on_actionChatty_triggered()
 {
@@ -240,4 +245,6 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
 {
     receiver = item->text(column);
     ui->sendButton->setText("To " + receiver);
+    ui->messageInput->setFocus();
+    ui->messageInput->setCursorPosition(0);
 }
