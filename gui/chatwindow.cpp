@@ -42,6 +42,8 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
     }
     ui->messageHistory->insertPlainText(message);
+
+    //ui->messageHistory->insertHtml("<p><img src=\":/files/smilies/images/=(.png\"></p>");
     ui->messageHistory->insertPlainText("\n");
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
     {
@@ -232,4 +234,10 @@ void ChatWindow::on_actionCezch_triggered()
     ui->statusBar->setStyleSheet("background-color: transparent;");
     ui->centralWidget->setStyleSheet("background-color: transparent;");
     ui->sendButton->setStyleSheet("background-color: none;");
+}
+
+void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    receiver = item->text(column);
+    ui->sendButton->setText("To " + receiver);
 }
