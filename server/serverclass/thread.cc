@@ -58,7 +58,7 @@ void Thread::handleInitiate(string stdInData) {
 
 void Thread::handleStructure() {
     vector<string> structure = userPointer->getStruct();
-
+    
     QByteArray sendData;
     sendData += "/structure";
     sendData += compare;
@@ -166,7 +166,6 @@ void Thread::readyRead()
         
         else if ( commandName == "/structure" ) {
             handleStructure();
-            cout << "Handled structure, but not really" << endl;
         }
         
         else {
@@ -260,7 +259,7 @@ void Thread::reinitiate(){
 
 
 void Thread::requestStruct() {
-    QByteArray array = "/structure";
+    QByteArray array = "/requestStruct";
     array += 0x1F;
     array += 0x1E;
     
