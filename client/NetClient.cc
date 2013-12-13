@@ -212,6 +212,7 @@ void NetClient::handleStructure(QString inData){
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
+        qDebug() << data;
         n = inData.size();
     }
     

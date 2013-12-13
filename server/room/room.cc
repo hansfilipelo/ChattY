@@ -174,16 +174,16 @@ void Room::readAllFromFile() {
     {
         while (getline(logfile,line)) {
             string time = line;
-            cout << time << endl;
+            
             getline (logfile,line);
             string from = line;
-            cout << from << endl;
+            
             getline (logfile,line);
             string to = line;
-            cout << to << endl;
+            
             getline (logfile,line);
             string message = line;
-            cout << message << endl;
+            
             
             Message tempMessage(message,from,to);
             log.push_back(tempMessage);
@@ -191,7 +191,6 @@ void Room::readAllFromFile() {
         
         logfile.close();
         
-        cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
     }
     else {
         cout << "Unable to open file";
@@ -246,38 +245,36 @@ Room* Room::getParentRoom() {
 
 // -----------------------------------
 
-vector<string>& User::getStruct() {
-    parentRoom->getStruct();
-}
-
-// -----------------------------------
-
-vector<string>& Room::getStruct() {
-    vector<string>* structure;
-    structure = new vector<string>;
+vector<string> Room::getStruct() {
+    vector<string> structure;
     
-    structure->push_back("User");
-    cout << "User added" << endl;
+    if ( parentRoom != nullptr ) {
+        structure.push_back(parentRoom->getName());
+    }
+    
+    structure.push_back(name);
+    structure.push_back("User");
+    
+    cout << "Room::getStruct()" << endl;
+    cout << rooms.size() << endl;
     
     for (unsigned int i = 0; i < rooms.size() ; i++) {
-        cout << "in first for loop" << endl;
         User* userTemp = dynamic_cast<User*>(rooms.at(i));
-        cout << "Dyncast" << endl;
         if ( userTemp == nullptr ) {
-            cout << "in if" << endl;
-            structure->insert(structure->begin(),rooms.at(i)->getName());
+            cout << rooms.at(i)->getName() << endl;
+            structure.insert(structure.begin(),rooms.at(i)->getName());
         }
         else {
-            cout << "in else" << endl;
-            structure->push_back(rooms.at(i)->getName());
+            cout << "User:" << rooms.at(i)->getName() << endl;
+            structure.push_back(rooms.at(i)->getName());
         }
     }
     
-    structure->insert(structure->begin(),this->getName());
-    cout << "after parentroom" << endl;
-    cout << structure->size() << " : " << structure->at(0) << structure->at(1) << structure->at(2) << endl;
-    return *structure;
+    cout << "User: " << structure.at(2) << endl;
+    
+    return structure;
 }
+
 
 // -------------------------------------
 

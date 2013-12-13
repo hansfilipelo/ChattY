@@ -63,3 +63,7 @@ void User::requestStruct() {
 }
 
 // ----------------------------------
+
+vector<string> User::getStruct() {
+    return parentRoom->getStruct();
+}

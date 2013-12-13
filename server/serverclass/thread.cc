@@ -57,26 +57,25 @@ void Thread::handleInitiate(string stdInData) {
 // ----------------------
 
 void Thread::handleStructure() {
+    cout << "Thread::handleStructure" << endl;
     vector<string> structure = userPointer->getStruct();
 
     QByteArray sendData;
     sendData += "/structure";
     sendData += compare;
     unsigned int i;
-    cout << structure.size()<< endl;
     
     for (i = 0; i < (structure.size()-1)  ; i++) {
-        cout << i << endl;
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
-        cout << "hej" << endl;
     }
-    cout << i << endl;
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
-    cout << structure.at(0);
+    cout << "User: " << structure.at(2  ) << endl;
     TcpSocket->write(sendData);
+    
+    cout << "Struct sent" << endl;
     
 }
 
@@ -96,7 +95,6 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 void Thread::run()
 {
     //thread starts here
-    cout << socketDescriptor << " starting thread"<<endl;
     TcpSocket = new QTcpSocket();
     
     
@@ -109,7 +107,6 @@ void Thread::run()
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
     
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
-    cout << socketDescriptor << " client connected"<<endl;
     
     //creates a messageloop
     exec();
