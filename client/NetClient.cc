@@ -52,7 +52,6 @@ void NetClient::connected(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
-    guiPointer->connected();
 }
 
 void NetClient::disconnected(){
@@ -88,6 +87,11 @@ void NetClient::readyRead(){
         // Check which command that's supposed to run
         if (commandName == "/reinitiate") {
             guiPointer->userNameTaken();
+            break;
+        }
+        
+        else if ( commandName == "/userAccepted") {
+            guiPointer->connected();
         }
         
         else if (commandName == "/history") {
@@ -97,6 +101,10 @@ void NetClient::readyRead(){
         
         else if (commandName == "/message") {
             handleMessage(inData);
+        }
+        
+        else if ( commandName == "/requestStruct") {
+            handleRequestStruct();
         }
         
         else if ( commandName == "/structure" ) {
@@ -141,6 +149,15 @@ void NetClient::getStruct(){
 
 //--------------------------------------------
 //Helpfunctions
+
+void NetClient::handleRequestStruct(){
+    QByteArray array = "/structure";
+    array += compare;
+    array += breaker;
+    
+    TcpSocket->write(array);
+    TcpSocket->waitForBytesWritten(1000);
+}
 
 void NetClient::handleMessage(QString inData){
     
@@ -203,17 +220,17 @@ void NetClient::handleHistory(QString inData){
 
 void NetClient::handleStructure(QString inData){
     QVector<QString> output;
-    int n = inData.size();
-    while(n  > 0){
-        int i = inData.indexOf(compare);
-        if (i == -1){
-            break;
-        }
+    int i = inData.indexOf(compare);
+    while(i  != -1){
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
-        n = inData.size();
+        qDebug() << data;
+        
+        i = inData.indexOf(compare);
     }
+    
+    output.push_back(inData);
     
     guiPointer->updateStruct(output);
     

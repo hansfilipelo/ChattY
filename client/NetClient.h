@@ -48,6 +48,7 @@ private:
     void handleHistory(QString);
     void handleMessage(QString);
     void handleStructure(QString);
+    void handleRequestStruct();
 };
 
 

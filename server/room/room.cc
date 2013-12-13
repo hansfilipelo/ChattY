@@ -181,12 +181,16 @@ void Room::readAllFromFile() {
     {
         while (getline(logfile,line)) {
             string time = line;
+            
             getline (logfile,line);
             string from = line;
+            
             getline (logfile,line);
             string to = line;
+            
             getline (logfile,line);
             string message = line;
+            
             
             Message tempMessage(message,from,to);
             log.push_back(tempMessage);
@@ -247,31 +251,36 @@ Room* Room::getParentRoom() {
 
 // -----------------------------------
 
-vector<string>& User::getStruct() {
-    parentRoom->getStruct();
-}
-
-// -----------------------------------
-
-vector<string>& Room::getStruct() {
-    vector<string>* structure;
-    structure = new vector<string>;
+vector<string> Room::getStruct() {
+    vector<string> structure;
     
-    structure->push_back("User");
+    if ( parentRoom != nullptr ) {
+        structure.push_back(parentRoom->getName());
+    }
+    
+    structure.push_back(name);
+    structure.push_back("User");
+    
+    cout << "Room::getStruct()" << endl;
+    cout << rooms.size() << endl;
     
     for (unsigned int i = 0; i < rooms.size() ; i++) {
         User* userTemp = dynamic_cast<User*>(rooms.at(i));
         if ( userTemp == nullptr ) {
-            structure->insert(structure->begin(),rooms.at(i)->getName());
+            cout << rooms.at(i)->getName() << endl;
+            structure.insert(structure.begin(),rooms.at(i)->getName());
         }
         else {
-            structure->push_back(rooms.at(i)->getName());
+            cout << "User:" << rooms.at(i)->getName() << endl;
+            structure.push_back(rooms.at(i)->getName());
         }
     }
     
-    structure->insert(structure->begin(),this->getName());
-    return *structure;
+    cout << "User: " << structure.at(2) << endl;
+    
+    return structure;
 }
+
 
 // -------------------------------------
 

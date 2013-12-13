@@ -43,13 +43,25 @@ void Thread::handleMessage(QString inData){
 void Thread::handleInitiate(string stdInData) {
     try
     {
+        // Creates user
         userPointer = masterPointer->createUser(stdInData);
         userPointer->setThread(this);
+        
+        // Sends "OK username is accepted" to client
+        QByteArray array = "/userAccepted";
+        array += compare;
+        array+= breaker;
+        
+        TcpSocket->write(array);
+        TcpSocket->waitForBytesWritten(1000);
+        
+        // Sends structure to "the other side"
         handleStructure();
         userPointer->sendHistory();
     }
     catch (...)
     {
+        cout << "reinitiate" << endl;
         reinitiate();
     }
 }
@@ -57,8 +69,9 @@ void Thread::handleInitiate(string stdInData) {
 // ----------------------
 
 void Thread::handleStructure() {
+    cout << "Thread::handleStructure" << endl;
     vector<string> structure = userPointer->getStruct();
-
+    
     QByteArray sendData;
     sendData += "/structure";
     sendData += compare;
@@ -71,7 +84,10 @@ void Thread::handleStructure() {
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
+    cout << "User: " << structure.at(2  ) << endl;
     TcpSocket->write(sendData);
+    
+    cout << "Struct sent" << endl;
     
 }
 
@@ -84,6 +100,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     this->socketDescriptor = ID;
     compare += 0x1F;
     breaker += 0x1E;
+    userPointer = nullptr;
 }
 
 // ---------------------------------------
@@ -91,7 +108,6 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 void Thread::run()
 {
     //thread starts here
-    cout << socketDescriptor << " starting thread"<<endl;
     TcpSocket = new QTcpSocket();
     
     
@@ -104,7 +120,6 @@ void Thread::run()
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()),Qt::DirectConnection);
     
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()),Qt::DirectConnection);
-    cout << socketDescriptor << " client connected"<<endl;
     
     //creates a messageloop
     exec();
@@ -122,29 +137,22 @@ void Thread::readyRead()
     QByteArray Data = TcpSocket->readAll();
     
     int i;
-    int n;
     
     QString commandName;
     QString inData = Data;
     
+    int n = inData.indexOf(breaker);
     QString rest;
     
-    while ( !inData.isEmpty() ) {
-        
+    
+    do {
+        rest = inData.mid(n+1);
+        inData = inData.left(n);
         i = inData.indexOf(compare);
         
         commandName = inData.left(i);
+        
         inData = inData.mid(i+1);
-        
-        n = inData.indexOf(breaker);
-        
-        if (inData.size() < 2) {
-            
-            break;
-        }
-        rest = inData.mid(n+1);
-        
-        inData = inData.left(n);
         
         QString temp = inData;
         string stdInData = temp.toStdString();
@@ -161,7 +169,6 @@ void Thread::readyRead()
         
         else if ( commandName == "/structure" ) {
             handleStructure();
-            cout << "Handled structure, but not really" << endl;
         }
         
         else {
@@ -169,10 +176,11 @@ void Thread::readyRead()
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
-        
+
         inData = rest;
+        n = inData.indexOf(breaker);
         
-    }
+    }while (n != -1 );
 }
 
 // ---------------------------------------
@@ -181,7 +189,9 @@ void Thread::disconnected()
 {
     cout << socketDescriptor << "Disconnected"<<endl;
     try {
-        masterPointer->removeUser(userPointer->getName());
+        if (userPointer != nullptr) {
+            masterPointer->removeUser(userPointer->getName());
+        }
     } catch (...) {
         
     }
@@ -249,13 +259,14 @@ void Thread::reinitiate(){
     
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
+    disconnected();
 }
 
 // -----------------------------------------
 
 
 void Thread::requestStruct() {
-    QByteArray array = "/structure";
+    QByteArray array = "/requestStruct";
     array += 0x1F;
     array += 0x1E;
     

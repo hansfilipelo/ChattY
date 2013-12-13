@@ -75,3 +75,7 @@ void User::readAllFromFile() {
 }
 
 
+
+vector<string> User::getStruct() {
+    return parentRoom->getStruct();
+}
