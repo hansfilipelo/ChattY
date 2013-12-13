@@ -17,6 +17,7 @@ TARGET		= ChattY
 TEMPLATE	= app
 
 CONFIG		+= c++11
+# CONFIG		+= release
 
 # ---- Files ----
 

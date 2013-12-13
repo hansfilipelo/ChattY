@@ -87,6 +87,7 @@ void Room::sendMessage(Message inMessage) {
         getRoom(from)->receiveMessage(inMessage);
     } catch (...) {
         Message errorMessage("No such user in this room.",name,inMessage.getFrom());
+        getRoom(to)->receiveMessage(errorMessage);
     }
     
 }
