@@ -100,6 +100,7 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
     this->socketDescriptor = ID;
     compare += 0x1F;
     breaker += 0x1E;
+    userPointer = nullptr;
 }
 
 // ---------------------------------------
@@ -188,7 +189,9 @@ void Thread::disconnected()
 {
     cout << socketDescriptor << "Disconnected"<<endl;
     try {
-        masterPointer->removeUser(userPointer->getName());
+        if (userPointer != nullptr) {
+            masterPointer->removeUser(userPointer->getName());
+        }
     } catch (...) {
         
     }
