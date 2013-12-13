@@ -87,6 +87,7 @@ void NetClient::readyRead(){
         // Check which command that's supposed to run
         if (commandName == "/reinitiate") {
             guiPointer->userNameTaken();
+            break;
         }
         
         else if ( commandName == "/userAccepted") {
