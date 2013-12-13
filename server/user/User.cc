@@ -63,3 +63,15 @@ void User::requestStruct() {
 }
 
 // ----------------------------------
+
+void User::setFilePath() {
+    //dummy
+}
+
+// ----------------------------------
+
+void User::readAllFromFile() {
+    //dummy
+}
+
+

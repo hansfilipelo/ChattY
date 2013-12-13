@@ -16,6 +16,7 @@ using namespace std;
 Room::Room(string inName,Master* master) {
     masterPointer = master;
     name = inName;
+    setFilePath();
     readAllFromFile();
 }
 
@@ -152,38 +153,40 @@ void Room::addRoom(Room* inRoom) {
 }
 
 
-
 // ----------------------------------
 
 void Room::saveToFile(Message inMessage) {
+    setFilePath();
     ofstream logfile;
-    logfile.open ("log.txt", std::ios_base::app);
+    logfile.open (filepath, std::ios_base::app);
     
     logfile << inMessage.getServerTime() << endl << inMessage.getFrom() << endl;
     logfile << inMessage.getTo() << endl << inMessage.getMessage() << endl;
     
     logfile.close();
 }
+//-----------------------------------
 
+void Room::setFilePath() {
+    filepath = "logfiles/" + name + " " + currentDateTime().substr(0,10) + ".txt";
+}
+
+// -----------------------------------
 void Room::readAllFromFile() {
     log.clear();
-    
     string line;
-    ifstream logfile ("log.txt");
+    ifstream logfile (filepath);
+    
     if (logfile.is_open())
     {
         while (getline(logfile,line)) {
             string time = line;
-            cout << time << endl;
             getline (logfile,line);
             string from = line;
-            cout << from << endl;
             getline (logfile,line);
             string to = line;
-            cout << to << endl;
             getline (logfile,line);
             string message = line;
-            cout << message << endl;
             
             Message tempMessage(message,from,to);
             log.push_back(tempMessage);
@@ -194,11 +197,9 @@ void Room::readAllFromFile() {
         cout << "File was read with no errors. Read :"<<log.size()<<" Messages"<<endl;
     }
     else {
-        cout << "Unable to open file";
+        cout << "Unable to open file"<<endl;
     }
 }
-
-
 
 // ------------------------------------
 
@@ -257,25 +258,18 @@ vector<string>& Room::getStruct() {
     structure = new vector<string>;
     
     structure->push_back("User");
-    cout << "User added" << endl;
     
     for (unsigned int i = 0; i < rooms.size() ; i++) {
-        cout << "in first for loop" << endl;
         User* userTemp = dynamic_cast<User*>(rooms.at(i));
-        cout << "Dyncast" << endl;
         if ( userTemp == nullptr ) {
-            cout << "in if" << endl;
             structure->insert(structure->begin(),rooms.at(i)->getName());
         }
         else {
-            cout << "in else" << endl;
             structure->push_back(rooms.at(i)->getName());
         }
     }
     
     structure->insert(structure->begin(),this->getName());
-    cout << "after parentroom" << endl;
-    cout << structure->size() << " : " << structure->at(0) << structure->at(1) << structure->at(2) << endl;
     return *structure;
 }
 

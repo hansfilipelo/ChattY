@@ -33,6 +33,8 @@ public:
     virtual void sendMessage(Message);
     
     virtual void requestStruct();
+    virtual void setFilePath();
+    virtual void readAllFromFile();
     
     void createRoom(std::string);
     void addRoom(Room*);
@@ -54,11 +56,12 @@ protected:
     friend void ifRoomRemove(Room* inRoom);
     unsigned int getPosOfRoom(std::string name) const;
     void saveToFile(Message);
-    void readAllFromFile();
+    
     void sendMessageAll(Message);
     
-    int fileCounter;
+    std::string filepath;
     std::string name;
+    
     std::vector<Room*> rooms;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
@@ -78,6 +81,8 @@ public:
     void sendMessage(Message);
     void receiveMessage(Message);
     
+    void setFilePath();
+    void readAllFromFile();
     void sendHistory();
     void chooseRoom(Room*);
     void initRoom(std::string);

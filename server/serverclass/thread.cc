@@ -63,19 +63,14 @@ void Thread::handleStructure() {
     sendData += "/structure";
     sendData += compare;
     unsigned int i;
-    cout << structure.size()<< endl;
     
     for (i = 0; i < (structure.size()-1)  ; i++) {
-        cout << i << endl;
         sendData += QString::fromStdString(structure.at(i));
         sendData += compare;
-        cout << "hej" << endl;
     }
-    cout << i << endl;
     sendData += QString::fromStdString(structure.at(i));
     sendData += breaker;
     
-    cout << structure.at(0);
     TcpSocket->write(sendData);
     
 }
