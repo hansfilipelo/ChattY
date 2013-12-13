@@ -32,6 +32,10 @@ void LoginDialog::on_buttonBox_accepted()
     if (ui->inputName->text()=="User"){
         ui->errorMessage->setText("Name not allowed");
     }
+    if (ui->inputServer->text().contains(" ") or ui->inputServer->text()==""){
+        ui->errorMessage->setText("Invalid server name");
+    }
+
     else{
         chatGui->createClient(ui->inputName->text(),ui->inputServer->text());
     }

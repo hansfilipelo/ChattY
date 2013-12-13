@@ -18,7 +18,7 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(Gui* guiPointer);
-    void receiveMessage(const QString from, const QString to, const QString message, const QString time);
+    void receiveMessage(const QString from, const QString to, const QString message,const QString time);
     ~ChatWindow();
     void setName(QString inName);
     void setServer(QString serverName);

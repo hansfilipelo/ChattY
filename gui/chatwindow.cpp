@@ -14,7 +14,10 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
+    QString tempString = time;
     ui->messageHistory->moveCursor(QTextCursor::End);
+    ui->messageHistory->setTextColor(Qt::black);
+    ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
     if(to == name){
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText(from +" whispers to you: ");
@@ -60,24 +63,18 @@ void ChatWindow::setServer(QString serverName){
 }
 
 void ChatWindow::updateStruct(QVector<QString> treeStruct){
-    qDebug() << "whileloop";
+    ui->roomTree->clear();
     QTreeWidgetItem *treeParent;
-    qDebug() << "whileloop2";
-    qDebug() << "Här"+treeStruct.at(0)+"Här";
-    treeParent=addRoot(treeStruct.at(0)); //This line crashes.
-    qDebug() << "whileloop3";
+    treeParent=addRoot(treeStruct.at(0));
     for (int i=1; i< treeStruct.size(); i++){
-        qDebug() << "whileloop4";
         if (treeStruct.at(i)=="User"){
             treeStruct.remove(i);
-            qDebug() << "whileloop5";
             while (i < treeStruct.size()){
-                qDebug() << "whileloop6";
                 addLeaf(treeParent,treeStruct.at(i));
                 i++;
             }
         }
-        else {qDebug() << "whileloop7";
+        else {
         treeParent=addSubRoot(treeParent,treeStruct.at(i));
         }
     }
@@ -206,11 +203,14 @@ void ChatWindow::on_actionDefault_triggered()
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
     for(int i = 0;i<historyVector.size(); i+=4){
-        
+        QString tempString=historyVector.at(i+3);
+        ui->messageHistory->setTextColor(Qt::black);
+        ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
         ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+
     }
 
 }
