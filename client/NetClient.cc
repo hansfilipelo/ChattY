@@ -29,15 +29,12 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
     
-    qDebug() << "connecting...";
-    
     QHostInfo info = QHostInfo::fromName(address);
     
     TcpSocket->connectToHost(info.addresses().at(0),quint16(40001));
     
     if(!TcpSocket->waitForConnected(1000)){
         guiPointer->noConnection();
-        qDebug() << "Error: " << TcpSocket->errorString();
     }
 }
 
@@ -121,7 +118,6 @@ void NetClient::readyRead(){
 
 void NetClient::sendMessage(QString from, QString to, QString message){
     QByteArray array = "/message";
-    qDebug() << "sendMessage";
     array += 0x1F; //unit separator
     array += from;
     array += 0x1F;
@@ -224,7 +220,6 @@ void NetClient::handleStructure(QString inData){
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
-        qDebug() << data;
         
         i = inData.indexOf(compare);
     }

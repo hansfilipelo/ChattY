@@ -5,7 +5,6 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
-#include <QDebug>
 #include "smilies/smiley.h"
 
 class Gui;
