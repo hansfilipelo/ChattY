@@ -56,10 +56,9 @@ protected:
     friend void ifRoomRemove(Room* inRoom);
     unsigned int getPosOfRoom(std::string name) const;
     void saveToFile(Message);
-    
     void sendMessageAll(Message);
     
-    std::string filepath;
+    std::string filepath="";
     std::string name;
     
     std::vector<Room*> rooms;

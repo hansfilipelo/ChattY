@@ -58,6 +58,7 @@ void Thread::handleInitiate(string stdInData) {
         // Sends structure to "the other side"
         handleStructure();
         userPointer->sendHistory();
+        
     }
     catch (...)
     {

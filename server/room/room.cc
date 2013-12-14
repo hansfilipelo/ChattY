@@ -6,6 +6,8 @@
  */
 
 #include "room.h"
+#include <QString>
+#include <QDebug>
 
 
 using namespace std;
@@ -16,8 +18,8 @@ using namespace std;
 Room::Room(string inName,Master* master) {
     masterPointer = master;
     name = inName;
-    setFilePath();
-    readAllFromFile();
+    this->setFilePath();
+    this->readAllFromFile();
 }
 
 // ----------------------------------------
@@ -174,8 +176,13 @@ void Room::saveToFile(Message inMessage) {
 
 void Room::setFilePath() {
     string today = currentDateTime().substr(0,10);
-    string date = filepath.substr(14,10);
-    if(today != filepath)
+    string date;
+    
+    if (filepath != "") {
+        date = filepath.substr(14,10);
+    }
+    
+    if(today != date)
     {
         log.clear();
         filepath = "logfiles/" + name + " " + currentDateTime().substr(0,10) + ".txt";
@@ -207,9 +214,7 @@ void Room::readAllFromFile() {
             Message tempMessage(message,from,to);
             log.push_back(tempMessage);
         }
-        
         logfile.close();
-        
     }
 }
 

@@ -98,7 +98,6 @@ void NetClient::readyRead(){
             handleHistory(inData);
         }
         
-        
         else if (commandName == "/message") {
             handleMessage(inData);
         }
