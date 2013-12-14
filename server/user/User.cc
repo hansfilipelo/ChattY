@@ -23,6 +23,7 @@ void User::chooseRoom(Room* newRoom){
 		parentRoom->removeRoom(this);
 	}
     newRoom->addRoom(this);
+    newRoom->setFilePath();
 }
 
 // ----------------------------------

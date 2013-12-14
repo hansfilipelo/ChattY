@@ -161,6 +161,7 @@ void Room::addRoom(Room* inRoom) {
 
 void Room::saveToFile(Message inMessage) {
     setFilePath();
+    
     ofstream logfile;
     logfile.open (filepath, std::ios_base::app);
     
@@ -172,7 +173,14 @@ void Room::saveToFile(Message inMessage) {
 //-----------------------------------
 
 void Room::setFilePath() {
-    filepath = "logfiles/" + name + " " + currentDateTime().substr(0,10) + ".txt";
+    string today = currentDateTime().substr(0,10);
+    string date = filepath.substr(14,10);
+    if(today != filepath)
+    {
+        log.clear();
+        filepath = "logfiles/" + name + " " + currentDateTime().substr(0,10) + ".txt";
+    }
+    
 }
 
 // -----------------------------------
