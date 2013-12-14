@@ -10,7 +10,6 @@ BESKRIVNING:
 #define NETCLIENT_H
 
 #include <QObject>
-#include <QDebug>
 #include <QHostAddress>
 #include <QAbstractSocket>
 #include <QTcpSocket>
