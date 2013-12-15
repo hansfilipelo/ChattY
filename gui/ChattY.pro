@@ -10,6 +10,7 @@ QMAKE_CC	= gcc
 QT		+= core gui
 QT              +=network gui testlib
 ICON		= icon/ChattY.icns
+RC_FILE		= ChattY.rc
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,7 +18,7 @@ TARGET		= ChattY
 TEMPLATE	= app
 
 CONFIG		+= c++11
-# CONFIG		+= release
+CONFIG		+= release
 
 # ---- Files ----
 
