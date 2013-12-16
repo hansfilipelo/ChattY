@@ -5,6 +5,7 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
+#include <initializer_list>
 
 class Gui;
 
@@ -33,6 +34,7 @@ public:
     void receiveOldHistory(QVector<QString> &historyVector);
     void getHistory();
     void clearHistory();
+    void setSmileySize(int);
 
 private slots:
     void on_sendButton_clicked();
@@ -83,6 +85,14 @@ private:
     QString straightFace = "<img src=':/files/smilies/straightface.png' width='15' height='15'>";
     QString xdFace = "<img src=':/files/smilies/xdface.png' width='15' height='15'>";
     QString oFace = "<img src=':/files/smilies/oface.png' width='15' height='15'>";
+    QString astronaut= "<img src=':/files/smilies/astronaut.png' width='15' height='15'>";
+    QString batman = "<img src=':/files/smilies/batman.png' width='15' height='15'>";
+    QString grandpa = "<img src=':/files/smilies/grandpa.png' width='15' height='15'>";
+    QString ironman = "<img src=':/files/smilies/ironman.png' width='15' height='15'>";
+    QString pirate = "<img src=':/files/smilies/pirate.png' width='15' height='15'>";
+    QString spiderman = "<img src=':/files/smilies/spiderman.png' width='15' height='15'>";
+    QString smileySize;
+    QVector<QString> smiley;
 };
 
 #endif // CHATWINDOW_H

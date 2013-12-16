@@ -3,6 +3,7 @@
 #include "QString"
 #include "QColor"
 #include "gui.h"
+#include <QDebug>
 //
 
 ChatWindow::ChatWindow(Gui* guiPointer) :
@@ -11,6 +12,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 {
     ui->setupUi(this);
     chatGui = guiPointer;
+    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,pirate,spiderman};
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -222,6 +224,24 @@ void ChatWindow::clearHistory(){
     ui->messageHistory->clear();
 }
 
+void ChatWindow::setSmileySize(int size){
+    qDebug()<< "tempString3";
+    QString sizeString = QString::number(size);
+    for (int i=0; i < smiley.size(); i++ ){
+        qDebug()<< smiley.size();
+        QString tempString = smiley.at(i);
+        tempString.chop(23);
+        tempString += " width='";
+        tempString += sizeString;
+        tempString += "' height='" ;
+        tempString +=  sizeString;
+        tempString += "'>";
+        qDebug()<< tempString;
+        smiley.replace(i,tempString);
+        qDebug()<< "tempString";
+
+    }
+}
 
 //---------------------------------Customisation menu-------------------------------//
 
@@ -290,11 +310,17 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
 
 QString ChatWindow::smilieConvert(const QString inMessage){
     QString messageConv = inMessage.toHtmlEscaped();
-    messageConv.replace(":)",happyFace);
-    messageConv.replace(":(",sadFace);
-    messageConv.replace(":|",straightFace);
-    messageConv.replace(":o",oFace);
-    messageConv.replace("xD",xdFace);
+    messageConv.replace(":)",smiley.at(0));
+    messageConv.replace(":(",smiley.at(1));
+    messageConv.replace(":|",smiley.at(2));
+    messageConv.replace(":o",smiley.at(3));
+    messageConv.replace("xD",smiley.at(4));
+    messageConv.replace("astronaut",smiley.at(5));
+    messageConv.replace("batman",smiley.at(6));
+    messageConv.replace("grandpa",smiley.at(7));
+    messageConv.replace("ironman",smiley.at(8));
+    messageConv.replace("pirate",smiley.at(9));
+    messageConv.replace("spiderman",smiley.at(10));
     return messageConv;
 }
 
@@ -335,47 +361,53 @@ void ChatWindow::on_action25_triggered()
 
 void ChatWindow::on_action13_2_triggered()
 {
-     happyFace = "<img src=':files/smilies/happyface.png' width='13' height='13'>";
-     sadFace = "<img src=':files/smilies/sadface.png' width='13' height='13'>";
-     straightFace = "<img src=':files/smilies/straightface.png' width='13' height='13'>";
-     oFace = "<img src=':files/smilies/oface.png' width='13' height='13'>";
-     xdFace = "<img src=':files/smilies/xdface.png' width='13' height='13'>";
+    setSmileySize(13);
+//     happyFace = "<img src=':files/smilies/happyface.png' width='13' height='13'>";
+//     sadFace = "<img src=':files/smilies/sadface.png' width='13' height='13'>";
+//     straightFace = "<img src=':files/smilies/straightface.png' width='13' height='13'>";
+//     oFace = "<img src=':files/smilies/oface.png' width='13' height='13'>";
+//     xdFace = "<img src=':files/smilies/xdface.png' width='13' height='13'>";
 }
 
 void ChatWindow::on_action15_2_triggered()
 {
-    happyFace = "<img src=':files/smilies/happyface.png' width='15' height='15'>";
-    sadFace = "<img src=':files/smilies/sadface.png' width='15' height='15'>";
-    straightFace = "<img src=':files/smilies/straightface.png' width='15' height='15'>";
-    oFace = "<img src=':files/smilies/oface.png' width='15' height='15'>";
-    xdFace = "<img src=':files/smilies/xdface.png' width='15' height='15'>";
+    setSmileySize(15);
+//    happyFace = "<img src=':files/smilies/happyface.png' width='15' height='15'>";
+//    sadFace = "<img src=':files/smilies/sadface.png' width='15' height='15'>";
+//    straightFace = "<img src=':files/smilies/straightface.png' width='15' height='15'>";
+//    oFace = "<img src=':files/smilies/oface.png' width='15' height='15'>";
+//    xdFace = "<img src=':files/smilies/xdface.png' width='15' height='15'>";
 }
 
 void ChatWindow::on_action20_2_triggered()
 {
-    happyFace = "<img src=':files/smilies/happyface.png' width='20' height='20'>";
-    sadFace = "<img src=':files/smilies/sadface.png' width='20' height='20'>";
-    straightFace = "<img src=':files/smilies/straightface.png' width='20' height='20'>";
-    oFace = "<img src=':files/smilies/oface.png' width='20' height='20'>";
-    xdFace = "<img src=':files/smilies/xdface.png' width='20' height='20'>";
+    setSmileySize(20);
+//    happyFace = "<img src=':files/smilies/happyface.png' width='20' height='20'>";
+//    sadFace = "<img src=':files/smilies/sadface.png' width='20' height='20'>";
+//    straightFace = "<img src=':files/smilies/straightface.png' width='20' height='20'>";
+//    oFace = "<img src=':files/smilies/oface.png' width='20' height='20'>";
+//    xdFace = "<img src=':files/smilies/xdface.png' width='20' height='20'>";
+//
 }
 
 void ChatWindow::on_action25_2_triggered()
 {
-    happyFace = "<img src=':files/smilies/happyface.png' width='25' height='25'>";
-    sadFace = "<img src=':files/smilies/sadface.png' width='25' height='25'>";
-    straightFace = "<img src=':files/smilies/straightface.png' width='25' height='25'>";
-    oFace = "<img src=':files/smilies/oface.png' width='25' height='25'>";
-    xdFace = "<img src=':files/smilies/xdface.png' width='25' height='25'>";
+    setSmileySize(25);
+//    happyFace = "<img src=':files/smilies/happyface.png' width='25' height='25'>";
+//    sadFace = "<img src=':files/smilies/sadface.png' width='25' height='25'>";
+//    straightFace = "<img src=':files/smilies/straightface.png' width='25' height='25'>";
+//    oFace = "<img src=':files/smilies/oface.png' width='25' height='25'>";
+//    xdFace = "<img src=':files/smilies/xdface.png' width='25' height='25'>";
 }
 
 void ChatWindow::on_actionNiklas_triggered()
 {
-    happyFace = "<img src=':files/smilies/happyface.png' width='120' height='120'>";
-    sadFace = "<img src=':files/smilies/sadface.png' width='120' height='120'>";
-    straightFace = "<img src=':files/smilies/straightface.png' width='120' height='120'>";
-    oFace = "<img src=':files/smilies/oface.png' width='120' height='120'>";
-    xdFace = "<img src=':files/smilies/xdface.png' width='120' height='120'>";
+    setSmileySize(99);
+//    happyFace = "<img src=':files/smilies/happyface.png' width='120' height='120'>";
+//    sadFace = "<img src=':files/smilies/sadface.png' width='120' height='120'>";
+//    straightFace = "<img src=':files/smilies/straightface.png' width='120' height='120'>";
+//    oFace = "<img src=':files/smilies/oface.png' width='120' height='120'>";
+//    xdFace = "<img src=':files/smilies/xdface.png' width='120' height='120'>";
 }
 
 
