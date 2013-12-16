@@ -195,7 +195,6 @@ void Room::setFilePath() {
         filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
     }
     
-    cout << filepath << "  <--path" << endl;
     string today = currentDateTime();
     
     if(today != date)

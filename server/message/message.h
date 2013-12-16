@@ -21,6 +21,7 @@ class Message
 {
 public:
     Message(const std::string message, const std::string from, const std::string to);
+    Message(const std::string message, const std::string from, const std::string to, const std::string time);
     ~Message()=default;
     
     
