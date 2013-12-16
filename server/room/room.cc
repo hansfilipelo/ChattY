@@ -181,32 +181,31 @@ void Room::saveToFile(Message inMessage) {
 
 void Room::setFilePath() {
     
+    QDir dir = QDir::homePath();
     QString qAbsolutePath;
     string absolutePath;
+    qAbsolutePath = dir.absolutePath();
+    absolutePath = qAbsolutePath.toStdString();
+    string today;
+    today = absolutePath + "/ChattYlogs" + "/" + name + currentDateTime().substr(0,10) + ".txt";
     
-    QDir dir = QDir::homePath();                 // "user catalog"
-    if (!dir.cd("ChattYlogs")) {                    // "/logfiles"
-        dir.mkpath("ChattYlogs");
-        dir.cd("ChattYlogs");
-        qAbsolutePath = dir.absolutePath();
-        absolutePath = qAbsolutePath.toStdString();
-        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
-    }
-    else{
-        dir.cd("ChattYlogs"); // for new rooms;
-        qAbsolutePath = dir.absolutePath();
-        absolutePath = qAbsolutePath.toStdString();
-        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
-    }
-    
-    string today = currentDateTime();
-    
-    if(today != date)
+    if(not(filepath.empty()) && filepath != today )
     {
         cout << "Today if!!" << endl;
         log.clear();
         date = today;
     }
+    
+    if (!dir.cd("ChattYlogs")) {
+        dir.mkpath("ChattYlogs");
+        dir.cd("ChattYlogs");
+        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
+    }
+    else{
+        dir.cd("ChattYlogs"); // for new rooms;
+        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
+    }
+    
     
 }
 
