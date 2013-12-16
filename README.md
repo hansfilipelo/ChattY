@@ -27,7 +27,11 @@ Compiling
 
 - On Ubuntu 13.10 and later you can install Qt 5 by using the following commands:
 
-    sudo apt-get update && sudo apt-get upgrade && sudo apt-get install build-essential qt5-default
+    sudo apt-get update
+    
+    sudo apt-get upgrade
+    
+    sudo apt-get install build-essential qt5-default
 
 Client
 ==
@@ -51,8 +55,11 @@ Server
 - To clone and compile the ChattY server on POSIX-compliant systems:
 
     git clone https://github.com/hansfilipelo/ChattY.git
+
     cd ChattY/server
+    
     qmake -config release
+    
     make
     
 - To clone and compile the ChattY client on Windows systems you need to install git from: http://git-scm.com/downloads. You then need to install Qt 5 from http://qt-project.org/downloads. After successfully installing these dependencies open Git Shell and type:
