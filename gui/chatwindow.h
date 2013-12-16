@@ -32,8 +32,6 @@ public:
     std::ofstream debug;
     void receiveHistory(QVector<QString> &historyVector);
 
-
-
 private slots:
     void on_sendButton_clicked();
 
@@ -57,6 +55,10 @@ private:
     QString name;
     QString server;
     QString lastWhisper;
+    QString smilieConvert(const QString);
+    QString happy = "<img src=':/files/smilies/images/happy.png' width='15' height='15'>";
+    QString sad =  "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
+    //QString straightFace = <img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
 };
 
 #endif // CHATWINDOW_H
