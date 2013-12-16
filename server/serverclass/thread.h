@@ -35,8 +35,6 @@ public:
 signals:
     void error(QTcpSocket::SocketError socketerror);
     
-    
-    
 public slots:
     void readyRead();
     void disconnected();
@@ -45,6 +43,7 @@ protected:
     void handleMessage(QString);
     void handleInitiate(std::string);
     void handleStructure();
+    void handleHistory(QString);
     
 private:
     QTcpSocket* TcpSocket;

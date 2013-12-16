@@ -215,7 +215,7 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
 }
 
 void ChatWindow::getHistory(){
-    //chatGui->getHistory();
+    chatGui->getHistory();
 }
 
 void ChatWindow::clearHistory(){
@@ -379,5 +379,5 @@ void ChatWindow::on_actionNiklas_triggered()
 
 void ChatWindow::on_actionLoad_history_triggered()
 {
-    getHistory();
+    chatGui->getHistory();
 }

@@ -312,19 +312,21 @@ void Room::requestStruct() {
 
 
 // -----------------------------------
-vector<string> Room::readOldFromFile(unsigned int dayCounter) {
-    vector<message> returnLog;
+vector<Message> Room::readOldFromFile(unsigned int dayCounter) {
+    vector<Message> returnLog;
     string line;
     
     int i = 0 - dayCounter;
     
     string oldFilePath = "";
     
-    QDate oldDAte;
-    oldDAte = QDate::currentDate();
-    oldDAte.addDays(i);
+    QDate oldDate;
+    oldDate = QDate::currentDate();
+    oldDate.addDays(i);
     
-    oldFilePath += "/Chattlogs/" + name + oldDAte.toString("yyyy-MM-dd") + ".txt";
+    QString oldDateString = oldDate.toString("yyyy-MM-dd");
+    
+    oldFilePath += "/Chattlogs/" + name + oldDateString.toStdString() + ".txt";
     
     ifstream logfile (oldFilePath);
     
@@ -351,9 +353,9 @@ vector<string> Room::readOldFromFile(unsigned int dayCounter) {
     }
     else {
         string tempString;
-        tempString += "No chatlogs for date " + oldDAte.toString("yyyy-MM-dd") + " in this room.";
+        tempString += "No chatlogs for date " + oldDateString.toStdString() + " in this room.";
         
-        Message tempMessage(tempString, name, name, time);
+        Message tempMessage(tempString, name, name);
         returnLog.push_back(tempMessage);
         
         return returnLog;

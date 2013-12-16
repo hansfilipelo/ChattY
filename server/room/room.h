@@ -20,6 +20,7 @@ Benny
 #include <stdexcept>
 #include <QDir>
 #include <QDate>
+#include <QString>
 #include "../getTime.h"
 #include "../message/message.h"
 #include "../master/master.h"
@@ -38,6 +39,7 @@ public:
     // Related to logging
     virtual void setFilePath();
     virtual void readAllFromFile();
+    std::vector<Message> readOldFromFile(unsigned int);
     
     // Relating to rooms
     void createRoom(std::string);
@@ -54,7 +56,6 @@ public:
     virtual void requestStruct();
     void listUsers();
     void listRooms();
-    std::vector<std::string> Room::readOldFromFile(unsigned int)
     
     // Rooms message log
     std::vector<Message> log;

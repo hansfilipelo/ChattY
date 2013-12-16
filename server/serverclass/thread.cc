@@ -13,7 +13,7 @@ using namespace std;
 // ---------------------------------------
 // Helper functions
 
-void Thread::handleHistory() {
+void Thread::handleHistory(QString inData) {
     int i;
     
     QString nrOfDays;
@@ -24,7 +24,7 @@ void Thread::handleHistory() {
     int daysBack = nrOfDays.toInt(&ok);
     
     if ( not(ok) ) {
-        Message message("Did not receive int for which day to get history for",userPointer->getParentRoom()->getName( userPointer->getName());
+        Message message("Did not receive int for which day to get history for",userPointer->getParentRoom()->getName(), userPointer->getName());
         userPointer->sendMessage(message);
     }
     else {
@@ -33,7 +33,7 @@ void Thread::handleHistory() {
         QByteArray array = "/oldHistory";
         array += 0x1F; //unit separator
         
-        logSize = oldLog.size();
+        int logSize = oldLog.size();
         
         for (unsigned int i = 0; i < logSize; i++){
             
@@ -214,6 +214,7 @@ void Thread::readyRead()
         }
         
         else if ( commandName == "/oldHistory" ) {
+            cout << "readyRead" << endl;
             handleHistory(inData);
         }
         
