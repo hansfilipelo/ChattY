@@ -27,9 +27,7 @@ Compiling
 
 - On Ubuntu 13.10 and later you can install Qt 5 by using the following commands:
 
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install build-essential qt5-default
+    sudo apt-get update && sudo apt-get upgrade && sudo apt-get install build-essential qt5-default
 
 ==
 
