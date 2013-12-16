@@ -287,8 +287,6 @@ void NetClient::getHistory(unsigned int daysBack) {
     
     temp = QString::fromStdString(daysBackString);
     
-    qDebug() << temp;
-    
     QByteArray array = "/oldHistory";
     array += compare; //unit separator
     array += temp;
