@@ -99,6 +99,8 @@ void NetClient::readyRead(){
         }
         
         else if (commandName == "/history") {
+            qDebug() << "läste history i Netclient: ";
+            qDebug() << inData;
             handleHistory(inData);
         }
         
