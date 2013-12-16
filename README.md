@@ -29,6 +29,7 @@ Compiling
 
     sudo apt-get update && sudo apt-get upgrade && sudo apt-get install build-essential qt5-default
 
+Client
 ==
 
 - To clone and compile the ChattY client on POSIX-compliant systems:
@@ -44,6 +45,7 @@ Compiling
 
     Then open ChattY.pro using Qt Creator and compile for release.
 
+Server
 ==
 
 - To clone and compile the ChattY server on POSIX-compliant systems:
