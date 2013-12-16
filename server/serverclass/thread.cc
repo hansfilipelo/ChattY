@@ -16,16 +16,12 @@ using namespace std;
 void Thread::handleHistory(QString inData) {
     int i;
     
-    QString nrOfDays;
-    i = inData.indexOf(compare);
-    nrOfDays = inData.left(i);
-    
     bool ok;
-    int daysBack = nrOfDays.toInt(&ok);
+    int daysBack = inData.toInt(&ok);
     
     if ( not(ok) ) {
         Message message("Did not receive int for which day to get history for",userPointer->getParentRoom()->getName(), userPointer->getName());
-        userPointer->sendMessage(message);
+        userPointer->receiveMessage(message);
     }
     else {
         vector<Message> oldLog = userPointer->getParentRoom()->readOldFromFile(daysBack);
@@ -214,7 +210,6 @@ void Thread::readyRead()
         }
         
         else if ( commandName == "/oldHistory" ) {
-            cout << "readyRead" << endl;
             handleHistory(inData);
         }
         

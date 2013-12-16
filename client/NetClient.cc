@@ -283,11 +283,15 @@ void NetClient::handleStructure(QString inData){
 
 void NetClient::getHistory(unsigned int daysBack) {
     QString temp;
-    temp += daysBack;
+    string daysBackString = to_string(daysBack);
+    
+    temp = QString::fromStdString(daysBackString);
+    
+    qDebug() << temp;
     
     QByteArray array = "/oldHistory";
     array += compare; //unit separator
-    array += daysBack;
+    array += temp;
     array += breaker;
     
     TcpSocket->write(array);
