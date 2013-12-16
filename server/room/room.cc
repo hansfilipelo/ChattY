@@ -15,6 +15,10 @@ using namespace std;
 
 // ----------------------------------
 // Constructor
+Room::Room(string inName,Master* master, Master* scrap){
+    masterPointer = master;
+    name = inName;
+}
 
 Room::Room(string inName,Master* master) {
     masterPointer = master;
@@ -231,6 +235,9 @@ void Room::readAllFromFile() {
             log.push_back(tempMessage);
         }
         logfile.close();
+    }
+    else {
+        cout << "fel vid inläsning" << endl;
     }
 }
 

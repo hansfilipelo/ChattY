@@ -28,6 +28,7 @@ Benny
 class Room {
 public:
     // Construct
+    Room(std::string,class Master*,class Master*);
     Room(std::string,class Master*);
     // Destruct
     virtual ~Room();
@@ -88,7 +89,7 @@ class Thread;
 class User : public Room
 {
 public:
-    User(std::string inName, Master* master) : Room(inName,master) {};
+    User(std::string inName, Master* master) : Room(inName,master,nullptr) {};
     ~User();
     std::string name;
     void sendMessage(Message);

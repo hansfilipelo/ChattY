@@ -10,6 +10,8 @@ BESKRIVNING:
 
 using namespace std;
 
+
+
 User::~User(){
     parentRoom->removeRoom(this);
     parentRoom = nullptr;
