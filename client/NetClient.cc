@@ -31,10 +31,15 @@ void NetClient::start(){
     
     QHostInfo info = QHostInfo::fromName(address);
     
+    if (info.addresses().size() == 0){
+        guiPointer->noConnection();
+    }
+    else{
     TcpSocket->connectToHost(info.addresses().at(0),quint16(40001));
     
     if(!TcpSocket->waitForConnected(1000)){
         guiPointer->noConnection();
+    }
     }
 }
 
