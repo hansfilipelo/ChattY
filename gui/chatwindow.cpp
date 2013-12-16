@@ -43,10 +43,12 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
-    ui->messageHistory->insertPlainText(message);
+
+    //här har jag pillat
+    ui->messageHistory->insertHtml(smilieConvert(message));
 
 
-    ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
+    //ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
@@ -225,7 +227,8 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
-        ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+        ui->messageHistory->insertHtml(smilieConvert(historyVector.at(i+2)));
+        ui->messageHistory->insertPlainText("\n");
         ui->messageHistory->moveCursor(QTextCursor::End);
 
     }
@@ -256,4 +259,13 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
     ui->sendButton->setText("To " + receiver);
     ui->messageInput->setFocus();
     ui->messageInput->setCursorPosition(0);
+}
+
+QString ChatWindow::smilieConvert(const QString inMessage){
+    QString messageConv = inMessage.toHtmlEscaped();
+    messageConv.replace(":)",happy);
+    messageConv.replace(":(",sad);
+    //messageConv.replace(":|",straightFace);
+    //messageConv.replace(":o",oFace);
+    return messageConv;
 }
