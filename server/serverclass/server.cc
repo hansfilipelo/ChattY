@@ -22,10 +22,6 @@ void Server::start()
     {
         qDebug() <<"could not start server";
     }
-    else
-    {
-        qDebug() <<"Listening...";
-    }
 }
 
 
