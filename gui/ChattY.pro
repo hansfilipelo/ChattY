@@ -11,7 +11,7 @@ QT		+= core gui network widgets
 ICON		= icon/ChattY.icns
 RC_FILE		= ChattY.rc
 
-TARGET		= build/ChattY
+TARGET		= ChattY
 TEMPLATE	= app
 
 CONFIG		+= c++11
