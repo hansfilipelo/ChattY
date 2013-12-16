@@ -31,8 +31,9 @@ public:
     void sendMessage();
     std::ofstream debug;
     void receiveHistory(QVector<QString> &historyVector);
-
-
+    void receiveOldHistory(QVector<QString> &historyVector);
+    void getHistory();
+    void clearHistory();
 
 private slots:
     void on_sendButton_clicked();
@@ -51,12 +52,35 @@ private slots:
 
     void on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
+    void on_action13_triggered();
+
+    void on_action15_triggered();
+
+    void on_action20_triggered();
+
+    void on_action25_triggered();
+
+    void on_actionLoad_history_triggered();
+
+    void on_action13_2_triggered();
+
+    void on_action15_2_triggered();
+
+    void on_action20_2_triggered();
+
+    void on_action25_2_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
     QString server;
     QString lastWhisper;
+    QString smilieConvert(const QString);
+    QString happy = "<img src=':/files/smilies/images/happy.png' width='15' height='15'>";
+    QString sad =  "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
+    //QString straightFace = <img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
+    QString smileySize;
 };
 
 #endif // CHATWINDOW_H

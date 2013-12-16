@@ -21,11 +21,9 @@ CONFIG		+= release
 
 SOURCES += main.cpp chatwindow.cpp logindialog.cpp ../client/NetClient.cc \
     gui.cpp \
-    smilies/smiley.cc
 
 HEADERS  += chatwindow.h logindialog.h ../client/NetClient.h \
     gui.h \
-    smilies/smiley.h
 
 FORMS    += chatwindow.ui logindialog.ui
 

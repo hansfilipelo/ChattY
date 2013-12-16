@@ -6,6 +6,7 @@
  */
 
 #include "room.h"
+#include <QDir>
 #include <QString>
 #include <QDebug>
 
@@ -175,17 +176,31 @@ void Room::saveToFile(Message inMessage) {
 //-----------------------------------
 
 void Room::setFilePath() {
-    string today = currentDateTime().substr(0,10);
-    string date;
     
-    if (filepath != "") {
-        date = filepath.substr(14,10);
+    QString qAbsolutePath;
+    string absolutePath;
+    
+    QDir dir = QDir::homePath();                 // "user catalog"
+    if (!dir.cd("ChattYlogs")) {                    // "/logfiles"
+        dir.mkpath("ChattYlogs");
+        dir.cd("ChattYlogs");
+        qAbsolutePath = dir.absolutePath();
+        absolutePath = qAbsolutePath.toStdString();
+        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
     }
+    else{
+        dir.cd("ChattYlogs"); // for new rooms;
+        qAbsolutePath = dir.absolutePath();
+        absolutePath = qAbsolutePath.toStdString();
+        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
+    }
+    
+    string today = currentDateTime();
     
     if(today != date)
     {
         log.clear();
-        filepath = "logfiles/" + name + " " + currentDateTime().substr(0,10) + ".txt";
+        date = today;
     }
     
 }

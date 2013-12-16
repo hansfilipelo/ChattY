@@ -20,7 +20,8 @@ public:
     void getStruct();
 
     void receiveHistory(QVector<QString> &historyVector);
-    // void Gui::updateStruct(vector);
+    void receiveOldHistory(QVector<QString> &historyVector);
+    void getHistory();
     
     // Disconnected from server
     void disconnectedFromServer();
@@ -29,6 +30,7 @@ protected:
     NetClient* client = nullptr;
     LoginDialog* loginWindow = nullptr;
     ChatWindow* mainWindow = nullptr;
+    unsigned int historyCounter;
 };
 
 #endif // GUI_H

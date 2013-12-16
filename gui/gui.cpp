@@ -5,7 +5,7 @@
 
 Gui::Gui()
 {
-
+    historyCounter = 1;
     mainWindow = new ChatWindow(this);
     loginWindow = new LoginDialog(mainWindow, this);
     mainWindow->show();
@@ -51,10 +51,18 @@ void Gui::getStruct(){
 
 void Gui::receiveHistory(QVector<QString> &historyVector){
     mainWindow->receiveHistory(historyVector);
-    
+}
+
+void Gui::receiveOldHistory(QVector<QString> &historyVector){
+    mainWindow->receiveOldHistory(historyVector);
 }
 
 void Gui::disconnectedFromServer() {
     loginWindow->show();
     loginWindow->disconnectedFromServer();
+}
+
+void Gui::getHistory() {
+    client->getHistory(historyCounter);
+    historyCounter++;
 }
