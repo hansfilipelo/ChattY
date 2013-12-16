@@ -5,7 +5,6 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
-#include "smilies/smiley.h"
 
 class Gui;
 
@@ -70,6 +69,8 @@ private slots:
 
     void on_action25_2_triggered();
 
+    void on_actionNiklas_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
@@ -77,10 +78,11 @@ private:
     QString server;
     QString lastWhisper;
     QString smilieConvert(const QString);
-    QString happy = "<img src=':/files/smilies/images/happy.png' width='15' height='15'>";
-    QString sad =  "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
-    //QString straightFace = <img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
-    QString smileySize;
+    QString happyFace = "<img src=':/files/smilies/happyface.png' width='15' height='15'>";
+    QString sadFace =  "<img src=':/files/smilies/sadface.png' width='15' height='15'>";
+    QString straightFace = "<img src=':/files/smilies/straightface.png' width='15' height='15'>";
+    QString xdFace = "<img src=':/files/smilies/xdface.png' width='15' height='15'>";
+    QString oFace = "<img src=':/files/smilies/oface.png' width='15' height='15'>";
 };
 
 #endif // CHATWINDOW_H

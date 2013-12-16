@@ -191,7 +191,8 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
-        ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+        ui->messageHistory->insertHtml(smilieConvert(historyVector.at(i+2)));
+        ui->messageHistory->insertPlainText("\n");
         ui->messageHistory->moveCursor(QTextCursor::End);
 
     }
@@ -206,14 +207,15 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
-        ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+        ui->messageHistory->insertHtml(smilieConvert(historyVector.at(i+2)));
+        ui->messageHistory->insertPlainText("\n");
 
     }
     ui->messageHistory->moveCursor(QTextCursor::End);
 }
 
 void ChatWindow::getHistory(){
-    chatGui->getHistory();
+    //chatGui->getHistory();
 }
 
 void ChatWindow::clearHistory(){
@@ -288,9 +290,94 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
 
 QString ChatWindow::smilieConvert(const QString inMessage){
     QString messageConv = inMessage.toHtmlEscaped();
-    messageConv.replace(":)",happy);
-    messageConv.replace(":(",sad);
-    //messageConv.replace(":|",straightFace);
-    //messageConv.replace(":o",oFace);
+    messageConv.replace(":)",happyFace);
+    messageConv.replace(":(",sadFace);
+    messageConv.replace(":|",straightFace);
+    messageConv.replace(":o",oFace);
+    messageConv.replace("xD",xdFace);
     return messageConv;
+}
+
+//-------------Change font menu----------------------------------------------//
+
+void ChatWindow::on_action13_triggered()
+{
+    QFont f("Geeza Pro", 13);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action15_triggered()
+{
+    QFont f("Geeza Pro", 15);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action20_triggered()
+{
+    QFont f("Geeza Pro", 20);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action25_triggered()
+{
+    QFont f("Geeza Pro", 25);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+
+
+//--------------------------------Smiley size menu--------------------------------------//
+
+
+void ChatWindow::on_action13_2_triggered()
+{
+     happyFace = "<img src=':files/smilies/happyface.png' width='13' height='13'>";
+     sadFace = "<img src=':files/smilies/sadface.png' width='13' height='13'>";
+     straightFace = "<img src=':files/smilies/straightface.png' width='13' height='13'>";
+     oFace = "<img src=':files/smilies/oface.png' width='13' height='13'>";
+}
+
+void ChatWindow::on_action15_2_triggered()
+{
+    happyFace = "<img src=':files/smilies/happyface.png' width='15' height='15'>";
+    sadFace = "<img src=':files/smilies/sadface.png' width='15' height='15'>";
+    straightFace = "<img src=':files/smilies/straightface.png' width='15' height='15'>";
+    oFace = "<img src=':files/smilies/oface.png' width='15' height='15'>";
+}
+
+void ChatWindow::on_action20_2_triggered()
+{
+    happyFace = "<img src=':files/smilies/happyface.png' width='20' height='20'>";
+    sadFace = "<img src=':files/smilies/sadface.png' width='20' height='20'>";
+    straightFace = "<img src=':files/smilies/straightface.png' width='20' height='20'>";
+    oFace = "<img src=':files/smilies/oface.png' width='20' height='20'>";
+}
+
+void ChatWindow::on_action25_2_triggered()
+{
+    happyFace = "<img src=':files/smilies/happyface.png' width='25' height='25'>";
+    sadFace = "<img src=':files/smilies/sadface.png' width='25' height='25'>";
+    straightFace = "<img src=':files/smilies/straightface.png' width='25' height='25'>";
+    oFace = "<img src=':files/smilies/oface.png' width='25' height='25'>";
+}
+
+void ChatWindow::on_actionNiklas_triggered()
+{
+    happyFace = "<img src=':files/smilies/happyface.png' width='120' height='120'>";
+    sadFace = "<img src=':files/smilies/sadface.png' width='120' height='120'>";
+    straightFace = "<img src=':files/smilies/straightface.png' width='120' height='120'>";
+    oFace = "<img src=':files/smilies/oface.png' width='120' height='120'>";
+}
+
+
+
+//------------------History menu--------------------------------------------//
+
+void ChatWindow::on_actionLoad_history_triggered()
+{
+    getHistory();
 }

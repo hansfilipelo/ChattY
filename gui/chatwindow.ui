@@ -111,6 +111,7 @@
      <addaction name="action15_2"/>
      <addaction name="action20_2"/>
      <addaction name="action25_2"/>
+     <addaction name="actionNiklas"/>
     </widget>
     <addaction name="menuChange_theme"/>
     <addaction name="menuChange_font"/>
@@ -214,6 +215,11 @@
   <action name="action25_2">
    <property name="text">
     <string>25</string>
+   </property>
+  </action>
+  <action name="actionNiklas">
+   <property name="text">
+    <string>Nikki</string>
    </property>
   </action>
  </widget>

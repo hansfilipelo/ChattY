@@ -30,7 +30,6 @@ private slots:
 
     void on_buttonBox_accepted();
 
-
 private:
     Ui::LoginDialog *ui;
 
