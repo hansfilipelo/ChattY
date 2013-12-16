@@ -270,6 +270,7 @@ void Thread::sendHistory(){
     QByteArray array = "/history";
     array += 0x1F; //unit separator
     unsigned int logSize = userPointer->getParentRoom()->log.size();
+    cout << "history being sent" << endl;
     
     for (unsigned int i = 0; i < logSize; i++){
         
