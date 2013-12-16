@@ -1,8 +1,11 @@
 <RCC>
     <qresource prefix="/files">
         <file>icon/ChattY.png</file>
-        <file>smilies/images/ledsen.png</file>
         <file>icon/folder-documents-icon.png</file>
-        <file>smilies/images/happy.png</file>
+        <file>smilies/happyface.png</file>
+        <file>smilies/oface.png</file>
+        <file>smilies/sadface.png</file>
+        <file>smilies/straightface.png</file>
+        <file>smilies/xdface.png</file>
     </qresource>
 </RCC>

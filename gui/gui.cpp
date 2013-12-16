@@ -63,6 +63,6 @@ void Gui::disconnectedFromServer() {
 }
 
 void Gui::getHistory() {
-    client->getHistory(historyCounter);
+    //client->getHistory(historyCounter);
     historyCounter++;
 }
