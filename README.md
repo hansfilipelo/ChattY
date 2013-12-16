@@ -39,8 +39,11 @@ Client
 - To clone and compile the ChattY client on POSIX-compliant systems:
 
     git clone https://github.com/hansfilipelo/ChattY.git
+    
     cd ChattY/gui
+    
     qmake -config release
+    
     make
 
 - To clone and compile the ChattY client on Windows systems you need to install git from: http://git-scm.com/downloads. You then need to install Qt 5 from http://qt-project.org/downloads. After successfully installing these dependencies, open Git Shell and type:
