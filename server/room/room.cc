@@ -323,11 +323,17 @@ vector<Message> Room::readOldFromFile(unsigned int dayCounter) {
     
     QDate oldDate;
     oldDate = QDate::currentDate();
-    oldDate.addDays(i);
+    oldDate = oldDate.addDays(i);
     
     QString oldDateString = oldDate.toString("yyyy-MM-dd");
     
-    oldFilePath += "/Chattlogs/" + name + oldDateString.toStdString() + ".txt";
+    QDir dir = QDir::homePath();
+    
+    dir.cd("ChattYlogs");
+    QString qAbsolutePath = dir.absolutePath();
+    string absolutePath = qAbsolutePath.toStdString();
+    
+    oldFilePath += absolutePath + "/" + name + oldDateString.toStdString() + ".txt";
     
     ifstream logfile (oldFilePath);
     
