@@ -29,38 +29,47 @@ public:
     // Destruct
     virtual ~Room();
     
+    // Sending 'n receiving
     virtual void receiveMessage(Message);
     virtual void sendMessage(Message);
     
-    virtual void requestStruct();
+    // Related to logging
     virtual void setFilePath();
     virtual void readAllFromFile();
     
+    // Relating to rooms
     void createRoom(std::string);
     void addRoom(Room*);
     void removeRoom(Room*); // Throws error if room doesn't exist
+    virtual void chooseRoom(Room*); // Useless on Room, only for subclass User
     
+    // Accessor funcitons
     std::string getName();
     Room* getParentRoom();
-    virtual std::vector<std::string> getStruct();
-    void listUsers();
-    void listRooms();
     Room* getRoom(std::string);
     Message getMessage(unsigned int i);
+    virtual std::vector<std::string> getStruct();
+    virtual void requestStruct();
+    void listUsers();
+    void listRooms();
     
-    virtual void chooseRoom(Room*);
+    // Rooms message log
     std::vector<Message> log;
     
 protected:
+    
+    // Internal helper functions
     friend void throwUp(Room* inRoom);
     friend void ifRoomRemove(Room* inRoom);
     unsigned int getPosOfRoom(std::string name) const;
     void saveToFile(Message);
     void sendMessageAll(Message);
     
+    
     std::string filepath="";
     std::string name;
     
+    // Pointers for structuring
     std::vector<Room*> rooms;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
