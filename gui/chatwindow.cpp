@@ -339,6 +339,7 @@ void ChatWindow::on_action13_2_triggered()
      sadFace = "<img src=':files/smilies/sadface.png' width='13' height='13'>";
      straightFace = "<img src=':files/smilies/straightface.png' width='13' height='13'>";
      oFace = "<img src=':files/smilies/oface.png' width='13' height='13'>";
+     xdFace = "<img src=':files/smilies/xdface.png' width='13' height='13'>";
 }
 
 void ChatWindow::on_action15_2_triggered()
@@ -347,6 +348,7 @@ void ChatWindow::on_action15_2_triggered()
     sadFace = "<img src=':files/smilies/sadface.png' width='15' height='15'>";
     straightFace = "<img src=':files/smilies/straightface.png' width='15' height='15'>";
     oFace = "<img src=':files/smilies/oface.png' width='15' height='15'>";
+    xdFace = "<img src=':files/smilies/xdface.png' width='15' height='15'>";
 }
 
 void ChatWindow::on_action20_2_triggered()
@@ -355,6 +357,7 @@ void ChatWindow::on_action20_2_triggered()
     sadFace = "<img src=':files/smilies/sadface.png' width='20' height='20'>";
     straightFace = "<img src=':files/smilies/straightface.png' width='20' height='20'>";
     oFace = "<img src=':files/smilies/oface.png' width='20' height='20'>";
+    xdFace = "<img src=':files/smilies/xdface.png' width='20' height='20'>";
 }
 
 void ChatWindow::on_action25_2_triggered()
@@ -363,6 +366,7 @@ void ChatWindow::on_action25_2_triggered()
     sadFace = "<img src=':files/smilies/sadface.png' width='25' height='25'>";
     straightFace = "<img src=':files/smilies/straightface.png' width='25' height='25'>";
     oFace = "<img src=':files/smilies/oface.png' width='25' height='25'>";
+    xdFace = "<img src=':files/smilies/xdface.png' width='25' height='25'>";
 }
 
 void ChatWindow::on_actionNiklas_triggered()
@@ -371,6 +375,7 @@ void ChatWindow::on_actionNiklas_triggered()
     sadFace = "<img src=':files/smilies/sadface.png' width='120' height='120'>";
     straightFace = "<img src=':files/smilies/straightface.png' width='120' height='120'>";
     oFace = "<img src=':files/smilies/oface.png' width='120' height='120'>";
+    xdFace = "<img src=':files/smilies/xdface.png' width='120' height='120'>";
 }
 
 
