@@ -187,23 +187,24 @@ void Room::setFilePath() {
     qAbsolutePath = dir.absolutePath();
     absolutePath = qAbsolutePath.toStdString();
     string today;
-    today = absolutePath + "/ChattYlogs" + "/" + name + currentDateTime().substr(0,10) + ".txt";
+    today = absolutePath + "/ChattYlogs/" + name + currentDateTime().substr(0,10) + ".txt";
     
     if(not(filepath.empty()) && filepath != today )
     {
         cout << "Today if!!" << endl;
+        cout << today << endl;
+        cout << filepath << endl;
         log.clear();
         date = today;
     }
     
     if (!dir.cd("ChattYlogs")) {
         dir.mkpath("ChattYlogs");
-        dir.cd("ChattYlogs");
-        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
+        filepath = absolutePath + "/ChattYlogs/" + name + currentDateTime().substr(0,10) + ".txt";
     }
     else{
         dir.cd("ChattYlogs"); // for new rooms;
-        filepath = absolutePath + "/" + name + currentDateTime().substr(0,10) + ".txt";
+        filepath = absolutePath + "/ChattYlogs/" + name + currentDateTime().substr(0,10) + ".txt";
     }
     
     
