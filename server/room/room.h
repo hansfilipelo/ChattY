@@ -67,6 +67,7 @@ protected:
     
     
     std::string filepath="";
+    std::string date="";
     std::string name;
     
     // Pointers for structuring
