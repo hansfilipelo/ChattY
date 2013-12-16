@@ -13,6 +13,53 @@ using namespace std;
 // ---------------------------------------
 // Helper functions
 
+void Thread::handleHistory() {
+    int i;
+    
+    QString nrOfDays;
+    i = inData.indexOf(compare);
+    nrOfDays = inData.left(i);
+    
+    bool ok;
+    int daysBack = nrOfDays.toInt(&ok);
+    
+    if ( not(ok) ) {
+        Message message("Did not receive int for which day to get history for",userPointer->getParentRoom()->getName( userPointer->getName());
+        userPointer->sendMessage(message);
+    }
+    else {
+        vector<Message> oldLog = userPointer->getParentRoom()->readOldFromFile(daysBack);
+        
+        QByteArray array = "/oldHistory";
+        array += 0x1F; //unit separator
+        
+        logSize = oldLog.size();
+        
+        for (unsigned int i = 0; i < logSize; i++){
+            
+            Message tempMessage = oldLog.at(i);
+            
+            array += QString::fromStdString(tempMessage.getFrom());
+            array += compare; //unit separator
+            array += QString::fromStdString(tempMessage.getTo());
+            array += compare; //unit separator
+            array += QString::fromStdString(tempMessage.getMessage());
+            array += compare; //unit separator
+            array += QString::fromStdString(tempMessage.getServerTime());
+            if ( i+1 == logSize ){
+                array += breaker;
+                break;
+            }
+            array += compare; //unit separator
+        }
+        TcpSocket->write(array);
+        TcpSocket->waitForBytesWritten(1000);
+
+    }
+}
+
+// ---------------
+
 void Thread::handleMessage(QString inData){
     int i;
     
@@ -166,6 +213,10 @@ void Thread::readyRead()
             handleStructure();
         }
         
+        else if ( commandName == "/oldHistory" ) {
+            handleHistory(inData);
+        }
+        
         else {
             cout << "Ej giltigt kommando" << commandName.toStdString() << endl;
             TcpSocket->write("Ej giltigt kommando");
@@ -229,17 +280,17 @@ void Thread::sendHistory(){
         Message tempMessage = userPointer->getParentRoom()->log.at(i);
         
         array += QString::fromStdString(tempMessage.getFrom());
-        array += 0x1F; //unit separator
+        array += compare; //unit separator
         array += QString::fromStdString(tempMessage.getTo());
-        array += 0x1F; //unit separator
+        array += compare; //unit separator
         array += QString::fromStdString(tempMessage.getMessage());
-        array += 0x1F; //unit separator
+        array += compare; //unit separator
         array += QString::fromStdString(tempMessage.getServerTime());
         if ( i+1 == logSize ){
-            array += 0x1E;
+            array += breaker;
             break;
         }
-        array += 0x1F; //unit separator
+        array += compare; //unit separator
     }
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);

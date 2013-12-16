@@ -18,6 +18,8 @@ Benny
 #include <vector>
 #include <map>
 #include <stdexcept>
+#include <QDir>
+#include <QDate>
 #include "../getTime.h"
 #include "../message/message.h"
 #include "../master/master.h"
@@ -52,6 +54,7 @@ public:
     virtual void requestStruct();
     void listUsers();
     void listRooms();
+    std::vector<std::string> Room::readOldFromFile(unsigned int)
     
     // Rooms message log
     std::vector<Message> log;

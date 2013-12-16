@@ -211,7 +211,7 @@ void Room::readAllFromFile() {
             string message = line;
             
             
-            Message tempMessage(message,from,to);
+            Message tempMessage(message,from,to,time);
             log.push_back(tempMessage);
         }
         logfile.close();
@@ -294,5 +294,58 @@ vector<string> Room::getStruct() {
 void Room::requestStruct() {
     throw logic_error{"You're a retard since you're trying to do stuff to a room. You naughty naughty boy."};
 }
+
+
+// -----------------------------------
+vector<string> Room::readOldFromFile(unsigned int dayCounter) {
+    vector<message> returnLog;
+    string line;
+    
+    int i = 0 - dayCounter;
+    
+    string oldFilePath = "";
+    
+    QDate oldDAte;
+    oldDAte = QDate::currentDate();
+    oldDAte.addDays(i);
+    
+    oldFilePath += "/Chattlogs/" + name + oldDAte.toString("yyyy-MM-dd") + ".txt";
+    
+    ifstream logfile (oldFilePath);
+    
+    if (logfile.is_open())
+    {
+        while (getline(logfile,line)) {
+            string time = line;
+            
+            getline (logfile,line);
+            string from = line;
+            
+            getline (logfile,line);
+            string to = line;
+            
+            getline (logfile,line);
+            string message = line;
+            
+            Message tempMessage(message, from, to, time);
+            returnLog.push_back(tempMessage);
+        }
+        
+        logfile.close();
+        return returnLog;
+    }
+    else {
+        string tempString;
+        tempString += "No chatlogs for date " + oldDAte.toString("yyyy-MM-dd") + " in this room.";
+        
+        Message tempMessage(tempString, name, name, time);
+        returnLog.push_back(tempMessage);
+        
+        return returnLog;
+    }
+}
+
+
+
 
 

@@ -71,7 +71,7 @@ void User::setFilePath() {
 // ----------------------------------
 
 void User::readAllFromFile() {
-    //dummy
+    //Dummy to replace function from room.
 }
 
 

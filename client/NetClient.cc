@@ -19,6 +19,7 @@ NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *p
     breaker +=0x1E;
 }
 
+// ---------------------------------------------
 
 void NetClient::start(){
     TcpSocket = new QTcpSocket(this);
@@ -54,6 +55,8 @@ void NetClient::disconnected(){
     guiPointer->disconnectedFromServer();
     
 }
+
+// ---------------------------------------------
 
 void NetClient::readyRead(){
     
@@ -94,6 +97,10 @@ void NetClient::readyRead(){
             handleHistory(inData);
         }
         
+        else if (commandName == "/oldHistory") {
+            handleOldHistory(inData);
+        }
+        
         else if (commandName == "/message") {
             handleMessage(inData);
         }
@@ -105,6 +112,7 @@ void NetClient::readyRead(){
         else if ( commandName == "/structure" ) {
             handleStructure(inData);
         }
+        
         else {
             throw logic_error("Unknown command");
         }
@@ -114,6 +122,8 @@ void NetClient::readyRead(){
         
     }while (n != -1 );
 }
+
+// ---------------------------------------------
 
 void NetClient::sendMessage(QString from, QString to, QString message){
     QByteArray array = "/message";
@@ -153,6 +163,8 @@ void NetClient::handleRequestStruct(){
     TcpSocket->waitForBytesWritten(1000);
 }
 
+// ---------------------------------------------
+
 void NetClient::handleMessage(QString inData){
     
     int i;
@@ -177,6 +189,8 @@ void NetClient::handleMessage(QString inData){
     guiPointer->receiveMessage(from, to, contents, dateTime);
     
 }
+
+// ---------------------------------------------
 
 void NetClient::handleHistory(QString inData){
     QVector<QString> history;
@@ -211,6 +225,42 @@ void NetClient::handleHistory(QString inData){
     guiPointer->receiveHistory(history);
 }
 
+// ---------------------------------------------
+
+void NetClient::handleOldHistory(QString inData){
+    QVector<QString> history;
+    int i = inData.indexOf(compare);
+    while(i != -1 ){
+        
+        // Get from
+        i = inData.indexOf(compare);
+        QString from = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(from);
+        
+        // Get to
+        i = inData.indexOf(compare);
+        QString to = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(to);
+        
+        // Get message
+        i = inData.indexOf(compare);
+        QString contents = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(contents);
+        
+        
+        //Get time
+        i = inData.indexOf(compare);
+        QString time = inData.left(i);
+        inData = inData.mid(i+1);
+        history.push_back(time);
+    }
+    guiPointer->receiveOldHistory(history);
+}
+
+// ---------------------------------------------
 
 void NetClient::handleStructure(QString inData){
     QVector<QString> output;
@@ -228,3 +278,17 @@ void NetClient::handleStructure(QString inData){
     guiPointer->updateStruct(output);
     
 }
+
+// ---------------------------------------------
+
+void getHistory(unsigned int daysBack) {
+    QString temp;
+    temp += daysBack;
+    
+    QByteArray array = "/oldHistory";
+    array += compare; //unit separator
+    array += daysBack;
+    array += breaker;
+}
+
+

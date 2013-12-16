@@ -29,6 +29,7 @@ public:
     void sendMessage(QString, QString, QString);
     void setName(QString);
     void getStruct();
+    void getHistory(unsigned int);
     
 signals:
     
@@ -48,6 +49,7 @@ private:
     void handleMessage(QString);
     void handleStructure(QString);
     void handleRequestStruct();
+    void handleOldHistory(QString);
 };
 
 
