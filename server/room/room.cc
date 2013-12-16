@@ -191,9 +191,6 @@ void Room::setFilePath() {
     
     if(not(filepath.empty()) && filepath != today )
     {
-        cout << "Today if!!" << endl;
-        cout << today << endl;
-        cout << filepath << endl;
         log.clear();
         date = today;
     }
@@ -216,10 +213,6 @@ void Room::readAllFromFile() {
     string line;
     ifstream logfile (filepath);
     
-    cout << filepath  << " in readall" << endl;
-    
-    
-    
     if (logfile.is_open())
     {
         while (getline(logfile,line)) {
@@ -239,7 +232,6 @@ void Room::readAllFromFile() {
             log.push_back(tempMessage);
         }
         logfile.close();
-        cout << "size in after while: "  << log.size() <<endl;
     }
     else {
         cout << "fel vid inläsning" << endl;
