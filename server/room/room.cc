@@ -209,6 +209,7 @@ void Room::setFilePath() {
 void Room::readAllFromFile() {
     log.clear();
     string line;
+    cout << filepath << endl;
     ifstream logfile (filepath);
     
     if (logfile.is_open())
