@@ -46,7 +46,7 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     ui->messageHistory->insertPlainText(message);
 
 
-    ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
+    ui->messageHistory->insertHtml( "<img src='file:/Users/t_grundstrm/Documents/TDDC76/ChattY/gui/smilies/images/ledsen.png' width='20' height='20'>");
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
@@ -64,8 +64,8 @@ void ChatWindow::setName(QString inName){
 }
 
 void ChatWindow::setServer(QString serverName){
-     server = serverName;
-     ui->roomTree->setHeaderLabel(server);
+    server = serverName;
+    ui->roomTree->setHeaderLabel(server);
 }
 
 void ChatWindow::updateStruct(QVector<QString> treeStruct){
@@ -81,7 +81,7 @@ void ChatWindow::updateStruct(QVector<QString> treeStruct){
             }
         }
         else {
-        treeParent=addSubRoot(treeParent,treeStruct.at(i));
+            treeParent=addSubRoot(treeParent,treeStruct.at(i));
         }
     }
     ui->roomTree->expandAll();
@@ -114,7 +114,7 @@ ChatWindow::~ChatWindow()
 }
 
 
-//If sendbutton is pressed display sent from text and message in messagehistory
+//If sendbutton is pressed display sent from text and message in messagehistory//
 void ChatWindow::on_sendButton_clicked()
 {
     sendMessage();
@@ -122,10 +122,9 @@ void ChatWindow::on_sendButton_clicked()
     receiver="root";
     ui->sendButton->setText("Send");
 
-//observera at root är en templösning
 }
 
-// send message on return
+// send message on return//
 void ChatWindow::on_messageInput_returnPressed()
 {
     on_sendButton_clicked();
@@ -133,7 +132,7 @@ void ChatWindow::on_messageInput_returnPressed()
 }
 
 
-//whisper control
+//Slash command control//
 void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 {
     QString to      = arg1;
@@ -175,45 +174,10 @@ void ChatWindow::sendMessage(){
     if (ui->messageInput->text()==""){
         return;
     }
-     else{
-    chatGui->sendMessage(name,receiver,ui->messageInput->text());
+    else{
+        chatGui->sendMessage(name,receiver,ui->messageInput->text());
     }
 
-}
-
-
-void ChatWindow::on_actionBlack_triggered()
-{
-    ui->messageInput->setStyleSheet("color: black;"
-                                    "background-color: grey;"
-                                    "selection-color: black;"
-                                    "selection-background-color: white");
-    ui->roomTree->setStyleSheet("color: black;"
-                                "background-color: grey;"
-                                "selection-color: black;"
-                                "selection-background-color: white");
-    ui->messageHistory->setStyleSheet("color: black;"
-                             "background-color: grey;"
-                             "selection-color: black;"
-                             "selection-background-color: white");
-    this->setStyleSheet("color: white;"
-                             "background-color: black;"
-                             "selection-color: black;"
-                             "selection-background-color: white");
-    ui->mainToolBar->setStyleSheet("color: white;"
-                               "background-color: black;"
-                               "selection-color: black;"
-                               "selection-background-color: white");
-
-}
-
-void ChatWindow::on_actionDefault_triggered()
-{
-    ui->messageInput->setStyleSheet("");
-    ui->roomTree->setStyleSheet("");
-    ui->messageHistory->setStyleSheet("");
-    this->setStyleSheet("");
-    ui->mainToolBar->setStyleSheet("");
 }
 
 
@@ -229,6 +193,68 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
         ui->messageHistory->moveCursor(QTextCursor::End);
 
     }
+}
+
+void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
+    ui->messageHistory->moveCursor(QTextCursor::Start);
+    for(int i = 0;i<historyVector.size(); i+=4){
+        QString tempString=historyVector.at(i+3);
+        ui->messageHistory->setTextColor(Qt::black);
+        ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
+        ui->messageHistory->setTextColor(Qt::blue);
+        ui->messageHistory->insertPlainText(historyVector.at(i) + " says: ");
+        ui->messageHistory->setTextColor(Qt::black);
+        ui->messageHistory->insertPlainText(historyVector.at(i+2) + "\n");
+
+    }
+    ui->messageHistory->moveCursor(QTextCursor::End);
+}
+
+void ChatWindow::getHistory(){
+    chatGui->getHistory();
+}
+
+void ChatWindow::clearHistory(){
+    ui->messageHistory->clear();
+}
+
+
+//---------------------------------Customisation menu-------------------------------//
+
+
+
+void ChatWindow::on_actionBlack_triggered()
+{
+    ui->messageInput->setStyleSheet("color: black;"
+                                    "background-color: grey;"
+                                    "selection-color: black;"
+                                    "selection-background-color: white");
+    ui->roomTree->setStyleSheet("color: black;"
+                                "background-color: grey;"
+                                "selection-color: black;"
+                                "selection-background-color: white");
+    ui->messageHistory->setStyleSheet("color: black;"
+                                      "background-color: grey;"
+                                      "selection-color: black;"
+                                      "selection-background-color: white");
+    this->setStyleSheet("color: white;"
+                        "background-color: black;"
+                        "selection-color: black;"
+                        "selection-background-color: white");
+    ui->mainToolBar->setStyleSheet("color: white;"
+                                   "background-color: black;"
+                                   "selection-color: black;"
+                                   "selection-background-color: white");
+
+}
+
+void ChatWindow::on_actionDefault_triggered()
+{
+    ui->messageInput->setStyleSheet("");
+    ui->roomTree->setStyleSheet("");
+    ui->messageHistory->setStyleSheet("");
+    this->setStyleSheet("");
+    ui->mainToolBar->setStyleSheet("");
 }
 
 
@@ -257,3 +283,79 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
     ui->messageInput->setFocus();
     ui->messageInput->setCursorPosition(0);
 }
+
+//-------------Change font menu----------------------------------------------//
+
+void ChatWindow::on_action13_triggered()
+{
+    QFont f("Geeza Pro", 13);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action15_triggered()
+{
+    QFont f("Geeza Pro", 15);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action20_triggered()
+{
+    QFont f("Geeza Pro", 20);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+void ChatWindow::on_action25_triggered()
+{
+    QFont f("Geeza Pro", 25);
+    ui->messageHistory->setFont(f);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+}
+
+
+
+//--------------------------------Smiley size menu--------------------------------------//
+
+
+void ChatWindow::on_action13_2_triggered()
+{
+     happy = "<img src=':files/smilies/images/happy.png' width='13' height='13'>";
+     sad = "<img src=':files/smilies/images/ledsen.png' width='13' height='13'>";
+     straightFace = "<img src=':files/smilies/images/straight_face.png' width='13' height='13'>";
+     oFace = "<img src=':files/smilies/images/happy.png' width='13' height='13'>";
+}
+
+void ChatWindow::on_action15_2_triggered()
+{
+    happy = "<img src=':files/smilies/images/happy.png' width='15' height='15'>";
+    sad = "<img src=':files/smilies/images/ledsen.png' width='15' height='15'>";
+    straightFace = "<img src=':files/smilies/images/straight_face.png' width='15' height='15'>";
+    oFace = "<img src=':files/smilies/images/happy.png' width='15' height='15'>";
+}
+
+void ChatWindow::on_action20_2_triggered()
+{
+    happy = "<img src=':files/smilies/images/happy.png' width='20' height='20'>";
+    sad = "<img src=':files/smilies/images/ledsen.png' width='20' height='20'>";
+    straightFace = "<img src=':files/smilies/images/straight_face.png' width='20' height='20'>";
+    oFace = "<img src=':files/smilies/images/happy.png' width='20' height='20'>";
+}
+
+void ChatWindow::on_action25_2_triggered()
+{
+    happy = "<img src=':files/smilies/images/happy.png' width='25' height='25'>";
+    sad = "<img src=':files/smilies/images/ledsen.png' width='25' height='25'>";
+    straightFace = "<img src=':files/smilies/images/straight_face.png' width='25' height='25'>";
+    oFace = "<img src=':files/smilies/images/happy.png' width='25' height='25'>";
+}
+
+
+//------------------History menu--------------------------------------------//
+
+void ChatWindow::on_actionLoad_history_triggered()
+{
+    getHistory();
+}
+

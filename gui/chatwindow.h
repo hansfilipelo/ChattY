@@ -5,6 +5,7 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
+#include <QFont>
 #include "smilies/smiley.h"
 
 class Gui;
@@ -31,6 +32,9 @@ public:
     void sendMessage();
     std::ofstream debug;
     void receiveHistory(QVector<QString> &historyVector);
+    void receiveOldHistory(QVector<QString> &historyVector);
+    void getHistory();
+    void clearHistory();
 
 
 
@@ -51,12 +55,31 @@ private slots:
 
     void on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
+    void on_action13_triggered();
+
+    void on_action15_triggered();
+
+    void on_action20_triggered();
+
+    void on_action25_triggered();
+
+    void on_actionLoad_history_triggered();
+
+    void on_action13_2_triggered();
+
+    void on_action15_2_triggered();
+
+    void on_action20_2_triggered();
+
+    void on_action25_2_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
     QString name;
     QString server;
     QString lastWhisper;
+    QString smileySize;
 };
 
 #endif // CHATWINDOW_H

@@ -45,7 +45,9 @@ void LoginDialog::on_buttonBox_accepted()
 void LoginDialog::connected(){
     mainWindow->setName(ui->inputName->text());
     mainWindow->setServer("Server: " + ui->inputServer->text());
+    mainWindow->clearHistory();
     this->close();
+
 }
 
 void LoginDialog::userNameTaken(){

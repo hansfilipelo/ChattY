@@ -88,9 +88,42 @@
      <addaction name="actionChatty"/>
      <addaction name="actionCezch"/>
     </widget>
+    <widget class="QMenu" name="menuChange_font">
+     <property name="title">
+      <string>Change font</string>
+     </property>
+     <widget class="QMenu" name="menuSize">
+      <property name="title">
+       <string>Size</string>
+      </property>
+      <addaction name="action13"/>
+      <addaction name="action15"/>
+      <addaction name="action20"/>
+      <addaction name="action25"/>
+     </widget>
+     <addaction name="menuSize"/>
+    </widget>
+    <widget class="QMenu" name="menuChange_smiley_size">
+     <property name="title">
+      <string>Change smiley size</string>
+     </property>
+     <addaction name="action13_2"/>
+     <addaction name="action15_2"/>
+     <addaction name="action20_2"/>
+     <addaction name="action25_2"/>
+    </widget>
     <addaction name="menuChange_theme"/>
+    <addaction name="menuChange_font"/>
+    <addaction name="menuChange_smiley_size"/>
+   </widget>
+   <widget class="QMenu" name="menuHistory">
+    <property name="title">
+     <string>History</string>
+    </property>
+    <addaction name="actionLoad_history"/>
    </widget>
    <addaction name="menuCustomize"/>
+   <addaction name="menuHistory"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -99,6 +132,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionLoad_history"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSetColorscheme">
@@ -129,8 +163,63 @@
     <string>Czech</string>
    </property>
   </action>
+  <action name="action13">
+   <property name="text">
+    <string>13</string>
+   </property>
+  </action>
+  <action name="action15">
+   <property name="text">
+    <string>15</string>
+   </property>
+  </action>
+  <action name="action20">
+   <property name="text">
+    <string>20</string>
+   </property>
+  </action>
+  <action name="action25">
+   <property name="text">
+    <string>25</string>
+   </property>
+  </action>
+  <action name="actionLoad_history">
+   <property name="icon">
+    <iconset resource="myResources.qrc">
+     <normaloff>:/files/icon/folder-documents-icon.png</normaloff>
+     <normalon>:/files/icon/folder-documents-icon.png</normalon>:/files/icon/folder-documents-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load history</string>
+   </property>
+   <property name="toolTip">
+    <string>Load one more day of history</string>
+   </property>
+  </action>
+  <action name="action13_2">
+   <property name="text">
+    <string>13</string>
+   </property>
+  </action>
+  <action name="action15_2">
+   <property name="text">
+    <string>15</string>
+   </property>
+  </action>
+  <action name="action20_2">
+   <property name="text">
+    <string>20</string>
+   </property>
+  </action>
+  <action name="action25_2">
+   <property name="text">
+    <string>25</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="myResources.qrc"/>
+ </resources>
  <connections/>
 </ui>
