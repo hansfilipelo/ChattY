@@ -18,6 +18,15 @@ Message::Message(const std::string message_, const std::string from_,const std::
     serverTime = currentDateTime();
 }
 
+Message::Message(const std::string message_, const std::string from_,const std::string to_,const std::string time_)
+{
+    message = message_;
+    from = from_;
+    to = to_;
+    serverTime = time_;
+}
+
+
 string Message::getMessage() const
 {
     return message;

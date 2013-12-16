@@ -43,10 +43,12 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
-    ui->messageHistory->insertPlainText(message);
+
+    //här har jag pillat
+    ui->messageHistory->insertHtml(smilieConvert(message));
 
 
-    ui->messageHistory->insertHtml( "<img src='file:/Users/t_grundstrm/Documents/TDDC76/ChattY/gui/smilies/images/ledsen.png' width='20' height='20'>");
+    //ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
@@ -284,78 +286,11 @@ void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column
     ui->messageInput->setCursorPosition(0);
 }
 
-//-------------Change font menu----------------------------------------------//
-
-void ChatWindow::on_action13_triggered()
-{
-    QFont f("Geeza Pro", 13);
-    ui->messageHistory->setFont(f);
-    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
+QString ChatWindow::smilieConvert(const QString inMessage){
+    QString messageConv = inMessage.toHtmlEscaped();
+    messageConv.replace(":)",happy);
+    messageConv.replace(":(",sad);
+    //messageConv.replace(":|",straightFace);
+    //messageConv.replace(":o",oFace);
+    return messageConv;
 }
-
-void ChatWindow::on_action15_triggered()
-{
-    QFont f("Geeza Pro", 15);
-    ui->messageHistory->setFont(f);
-    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
-}
-
-void ChatWindow::on_action20_triggered()
-{
-    QFont f("Geeza Pro", 20);
-    ui->messageHistory->setFont(f);
-    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
-}
-
-void ChatWindow::on_action25_triggered()
-{
-    QFont f("Geeza Pro", 25);
-    ui->messageHistory->setFont(f);
-    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->maximum());
-}
-
-
-
-//--------------------------------Smiley size menu--------------------------------------//
-
-
-void ChatWindow::on_action13_2_triggered()
-{
-     happy = "<img src=':files/smilies/images/happy.png' width='13' height='13'>";
-     sad = "<img src=':files/smilies/images/ledsen.png' width='13' height='13'>";
-     straightFace = "<img src=':files/smilies/images/straight_face.png' width='13' height='13'>";
-     oFace = "<img src=':files/smilies/images/happy.png' width='13' height='13'>";
-}
-
-void ChatWindow::on_action15_2_triggered()
-{
-    happy = "<img src=':files/smilies/images/happy.png' width='15' height='15'>";
-    sad = "<img src=':files/smilies/images/ledsen.png' width='15' height='15'>";
-    straightFace = "<img src=':files/smilies/images/straight_face.png' width='15' height='15'>";
-    oFace = "<img src=':files/smilies/images/happy.png' width='15' height='15'>";
-}
-
-void ChatWindow::on_action20_2_triggered()
-{
-    happy = "<img src=':files/smilies/images/happy.png' width='20' height='20'>";
-    sad = "<img src=':files/smilies/images/ledsen.png' width='20' height='20'>";
-    straightFace = "<img src=':files/smilies/images/straight_face.png' width='20' height='20'>";
-    oFace = "<img src=':files/smilies/images/happy.png' width='20' height='20'>";
-}
-
-void ChatWindow::on_action25_2_triggered()
-{
-    happy = "<img src=':files/smilies/images/happy.png' width='25' height='25'>";
-    sad = "<img src=':files/smilies/images/ledsen.png' width='25' height='25'>";
-    straightFace = "<img src=':files/smilies/images/straight_face.png' width='25' height='25'>";
-    oFace = "<img src=':files/smilies/images/happy.png' width='25' height='25'>";
-}
-
-
-//------------------History menu--------------------------------------------//
-
-void ChatWindow::on_actionLoad_history_triggered()
-{
-    getHistory();
-}
-

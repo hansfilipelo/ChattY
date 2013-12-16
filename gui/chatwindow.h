@@ -5,7 +5,6 @@
 #include <fstream>
 #include <QScrollBar>
 #include <QTreeWidget>
-#include <QFont>
 #include "smilies/smiley.h"
 
 class Gui;
@@ -35,8 +34,6 @@ public:
     void receiveOldHistory(QVector<QString> &historyVector);
     void getHistory();
     void clearHistory();
-
-
 
 private slots:
     void on_sendButton_clicked();
@@ -79,6 +76,10 @@ private:
     QString name;
     QString server;
     QString lastWhisper;
+    QString smilieConvert(const QString);
+    QString happy = "<img src=':/files/smilies/images/happy.png' width='15' height='15'>";
+    QString sad =  "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
+    //QString straightFace = <img src=':/files/smilies/images/ledsen.png' width='15' height='15'>";
     QString smileySize;
 };
 
