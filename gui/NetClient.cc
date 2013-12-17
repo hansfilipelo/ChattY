@@ -28,18 +28,16 @@ void NetClient::start(){
     connect(TcpSocket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(TcpSocket,SIGNAL(readyRead()),this,SLOT(readyRead()));
     
-    
     QHostInfo info = QHostInfo::fromName(address);
     
     if (info.addresses().size() == 0){
         guiPointer->noConnection();
     }
     else{
-    TcpSocket->connectToHost(info.addresses().at(0),quint16(40001));
-    
-    if(!TcpSocket->waitForConnected(1000)){
-        guiPointer->noConnection();
-    }
+        TcpSocket->connectToHost(info.addresses().at(0),quint16(40001));
+        if(!TcpSocket->waitForConnected(1000)){
+            guiPointer->noConnection();
+        }
     }
 }
 
@@ -61,20 +59,17 @@ void NetClient::disconnected(){
     
 }
 
-// ---------------------------------------------
+// --------readyRead------------------
 
 void NetClient::readyRead(){
     
     QByteArray Data = TcpSocket->readAll();
     
-    int i;
-    
     QString commandName;
     QString inData = Data;
-    
-    int n = inData.indexOf(breaker);
     QString rest;
-    
+    int n = inData.indexOf(breaker);
+    int i;
     
     do {
         rest = inData.mid(n+1);
@@ -99,8 +94,6 @@ void NetClient::readyRead(){
         }
         
         else if (commandName == "/history") {
-            qDebug() << "läste history i Netclient: ";
-            qDebug() << inData;
             handleHistory(inData);
         }
         
@@ -121,7 +114,7 @@ void NetClient::readyRead(){
         }
         
         else {
-            throw logic_error("Unknown command");
+            throw logic_error("Unknown command: " + commandName.toStdString());
         }
         
         inData = rest;
@@ -193,6 +186,7 @@ void NetClient::handleMessage(QString inData){
     // Get time
     QString dateTime = inData;
     
+    //Send message to Gui
     guiPointer->receiveMessage(from, to, contents, dateTime);
     
 }
@@ -272,7 +266,9 @@ void NetClient::handleOldHistory(QString inData){
 void NetClient::handleStructure(QString inData){
     QVector<QString> output;
     int i = inData.indexOf(compare);
+    
     while(i  != -1){
+        //Create vector output, containing room content structure
         QString data = inData.left(i);
         inData = inData.mid(i+1);
         output.push_back(data);
