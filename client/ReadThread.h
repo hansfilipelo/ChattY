@@ -19,12 +19,11 @@ BESKRIVNING:
 
 class ReadThread : public QThread {
 public:
-    ReadThread(NetClient*,std::string);
+    ReadThread(NetClient*);
     void run();
     
 protected:
     NetClient* client;
-    std::string name;
 };
 
 #endif

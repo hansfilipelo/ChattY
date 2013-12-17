@@ -31,10 +31,10 @@ int main(int argc,char *argv[])
     cout << "Skriv in ditt namn: ";
     cin >> name;
     
-    NetClient client(name,address,nullptr);
+    NetClient client(name,address);
     client.start();
     
-    ReadThread readLoop(&client,name);
+    ReadThread readLoop(&client);
     readLoop.start();
     
     return app.exec();

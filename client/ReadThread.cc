@@ -1,34 +1,29 @@
 /*
- FILNAMN: 		readThread.cc
- PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
- SKAPAD DATUM:	2013-11-28
- BESKRIVNING:
- */
+FILNAMN: 		readThread.cc
+PROGRAMMERARE:	hanel742, eriek984, jened502, tobgr602, niker917, davha227
+SKAPAD DATUM:	2013-11-28
+BESKRIVNING:	
+*/
 
 #include "ReadThread.h"
 
 using namespace std;
 
 
-ReadThread::ReadThread(NetClient* inClient, string inName){
+ReadThread::ReadThread(NetClient* inClient){
     client = inClient;
-    name = inName;
 }
 
 void ReadThread::run() {
     
     string input;
     
-    while (true)
+    //hanterar tyvärr inte hela meddelandet
+    while(cin >> input)
     {
-        cin >> ws;
-        
-        getline(cin, input);
-        flush(cout);
-        
         if (input.substr(0,8)=="/username")
         {
-            cout << name;
+            break;
         }
         else if(input.substr(0,5)=="/exit")
         {
@@ -38,9 +33,6 @@ void ReadThread::run() {
         {
             client->sendMessage(input);
         }
-        
-        input.erase();
-        
     }
     
 }
