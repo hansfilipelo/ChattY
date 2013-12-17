@@ -98,6 +98,9 @@ void Thread::handleInitiate(string stdInData) {
         TcpSocket->write(array);
         TcpSocket->waitForBytesWritten(1000);
         
+        //updates what day it is
+        userPointer->getParentRoom()->setFilePath();
+        
         // Sends structure to "the other side"
         handleStructure();
         userPointer->sendHistory();
