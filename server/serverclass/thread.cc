@@ -289,7 +289,7 @@ void Thread::sendMessage(Message messageObject){
 
 void Thread::sendHistory(){
     QByteArray array = "/history";
-    array += 0x1F; //unit separator
+    array += compare; //unit separator
     unsigned int logSize = userPointer->getParentRoom()->log.size();
     
     for (unsigned int i = 0; i < logSize; i++){
@@ -309,8 +309,8 @@ void Thread::sendHistory(){
         }
         array += compare; //unit separator
     }
-    TcpSocket->write(array);
     
+    TcpSocket->write(array);
     
     if(!TcpSocket->waitForBytesWritten(5000)){
         try{

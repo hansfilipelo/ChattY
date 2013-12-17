@@ -228,7 +228,7 @@ void Room::readAllFromFile() {
             string message = line;
             
             
-            Message tempMessage(message,from,to,time);
+            Message tempMessage(message,from,to);
             log.push_back(tempMessage);
         }
         logfile.close();
