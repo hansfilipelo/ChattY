@@ -32,28 +32,34 @@ void Thread::handleHistory(QString inData) {
         int logSize = oldLog.size();
         
         if (logSize == 0){
-            array += breaker
+            array += breaker;
         }else{
-        for (unsigned int i = 0; i < logSize; i++){
-            
-            Message tempMessage = oldLog.at(i);
-            
-            array += QString::fromStdString(tempMessage.getFrom());
-            array += compare; //unit separator
-            array += QString::fromStdString(tempMessage.getTo());
-            array += compare; //unit separator
-            array += QString::fromStdString(tempMessage.getMessage());
-            array += compare; //unit separator
-            array += QString::fromStdString(tempMessage.getServerTime());
-            if ( i+1 == logSize ){
-                array += breaker;
-                break;
-            }
-            array += compare; //unit separator
-        }}
+            for (unsigned int i = 0; i < logSize; i++){
+                
+                Message tempMessage = oldLog.at(i);
+                
+                array += QString::fromStdString(tempMessage.getFrom());
+                array += compare; //unit separator
+                array += QString::fromStdString(tempMessage.getTo());
+                array += compare; //unit separator
+                array += QString::fromStdString(tempMessage.getMessage());
+                array += compare; //unit separator
+                array += QString::fromStdString(tempMessage.getServerTime());
+                if ( i+1 == logSize ){
+                    array += breaker;
+                    break;
+                }
+                array += compare; //unit separator
+            }}
         TcpSocket->write(array);
-        TcpSocket->waitForBytesWritten(1000);
-
+        
+        if(!TcpSocket->waitForBytesWritten(1000)){
+            try{
+                cout << "Couldn't write to client: " << "oldHistory" << "from: " << userPointer->getName() <<  endl;
+            }catch(...){
+            }
+        }
+        
     }
 }
 
@@ -99,8 +105,13 @@ void Thread::handleInitiate(string stdInData) {
         array+= breaker;
         
         TcpSocket->write(array);
-        TcpSocket->waitForBytesWritten(1000);
         
+        if(!TcpSocket->waitForBytesWritten(1000)){
+            try{
+                cout << "Couldn't write to client: " << "userAccepted" << "from: " << userPointer->getName() <<  endl;
+            }catch(...){
+            }
+        }
         //updates what day it is
         userPointer->getParentRoom()->setFilePath();
         
@@ -224,7 +235,7 @@ void Thread::readyRead()
             TcpSocket->write("Ej giltigt kommando");
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
-
+        
         inData = rest;
         n = inData.indexOf(breaker);
         
@@ -266,8 +277,13 @@ void Thread::sendMessage(Message messageObject){
     array += 0x1E;
     
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(1000);
     
+    if(!TcpSocket->waitForBytesWritten(1000)){
+        try{
+            cout << "Couldn't write to client: " << "message" << "from: " << userPointer->getName() <<  endl;
+        }catch(...){
+        }
+    }
 }
 
 // -----------------------------------------
@@ -295,7 +311,14 @@ void Thread::sendHistory(){
         array += compare; //unit separator
     }
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(1000);
+    
+    
+    if(!TcpSocket->waitForBytesWritten(1000)){
+        try{
+            cout << "Couldn't write to client: " << "history" << "from: " << userPointer->getName() <<  endl;
+        }catch(...){
+        }
+    }
     
 }
 
@@ -307,7 +330,13 @@ void Thread::reinitiate(){
     array += 0x1E; //unit separator
     
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(1000);
+    
+    if(!TcpSocket->waitForBytesWritten(1000)){
+        try{
+            cout << "Couldn't write to client: " << "reinitiate" << "from: " << userPointer->getName() <<  endl;
+        }catch(...){
+        }
+    }
     disconnected();
 }
 
@@ -320,5 +349,11 @@ void Thread::requestStruct() {
     array += 0x1E;
     
     TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(1000);
+    
+    if(!TcpSocket->waitForBytesWritten(1000)){
+        try{
+            cout << "Couldn't write to client: " << "requestStruct" << "from: " << userPointer->getName() <<  endl;
+        }catch(...){
+        }
+    }
 }
