@@ -6,6 +6,7 @@
 #include <QScrollBar>
 #include <QTreeWidget>
 #include <initializer_list>
+#include <QGraphicsOpacityEffect>
 
 class Gui;
 

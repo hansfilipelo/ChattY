@@ -10,6 +10,12 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     QMainWindow(nullptr),
     ui(new Ui::ChatWindow)
 {
+    ui->messageInput->setStyleSheet("white");
+    ui->roomTree->setStyleSheet("white");
+    ui->messageHistory->setStyleSheet("white");
+    this->setStyleSheet("none");
+    ui->mainToolBar->setStyleSheet("none");
+
     ui->setupUi(this);
     chatGui = guiPointer;
     smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,pirate,spiderman};
@@ -249,36 +255,21 @@ void ChatWindow::setSmileySize(int size){
 
 void ChatWindow::on_actionBlack_triggered()
 {
-    ui->messageInput->setStyleSheet("color: black;"
-                                    "background-color: grey;"
-                                    "selection-color: black;"
-                                    "selection-background-color: white");
-    ui->roomTree->setStyleSheet("color: black;"
-                                "background-color: grey;"
-                                "selection-color: black;"
-                                "selection-background-color: white");
-    ui->messageHistory->setStyleSheet("color: black;"
-                                      "background-color: grey;"
-                                      "selection-color: black;"
-                                      "selection-background-color: white");
-    this->setStyleSheet("color: white;"
-                        "background-color: black;"
-                        "selection-color: black;"
-                        "selection-background-color: white");
-    ui->mainToolBar->setStyleSheet("color: white;"
-                                   "background-color: black;"
-                                   "selection-color: black;"
-                                   "selection-background-color: white");
+    ui->messageInput->setStyleSheet("background-color: grey;");
+    ui->roomTree->setStyleSheet("background-color: grey;");
+    ui->messageHistory->setStyleSheet("background-color: grey;");
+    this->setStyleSheet("background-color: black;");
+    ui->mainToolBar->setStyleSheet("background-color: black;");
 
 }
 
 void ChatWindow::on_actionDefault_triggered()
 {
-    ui->messageInput->setStyleSheet("");
-    ui->roomTree->setStyleSheet("");
-    ui->messageHistory->setStyleSheet("");
-    this->setStyleSheet("");
-    ui->mainToolBar->setStyleSheet("");
+    ui->messageInput->setStyleSheet("white");
+    ui->roomTree->setStyleSheet("white");
+    ui->messageHistory->setStyleSheet("white");
+    this->setStyleSheet("none");
+    ui->mainToolBar->setStyleSheet("none");
 }
 
 
@@ -287,7 +278,17 @@ void ChatWindow::on_actionChatty_triggered()
     setStyleSheet("ChatWindow{border-image:url(:/files/icon/ChattY.png) 0 0 0 0 stretch stretch;}");
     ui->menuBar->setStyleSheet("background-color: transparent;");
     ui->statusBar->setStyleSheet("background-color: transparent;");
-    ui->centralWidget->setStyleSheet("background-color: transparent;");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.8);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.8);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.8);
+    ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
 }
 
@@ -296,7 +297,17 @@ void ChatWindow::on_actionCezch_triggered()
     setStyleSheet("ChatWindow{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 255, 255, 255), stop:0.373979 rgba(255, 255, 255, 255), stop:0.373991 rgba(33, 30, 255, 255), stop:0.624018 rgba(33, 30, 255, 255), stop:0.624043 rgba(255, 0, 0, 255), stop:1 rgba(255, 0, 0, 255));}");
     ui->menuBar->setStyleSheet("background-color: transparent;");
     ui->statusBar->setStyleSheet("background-color: transparent;");
-    ui->centralWidget->setStyleSheet("background-color: transparent;");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.8);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.8);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.8);
+    ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
 }
 
