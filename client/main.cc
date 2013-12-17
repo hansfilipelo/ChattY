@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "NetClient.h"
+#include "NetClientConsole.h"
 #include <QCoreApplication>
 #include <QEventLoop>
 #include "ReadThread.h"

@@ -5,7 +5,7 @@ SKAPAD DATUM:	2013-11-19
 BESKRIVNING:	
 */
 
-#include "NetClient.h"
+#include "NetClientConsole.h"
 #include <QTest>
 
 using namespace std;

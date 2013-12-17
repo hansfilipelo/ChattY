@@ -15,7 +15,7 @@ BESKRIVNING:
 #include <fstream>
 #include <string>
 #include <vector>
-#include "NetClient.h"
+#include "NetClientConsole.h"
 
 class ReadThread : public QThread {
 public:
