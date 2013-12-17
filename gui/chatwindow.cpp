@@ -18,6 +18,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
+
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
