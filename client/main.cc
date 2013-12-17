@@ -27,14 +27,18 @@ int main(int argc,char *argv[])
         address = "127.0.0.1";
     }
     
+    QString qAddress = QString::fromStdString(address);
+    
     string name;
     cout << "Skriv in ditt namn: ";
     cin >> name;
     
-    NetClient client(name,address);
+    QString qName = QString::fromStdString(name);
+    
+    NetClient client(qName,qAddress);
     client.start();
     
-    ReadThread readLoop(&client);
+    ReadThread readLoop(&client,qName);
     readLoop.start();
     
     return app.exec();

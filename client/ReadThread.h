@@ -15,15 +15,17 @@ BESKRIVNING:
 #include <fstream>
 #include <string>
 #include <vector>
+#include <QString>
 #include "NetClientConsole.h"
 
 class ReadThread : public QThread {
 public:
-    ReadThread(NetClient*);
+    ReadThread(NetClient*, QString);
     void run();
     
 protected:
     NetClient* client;
+    QString name;
 };
 
 #endif

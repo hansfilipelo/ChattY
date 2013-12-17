@@ -15,14 +15,16 @@ BESKRIVNING:
 #include <QAbstractSocket>
 #include <QTcpSocket>
 #include <QString>
+#include <QHostInfo>
 
 class NetClient : public QObject
 {
     Q_OBJECT
 public:
-    NetClient(std::string, std::string, QObject *parent = 0);
+    NetClient(QString, QString, QObject *parent = 0);
     void start();
     void sendMessage(std::string);
+    void sendMessage(QString, QString, QString);
     
 signals:
     
@@ -31,12 +33,21 @@ public slots:
     void disconnected();
     void bytesWritten(qint64 bytes);
     void readyRead();
+    void getHistory(unsigned int);
 
 private:
+    void handleHistory(QString);
+    void handleMessage(QString);
+    void handleStructure(QString);
+    void handleRequestStruct();
+    void handleOldHistory(QString);
+    
     QTcpSocket *TcpSocket;
     QString name;
     QString address;
     
+    QByteArray compare;
+    QByteArray breaker;
 };
 
 

@@ -10,8 +10,9 @@ BESKRIVNING:
 using namespace std;
 
 
-ReadThread::ReadThread(NetClient* inClient){
+ReadThread::ReadThread(NetClient* inClient, QString inName){
     client = inClient;
+    name = inName;
 }
 
 void ReadThread::run() {
@@ -31,7 +32,8 @@ void ReadThread::run() {
         }
         else if(input !="")
         {
-            client->sendMessage(input);
+            QString message = QString::fromStdString(input);
+            client->sendMessage(name, "root", message);
         }
     }
     
