@@ -31,6 +31,9 @@ void Thread::handleHistory(QString inData) {
         
         int logSize = oldLog.size();
         
+        if (logSize == 0){
+            array += breaker
+        }else{
         for (unsigned int i = 0; i < logSize; i++){
             
             Message tempMessage = oldLog.at(i);
@@ -47,7 +50,7 @@ void Thread::handleHistory(QString inData) {
                 break;
             }
             array += compare; //unit separator
-        }
+        }}
         TcpSocket->write(array);
         TcpSocket->waitForBytesWritten(1000);
 
@@ -97,6 +100,9 @@ void Thread::handleInitiate(string stdInData) {
         
         TcpSocket->write(array);
         TcpSocket->waitForBytesWritten(1000);
+        
+        //updates what day it is
+        userPointer->getParentRoom()->setFilePath();
         
         // Sends structure to "the other side"
         handleStructure();
