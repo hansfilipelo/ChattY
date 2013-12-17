@@ -10,15 +10,16 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     QMainWindow(nullptr),
     ui(new Ui::ChatWindow)
 {
+    ui->setupUi(this);
+    chatGui = guiPointer;
+    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,pirate,spiderman};
+
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
 
-    ui->setupUi(this);
-    chatGui = guiPointer;
-    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,pirate,spiderman};
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
