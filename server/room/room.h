@@ -97,7 +97,6 @@ public:
     
     void setFilePath();
     void readAllFromFile();
-    void sendHistory();
     void chooseRoom(Room*);
     void initRoom(std::string);
     void setThread(Thread*);
