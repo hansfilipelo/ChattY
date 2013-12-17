@@ -19,10 +19,10 @@ CONFIG		+= release
 
 # ---- Files ----
 
-SOURCES += main.cpp chatwindow.cpp logindialog.cpp ../client/NetClient.cc \
+SOURCES += main.cpp chatwindow.cpp logindialog.cpp NetClient.cc \
     gui.cpp \
 
-HEADERS  += chatwindow.h logindialog.h ../client/NetClient.h \
+HEADERS  += chatwindow.h logindialog.h NetClient.h \
     gui.h \
 
 FORMS    += chatwindow.ui logindialog.ui

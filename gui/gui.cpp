@@ -1,5 +1,5 @@
 #include "gui.h"
-#include "../client/NetClient.h"
+#include "NetClient.h"
 #include "chatwindow.h"
 #include "logindialog.h"
 
