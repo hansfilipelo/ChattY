@@ -41,6 +41,7 @@ public slots:
     void readyRead();
 
 private:
+    QString incompleteCommand = "";
     Gui* guiPointer;
     QTcpSocket *TcpSocket;
     QString name;
