@@ -214,6 +214,12 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
         ui->messageInput->clear();
 
     }
+    if(w=="/s" or w=="/S"){
+        to.remove("/s",Qt::CaseInsensitive);
+        player->stop();
+        ui->messageInput->clear();
+    }
+
 }
 
 //-----------------------------function for sending a message------------------------------------//
@@ -335,7 +341,7 @@ void ChatWindow::on_actionDefault_triggered()
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
-    this->setStyleSheet("none");
+    this->setStyleSheet("white");
     
     if(player!=nullptr)
     {
