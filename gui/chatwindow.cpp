@@ -187,13 +187,13 @@ void ChatWindow::sendMessage(){
 
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
-    QString timeString=historyVector.at(3);
-    timeString.chop(9);
+    QDate time=QDate::currentDate();
+    QString timeString=time.toString("yyyy-MM-dd");
 
     ui->messageHistory->moveCursor(QTextCursor::Start);
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->setFontItalic(true);
-    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString+"------------"+"\n\n");
+    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString +"------------"+"\n\n");
     ui->messageHistory->setFontItalic(false);
 
     for(int i = 0;i<historyVector.size(); i+=4){
@@ -211,8 +211,10 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
 }
 
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
-        QString timeString=historyVector.at(3);
-        timeString.chop(9);
+        QDate time=QDate::currentDate();
+        int i = 0 - chatGui->historyCounter;
+        time =time.addDays(i+1);
+        QString timeString=time.toString("yyyy-MM-dd");
 
         ui->messageHistory->moveCursor(QTextCursor::Start);
 

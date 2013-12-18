@@ -7,6 +7,7 @@
 #include <QTreeWidget>
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
+#include <QDate>
 
 class Gui;
 
