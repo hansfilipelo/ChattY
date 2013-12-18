@@ -17,7 +17,6 @@
         <file>build/apple_sms.wav</file>
         <file>smilies/laurel.png</file>
         <file>icon/Nikkibeachupdate.jpg</file>
-        <file>icon/squat.jpg</file>
         <file>icon/squatupdate.jpg</file>
     </qresource>
 </RCC>
