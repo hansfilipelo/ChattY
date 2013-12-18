@@ -143,6 +143,7 @@ void Thread::handleStructure() {
     sendData += breaker;
     
     TcpSocket->write(sendData);
+    TcpSocket->waitForBytesWritten(5000);
     
 }
 
