@@ -12,7 +12,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 {
     ui->setupUi(this);
     chatGui = guiPointer;
-    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,pirate,spiderman};
+    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman};
 
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
@@ -28,14 +28,14 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
 
-    if(to == name){
+    if(to == name && from != name){
         lastWhisper=from;
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText(from +" whispers to you: ");
         ui->messageHistory->setTextColor(Qt::black);
 
     }
-    else if (from == name && to != "root"){
+    else if (from == name && to != "root" && to !=name){
         ui->messageHistory->setTextColor(Qt::magenta);
         ui->messageHistory->insertPlainText("You whisper to " + to + ": ");
         ui->messageHistory->setTextColor(Qt::black);
@@ -45,19 +45,14 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText("You say: ");
         ui->messageHistory->setTextColor(Qt::black);
+     }
 
-    }
     else {
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
-
-    //här har jag pillat
     ui->messageHistory->insertHtml(smilieConvert(message));
-
-
-    //ui->messageHistory->insertHtml( "<img src=':/files/smilies/images/ledsen.png' width='15' height='15'>");
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
     if(ui->messageHistory->verticalScrollBar()->value() != ui->messageHistory->verticalScrollBar()->maximum())
@@ -123,8 +118,6 @@ ChatWindow::~ChatWindow()
 {
     delete ui;
 }
-
-
 //If sendbutton is pressed display sent from text and message in messagehistory//
 void ChatWindow::on_sendButton_clicked()
 {
@@ -184,6 +177,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 void ChatWindow::sendMessage(){
     if (ui->messageInput->text()==""){
         return;
+
     }
     else{
         chatGui->sendMessage(name,receiver,ui->messageInput->text());
@@ -260,8 +254,6 @@ void ChatWindow::on_actionBlack_triggered()
     ui->roomTree->setStyleSheet("background-color: grey;");
     ui->messageHistory->setStyleSheet("background-color: grey;");
     this->setStyleSheet("background-color: black;");
-    ui->mainToolBar->setStyleSheet("background-color: black;");
-
 }
 
 void ChatWindow::on_actionDefault_triggered()
@@ -270,15 +262,12 @@ void ChatWindow::on_actionDefault_triggered()
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
-    ui->mainToolBar->setStyleSheet("none");
 }
 
 
 void ChatWindow::on_actionChatty_triggered()
 {
     setStyleSheet("ChatWindow{border-image:url(:/files/icon/ChattY.png) 0 0 0 0 stretch stretch;}");
-    ui->menuBar->setStyleSheet("background-color: transparent;");
-    ui->statusBar->setStyleSheet("background-color: transparent;");
     ui->messageHistory->setStyleSheet("background-color: white;");
     QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
     effect1->setOpacity(0.8);
@@ -296,8 +285,6 @@ void ChatWindow::on_actionChatty_triggered()
 void ChatWindow::on_actionCezch_triggered()
 {
     setStyleSheet("ChatWindow{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 255, 255, 255), stop:0.373979 rgba(255, 255, 255, 255), stop:0.373991 rgba(33, 30, 255, 255), stop:0.624018 rgba(33, 30, 255, 255), stop:0.624043 rgba(255, 0, 0, 255), stop:1 rgba(255, 0, 0, 255));}");
-    ui->menuBar->setStyleSheet("background-color: transparent;");
-    ui->statusBar->setStyleSheet("background-color: transparent;");
     ui->messageHistory->setStyleSheet("background-color: white;");
     QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
     effect1->setOpacity(0.8);
@@ -331,8 +318,7 @@ QString ChatWindow::smilieConvert(const QString inMessage){
     messageConv.replace("batman",smiley.at(6));
     messageConv.replace("grandpa",smiley.at(7));
     messageConv.replace("ironman",smiley.at(8));
-    messageConv.replace("pirate",smiley.at(9));
-    messageConv.replace("spiderman",smiley.at(10));
+    messageConv.replace("spiderman",smiley.at(9));
     return messageConv;
 }
 

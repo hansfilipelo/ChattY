@@ -89,17 +89,23 @@ void Room::sendMessage(Message inMessage) {
     string to = inMessage.getTo();
     string from = inMessage.getFrom();
     
-    try {
-        getRoom(to)->receiveMessage(inMessage);
-        getRoom(from)->receiveMessage(inMessage);
-    } catch (...) {
-        string temp = "No user named ";
-        temp += to;
-        temp += " in this room!";
+    if (inMessage.getTo() == inMessage.getFrom()) {
+        string temp = "Stop whispering in your own ear. Don't you have any friends to talk to?";
         Message errorMessage(temp,name,from);
         getRoom(from)->receiveMessage(errorMessage);
     }
-    
+    else {
+        try {
+            getRoom(to)->receiveMessage(inMessage);
+            getRoom(from)->receiveMessage(inMessage);
+        } catch (...) {
+            string temp = "No user named ";
+            temp += to;
+            temp += " in this room!";
+            Message errorMessage(temp,name,from);
+            getRoom(from)->receiveMessage(errorMessage);
+        }
+    }
 }
 
 
