@@ -12,7 +12,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 {
     ui->setupUi(this);
     chatGui = guiPointer;
-    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman,pirate,angry};
+    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman,pirate,angry,laurel};
 
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
@@ -345,6 +345,7 @@ QString ChatWindow::smilieConvert(const QString inMessage){
     messageConv.replace("spiderman",smiley.at(9));
     messageConv.replace("pirate",smiley.at(10));
     messageConv.replace(":@",smiley.at(11));
+    messageConv.replace("våt dröm",smiley.at(12));
 
     return messageConv;
 }

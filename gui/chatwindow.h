@@ -94,6 +94,7 @@ private:
     QString spiderman = "<img src=':/files/smilies/spiderman.png' width='25' height='25'>";
     QString pirate = "<img src=':/files/smilies/pirate.png' width='25' height='25'>";
     QString angry = "<img src=':/files/smilies/angry.png' width='25' height='25'>";
+    QString laurel= "<img src=':/files/smilies/laurel.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
 };
