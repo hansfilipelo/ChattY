@@ -29,10 +29,10 @@ void LoginDialog::on_buttonBox_rejected()
 
 void LoginDialog::on_buttonBox_accepted()
 {   ui->errorMessage->setText("");
-    if (ui->inputName->text()=="User" or ui->inputName->text()==""){
+    if (ui->inputName->text()=="User" or not(ui->inputName->isModified())){
         ui->errorMessage->setText("Name not allowed");
     }
-    if (ui->inputServer->text().contains(" ") or ui->inputServer->text()==""){
+    else if (ui->inputServer->text().contains(" ") or ui->inputServer->text()==""){
         ui->errorMessage->setText("Invalid server name");
     }
 
