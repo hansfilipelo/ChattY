@@ -24,11 +24,13 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     // Set appdir depending on OS
     appdir = QCoreApplication::applicationDirPath();
     qDebug() << "application dir is " << appdir;
+    
+    // soundFile = "/Users/fille/Documents/Kod/ChattY/gui/ChattY.app/Contents/Resources/apple_sms.wav";
 
 #if defined(__MACOSX_BUILD__)
-    soundFile = "file://" + appdir + "/../Resources/apple_sms.wav";
+    soundFile = appdir + "/../Resources/apple_sms.wav";
 #elif defined(__WINDOWS_BUILD__)
-    soundFile = "file:///" + appdir + "/apple_sms.wav";
+    soundFile = appdir + "/apple_sms.wav";
 #endif
     qDebug() << "filePrefix is " << soundFile;
 }
@@ -64,9 +66,9 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
     }
     
-    //if (!this->isActiveWindow()) {
+    if (!this->isActiveWindow()) {
         QSound::play(soundFile);
-    //}
+    }
     
     ui->messageHistory->insertHtml(smilieConvert(message));
     ui->messageHistory->insertPlainText("\n");
