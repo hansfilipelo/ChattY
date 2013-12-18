@@ -18,16 +18,14 @@ public:
     explicit LoginDialog(ChatWindow* chatPointer, Gui* guiPointer);
     ~LoginDialog();
     void connected();
-    ChatWindow* mainWindow;
-    Gui* chatGui;
     void userNameTaken();
     void noConnection();
-    
     void disconnectedFromServer();
+    ChatWindow* mainWindow;
+    Gui* chatGui;
 
 private slots:
     void on_buttonBox_rejected();
-
     void on_buttonBox_accepted();
 
 private:
