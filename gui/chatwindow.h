@@ -77,6 +77,10 @@ private slots:
 
     void on_actionNiklas_triggered();
 
+    void on_actionNikki_Beach_triggered();
+
+    void on_actionShe_squats_bro_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
