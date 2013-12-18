@@ -273,6 +273,9 @@ void ChatWindow::on_actionBlack_triggered()
     ui->roomTree->setStyleSheet("background-color: grey;");
     ui->messageHistory->setStyleSheet("background-color: grey;");
     this->setStyleSheet("background-color: black;");
+    ui->mainToolBar->setStyleSheet("background-color: none;");
+    ui->menuBar->setStyleSheet("background-color: none;");
+    ui->sendButton->setStyleSheet("background-color: none;");
 }
 
 void ChatWindow::on_actionDefault_triggered()
