@@ -25,12 +25,13 @@ public:
     
     // Disconnected from server
     void disconnectedFromServer();
+    unsigned int historyCounter;
     
 protected:
     NetClient* client = nullptr;
     LoginDialog* loginWindow = nullptr;
     ChatWindow* mainWindow = nullptr;
-    unsigned int historyCounter;
+
 };
 
 #endif // GUI_H
