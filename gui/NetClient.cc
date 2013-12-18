@@ -67,7 +67,6 @@ void NetClient::readyRead(){
     
     if( not(incompleteCommand.isEmpty())){
         inData = incompleteCommand;
-        cout << "old command exists" << endl;
         incompleteCommand = "";
     }
     QByteArray Data = TcpSocket->readAll();
@@ -77,11 +76,9 @@ void NetClient::readyRead(){
     QString rest = "";
     int n = inData.indexOf(breaker);
     int i;
-    int p = 0;
     
     
     if(inData.indexOf(breaker) == -1 ){
-        cout << "breaker missing " << endl;
         incompleteCommand = inData;
         return;
     }
@@ -91,10 +88,8 @@ void NetClient::readyRead(){
         rest = inData.mid(n+1);
         inData = inData.left(n);
         i = inData.indexOf(compare);
-        cout << p << endl;
         commandName = inData.left(i);
         
-        p = p + 1;
         inData = inData.mid(i+1);
         
         QString temp = inData;

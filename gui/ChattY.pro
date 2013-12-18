@@ -11,6 +11,9 @@ QT		+= core gui network widgets
 ICON		= icon/ChattY.icns
 RC_FILE		= ChattY.rc
 
+win32:DEFINES	+= __WINDOWS_BUILD__
+macx:DEFINES	+= __MACOSX_BUILD__
+
 TARGET		= ChattY
 TEMPLATE	= app
 
