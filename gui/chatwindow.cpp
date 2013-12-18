@@ -19,6 +19,20 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
+    
+    qDebug() << "kommer jag hit";
+    // Set appdir depending on OS
+    appdir = QCoreApplication::applicationDirPath();
+    qDebug() << "application dir is " << appdir;
+    
+    // soundFile = "/Users/fille/Documents/Kod/ChattY/gui/ChattY.app/Contents/Resources/apple_sms.wav";
+
+#if defined(__MACOSX_BUILD__)
+    soundFile = appdir + "/../Resources/apple_sms.wav";
+#elif defined(__WINDOWS_BUILD__)
+    soundFile = appdir + "/apple_sms.wav";
+#endif
+    qDebug() << "filePrefix is " << soundFile;
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -44,13 +58,18 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText("You say: ");
         ui->messageHistory->setTextColor(Qt::black);
-     }
+    }
 
     else {
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
+    
+    if (!this->isActiveWindow()) {
+        QSound::play(soundFile);
+    }
+    
     ui->messageHistory->insertHtml(smilieConvert(message));
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
@@ -182,7 +201,6 @@ void ChatWindow::sendMessage(){
     }
     else{
         chatGui->sendMessage(name,receiver,ui->messageInput->text());
-
     }
 
 }
@@ -321,6 +339,42 @@ void ChatWindow::on_actionCezch_triggered()
     ui->roomTree->setGraphicsEffect(effect2);
     QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
     effect3->setOpacity(0.8);
+    ui->messageInput->setGraphicsEffect(effect3);
+    ui->sendButton->setStyleSheet("background-color: none;");
+}
+
+void ChatWindow::on_actionNikki_Beach_triggered()
+{
+    setStyleSheet("ChatWindow{border-image:url(:/files/icon/Nikkibeachupdate.jpg) 0 0 0 0 stretch stretch;}");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.7);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.7);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.7);
+    ui->messageInput->setGraphicsEffect(effect3);
+    ui->sendButton->setStyleSheet("background-color: none;");
+
+    setSmileySize(99);
+}
+
+void ChatWindow::on_actionShe_squats_bro_triggered()
+{
+    setStyleSheet("ChatWindow{border-image:url(:/files/icon/squatupdate.jpg) 0 0 0 0 stretch stretch;}");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.7);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.7);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.7);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
 }

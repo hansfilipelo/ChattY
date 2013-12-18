@@ -87,6 +87,8 @@
      <addaction name="actionDefault"/>
      <addaction name="actionChatty"/>
      <addaction name="actionCezch"/>
+     <addaction name="actionNikki_Beach"/>
+     <addaction name="actionShe_squats_bro"/>
     </widget>
     <widget class="QMenu" name="menuChange_font">
      <property name="title">
@@ -235,6 +237,16 @@
    </property>
    <property name="shortcut">
     <string>Up</string>
+   </property>
+  </action>
+  <action name="actionNikki_Beach">
+   <property name="text">
+    <string>Nikki Beach</string>
+   </property>
+  </action>
+  <action name="actionShe_squats_bro">
+   <property name="text">
+    <string>They Squat Bro</string>
    </property>
   </action>
  </widget>

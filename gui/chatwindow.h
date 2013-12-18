@@ -7,6 +7,8 @@
 #include <QTreeWidget>
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
+#include <QSound>
+#include <QCoreApplication>
 #include <QDate>
 
 class Gui;
@@ -77,6 +79,10 @@ private slots:
 
     void on_actionPrevious_message_triggered();
 
+    void on_actionNikki_Beach_triggered();
+
+    void on_actionShe_squats_bro_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
@@ -100,6 +106,8 @@ private:
     QString smileySize;
     QVector<QString> smiley;
     QString lastMessage;
+    QString appdir;
+    QString soundFile;
 };
 
 #endif // CHATWINDOW_H

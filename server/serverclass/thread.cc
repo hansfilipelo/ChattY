@@ -115,8 +115,8 @@ void Thread::handleInitiate(string stdInData) {
         userPointer->getParentRoom()->setFilePath();
         
         // Sends structure to "the other side"
-        handleStructure();
         this->sendHistory();
+        handleStructure();
         
     }
     catch (...)
@@ -233,6 +233,7 @@ void Thread::readyRead()
         else {
             cout << "Ej giltigt kommando" << commandName.toStdString() << endl;
             TcpSocket->write("Ej giltigt kommando");
+            TcpSocket->waitForBytesWritten(5000);
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
         
