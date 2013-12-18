@@ -7,10 +7,14 @@
 #include <QTreeWidget>
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
+
+#if defined(__MACOSX_BUILD__)
 #include <QSound>
+#include <QMediaPlayer>
+#endif
+
 #include <QCoreApplication>
 #include <QDate>
-#include <QMediaPlayer>
 
 class Gui;
 
@@ -89,7 +93,11 @@ private:
     QString lastMessage;
     QString appdir;
     QString soundFile;
+
+#if defined(__MACOSX_BUILD__)
     QMediaPlayer *player = nullptr;
+#endif
+
 };
 
 #endif // CHATWINDOW_H

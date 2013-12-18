@@ -7,7 +7,7 @@
 QMAKE_CXX	= g++
 QMAKE_CC	= gcc
 
-QT		+= core gui network widgets multimedia
+QT		+= core gui network widgets
 ICON		= icon/ChattY.icns
 RC_FILE		= ChattY.rc
 

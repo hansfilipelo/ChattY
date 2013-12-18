@@ -28,8 +28,6 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     
 #if defined(__MACOSX_BUILD__)
     soundFile = appdir + "/../Resources/apple_sms.wav";
-#elif defined(__WINDOWS_BUILD__)
-    soundFile = appdir + "/apple_sms.wav";
 #endif
     
 }
@@ -72,9 +70,12 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
     
 
     //plays message sound
+
+#if defined(__MACOSX_BUILD__)
     if (!this->isActiveWindow()) {
         QSound::play(soundFile);
     }
+#endif
     
     //output message
     ui->messageHistory->insertHtml(smilieConvert(message));
@@ -216,7 +217,10 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
     if(w=="/s" or w=="/S"){
         to.remove("/s",Qt::CaseInsensitive);
+
+#if defined(__MACOSX_BUILD__)
         player->stop();
+#endif
         ui->messageInput->clear();
     }
 
@@ -262,12 +266,12 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
 //--------------function for receiving old messages from current room and past days----------------//
 
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
-        QDate time=QDate::currentDate();
-        int i = 0 - chatGui->historyCounter;
-        time =time.addDays(i+1);
-        QString timeString=time.toString("yyyy-MM-dd");
+    QDate time=QDate::currentDate();
+    int i = 0 - chatGui->historyCounter;
+    time =time.addDays(i+1);
+    QString timeString=time.toString("yyyy-MM-dd");
 
-        ui->messageHistory->moveCursor(QTextCursor::Start);
+    ui->messageHistory->moveCursor(QTextCursor::Start);
 
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
@@ -343,10 +347,12 @@ void ChatWindow::on_actionDefault_triggered()
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("white");
     
+#if defined(__MACOSX_BUILD__)
     if(player!=nullptr)
     {
         player->stop();
     }
+#endif
 }
 
 
@@ -366,10 +372,12 @@ void ChatWindow::on_actionChatty_triggered()
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
     
+#if defined(__MACOSX_BUILD__)
     if(player!=nullptr)
     {
         player->stop();
     }
+#endif
 }
 
 void ChatWindow::on_actionCezch_triggered()
@@ -388,10 +396,12 @@ void ChatWindow::on_actionCezch_triggered()
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
     
+#if defined(__MACOSX_BUILD__)
     if(player!=nullptr)
     {
         player->stop();
     }
+#endif
 }
 
 void ChatWindow::on_actionNikki_Beach_triggered()
@@ -415,17 +425,13 @@ void ChatWindow::on_actionNikki_Beach_triggered()
     QString bomboFile;
 #if defined(__MACOSX_BUILD__)
     bomboFile = appdir + "/../Resources/bombo.wav";
-#elif defined(__WINDOWS_BUILD__)
-    bomboFile = appdir + "/bombo.wav";
-#endif
-    qDebug() << bomboFile;
-    
+
     player = new QMediaPlayer;
-    
+
     player->setMedia(QUrl::fromLocalFile(bomboFile));
     player->setVolume(100);
     player->play();
-    
+#endif
 }
 
 void ChatWindow::on_actionShe_squats_bro_triggered()
@@ -444,10 +450,12 @@ void ChatWindow::on_actionShe_squats_bro_triggered()
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
     
+#if defined(__MACOSX_BUILD__)
     if(player!=nullptr)
     {
         player->stop();
     }
+#endif
 }
 
 //-----------------------sets the klicked name to message reciever----------------------------//
@@ -556,7 +564,7 @@ void ChatWindow::on_actionLoad_history_triggered()
 
 void ChatWindow::on_actionPrevious_message_triggered()
 {
-   ui->messageInput->setFocus();
-   ui->messageInput->clear();
-   ui->messageInput->insert(lastMessage);
+    ui->messageInput->setFocus();
+    ui->messageInput->clear();
+    ui->messageInput->insert(lastMessage);
 }
