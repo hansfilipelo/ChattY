@@ -132,7 +132,13 @@ void NetClient::readyRead(){
         
         else {
     
-            throw logic_error("Unknown command: " + commandName.toStdString());
+            //throw logic_error("Unknown command: " + commandName.toStdString());
+            //release version
+            cout << "Unknown command: " << endl;
+            inData = "";
+            commandName = "";
+            incompleteCommand = "";
+            return;
         }
         
         inData = rest;
