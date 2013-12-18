@@ -17,7 +17,7 @@ BESKRIVNING:
 #include <iostream>
 #include <stdexcept>
 #include <QHostInfo>
-#include <QDebug>
+//#include <QDebug>
 #include <string>
 
 class Gui;

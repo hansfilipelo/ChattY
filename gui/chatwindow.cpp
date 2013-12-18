@@ -3,7 +3,7 @@
 #include "QString"
 #include "QColor"
 #include "gui.h"
-#include <QDebug>
+//#include <QDebug>
 
 
 //------------------------ChatWindow constructor------------------------//
@@ -309,10 +309,10 @@ void ChatWindow::clearHistory(){
 //-------------------------------sets the smileysize----------------------------------------//
 
 void ChatWindow::setSmileySize(int size){
-    qDebug()<< "tempString3";
+    //qDebug()<< "tempString3";
     QString sizeString = QString::number(size);
     for (int i=0; i < smiley.size(); i++ ){
-        qDebug()<< smiley.size();
+        //qDebug()<< smiley.size();
         QString tempString = smiley.at(i);
         tempString.chop(23);
         tempString += " width='";
@@ -320,9 +320,9 @@ void ChatWindow::setSmileySize(int size){
         tempString += "' height='" ;
         tempString +=  sizeString;
         tempString += "'>";
-        qDebug()<< tempString;
+        //qDebug()<< tempString;
         smiley.replace(i,tempString);
-        qDebug()<< "tempString";
+        //qDebug()<< "tempString";
 
     }
 }
