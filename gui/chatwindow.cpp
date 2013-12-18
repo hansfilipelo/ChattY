@@ -4,8 +4,9 @@
 #include "QColor"
 #include "gui.h"
 #include <QDebug>
-//
 
+
+//ChatWindow constructor
 ChatWindow::ChatWindow(Gui* guiPointer) :
     QMainWindow(nullptr),
     ui(new Ui::ChatWindow)
@@ -14,6 +15,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     chatGui = guiPointer;
     smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman,pirate,angry,laurel};
 
+    //Setup default theme
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
@@ -35,12 +37,16 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     qDebug() << "filePrefix is " << soundFile;
 }
 
+
+//function for receiving messages
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
     QString tempString = time;
     ui->messageHistory->moveCursor(QTextCursor::End);
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->insertPlainText(tempString.remove(0,11).remove(5,7)+" | ");
 
+
+    //controls for whispers
     if(to == name && from != name){
         lastWhisper=from;
         ui->messageHistory->setTextColor(Qt::magenta);
@@ -66,10 +72,13 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::black);
     }
     
+
+    //plays message sound
     if (!this->isActiveWindow()) {
         QSound::play(soundFile);
     }
     
+    //output message
     ui->messageHistory->insertHtml(smilieConvert(message));
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
@@ -83,15 +92,20 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
 
 }
 
+
+//sets username
 void ChatWindow::setName(QString inName){
     name = inName;
 }
 
+//sets server
 void ChatWindow::setServer(QString serverName){
     server = serverName;
     ui->roomTree->setHeaderLabel(server);
 }
 
+
+//updates the tree structure with users
 void ChatWindow::updateStruct(QVector<QString> treeStruct){
     ui->roomTree->clear();
     QTreeWidgetItem *treeParent;
@@ -111,12 +125,13 @@ void ChatWindow::updateStruct(QVector<QString> treeStruct){
     ui->roomTree->expandAll();
 }
 
+
+//helpfunctions for updateStruct
 QTreeWidgetItem* ChatWindow::addRoot(const QString rootName){
     QTreeWidgetItem* item = new QTreeWidgetItem(ui->roomTree);
     item->setText(0,rootName);
     ui->roomTree->addTopLevelItem(item);
     return item;
-
 }
 
 QTreeWidgetItem* ChatWindow::addSubRoot(QTreeWidgetItem *parent,const QString subRootName){
@@ -132,11 +147,13 @@ void ChatWindow::addLeaf(QTreeWidgetItem *parent,const QString leafName){
     parent->addChild(item);
 }
 
+//ChatWindow destructor
 ChatWindow::~ChatWindow()
 {
     delete ui;
 }
-//If sendbutton is pressed display sent from text and message in messagehistory//
+
+//If sendbutton is pressed, send message
 void ChatWindow::on_sendButton_clicked()
 {
     sendMessage();
@@ -146,7 +163,7 @@ void ChatWindow::on_sendButton_clicked()
 
 }
 
-// send message on return//
+// send message on return
 void ChatWindow::on_messageInput_returnPressed()
 {
     on_sendButton_clicked();
@@ -154,7 +171,7 @@ void ChatWindow::on_messageInput_returnPressed()
 }
 
 
-//Slash command control//
+// Slash command control
 void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 {
     QString to      = arg1;
@@ -192,6 +209,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
     }
 }
 
+//function for sending a message
 void ChatWindow::sendMessage(){
     if (ui->messageInput->text()==""){
         return;
@@ -203,7 +221,7 @@ void ChatWindow::sendMessage(){
 
 }
 
-
+//function for receiving old messages from current room and day
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
     QDate time=QDate::currentDate();
     QString timeString=time.toString("yyyy-MM-dd");
@@ -228,6 +246,7 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
     }
 }
 
+//function for receiving old messages from current room and past days
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         QDate time=QDate::currentDate();
         int i = 0 - chatGui->historyCounter;
@@ -256,6 +275,7 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
     ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->minimum());
 }
 
+//gets old messages
 void ChatWindow::getHistory(){
     chatGui->getHistory();
 }
@@ -264,6 +284,8 @@ void ChatWindow::clearHistory(){
     ui->messageHistory->clear();
 }
 
+
+//sets the smileysize
 void ChatWindow::setSmileySize(int size){
     qDebug()<< "tempString3";
     QString sizeString = QString::number(size);
@@ -283,7 +305,7 @@ void ChatWindow::setSmileySize(int size){
     }
 }
 
-//---------------------------------Customisation menu-------------------------------//
+//---------------------------------Customisation menu (Themes)-------------------------------//
 
 
 
@@ -473,6 +495,7 @@ void ChatWindow::on_actionNiklas_triggered()
 
 //------------------History menu--------------------------------------------//
 
+//button trigger for getting old messages
 void ChatWindow::on_actionLoad_history_triggered()
 {
     chatGui->getHistory();
