@@ -5,10 +5,12 @@ class NetClient;
 class LoginDialog;
 class ChatWindow;
 
+/* The Gui class is an abstraction layer between the gui and the net client */
+
 class Gui
 {
 public:
-    Gui(); //Skall skapa ett NetClient objekt
+    Gui();
     void receiveMessage(QString from, QString to, QString message, QString servertime);
     void userNameTaken();
     void connectionTimeOut();
@@ -18,13 +20,11 @@ public:
     void sendMessage(QString from, QString to, QString message);
     void updateStruct(QVector<QString> treeStruct);
     void getStruct();
-
     void receiveHistory(QVector<QString> &historyVector);
     void receiveOldHistory(QVector<QString> &historyVector);
     void getHistory();
-    
-    // Disconnected from server
     void disconnectedFromServer();
+
     unsigned int historyCounter;
     
 protected:

@@ -10,6 +10,7 @@
 #include <QSound>
 #include <QCoreApplication>
 #include <QDate>
+#include <QMediaPlayer>
 
 class Gui;
 
@@ -42,45 +43,25 @@ public:
 
 private slots:
     void on_sendButton_clicked();
-
     void on_messageInput_returnPressed();
-
     void on_messageInput_textEdited(const QString &arg1);
-
     void on_actionBlack_triggered();
-
     void on_actionDefault_triggered();
-
     void on_actionChatty_triggered();
-
     void on_actionCezch_triggered();
-
     void on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column);
-
     void on_action13_triggered();
-
     void on_action15_triggered();
-
     void on_action20_triggered();
-
     void on_action25_triggered();
-
     void on_actionLoad_history_triggered();
-
     void on_action13_2_triggered();
-
     void on_action15_2_triggered();
-
     void on_action20_2_triggered();
-
     void on_action25_2_triggered();
-
     void on_actionNiklas_triggered();
-
     void on_actionPrevious_message_triggered();
-
     void on_actionNikki_Beach_triggered();
-
     void on_actionShe_squats_bro_triggered();
 
 private:
@@ -108,6 +89,7 @@ private:
     QString lastMessage;
     QString appdir;
     QString soundFile;
+    QMediaPlayer *player;
 };
 
 #endif // CHATWINDOW_H
