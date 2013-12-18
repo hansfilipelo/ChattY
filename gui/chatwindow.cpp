@@ -202,6 +202,10 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
 }
 
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
+         ui->messageHistory->setTextColor(Qt::black);
+         ui->messageHistory->setFontItalic(true);
+         ui->messageHistory->insertPlainText("-------History now starts at" + historyVector.at(3)+"-------");
+         ui->messageHistory->setFontItalic(false);
     ui->messageHistory->moveCursor(QTextCursor::Start);
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
