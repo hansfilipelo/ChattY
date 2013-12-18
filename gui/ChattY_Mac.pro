@@ -7,6 +7,8 @@
 QMAKE_CXX	= g++
 QMAKE_CC	= gcc
 
+QMAKE_POST_LINK	+= ./postCompile.sh
+
 QT		+= core gui network widgets multimedia
 ICON		= icon/ChattY.icns
 RC_FILE		= ChattY.rc

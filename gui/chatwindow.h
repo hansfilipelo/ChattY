@@ -77,6 +77,8 @@ private slots:
 
     void on_actionNiklas_triggered();
 
+    void on_actionPrevious_message_triggered();
+
     void on_actionNikki_Beach_triggered();
 
     void on_actionShe_squats_bro_triggered();
@@ -103,6 +105,7 @@ private:
     QString laurel= "<img src=':/files/smilies/laurel.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
+    QString lastMessage;
     QString appdir;
     QString soundFile;
 };

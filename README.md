@@ -42,7 +42,7 @@ Client
     
     cd ChattY/gui
     
-    qmake -config release
+    qmake Chatty_Mac.pro -config release
     
     make
 
@@ -61,7 +61,7 @@ Server
 
     cd ChattY/server
     
-    qmake -config release
+    qmake ChattY_Win.pro -config release
     
     make
     

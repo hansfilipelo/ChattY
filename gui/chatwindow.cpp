@@ -22,19 +22,15 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
     
-    qDebug() << "kommer jag hit";
     // Set appdir depending on OS
     appdir = QCoreApplication::applicationDirPath();
-    qDebug() << "application dir is " << appdir;
     
-    // soundFile = "/Users/fille/Documents/Kod/ChattY/gui/ChattY.app/Contents/Resources/apple_sms.wav";
-
 #if defined(__MACOSX_BUILD__)
     soundFile = appdir + "/../Resources/apple_sms.wav";
 #elif defined(__WINDOWS_BUILD__)
     soundFile = appdir + "/apple_sms.wav";
 #endif
-    qDebug() << "filePrefix is " << soundFile;
+    
 }
 
 
@@ -156,10 +152,12 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed, send message
 void ChatWindow::on_sendButton_clicked()
 {
+    lastMessage=ui->messageInput->text();
     sendMessage();
     ui->messageInput->clear();
     receiver="root";
     ui->sendButton->setText("Send");
+
 
 }
 
@@ -253,7 +251,7 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         time =time.addDays(i+1);
         QString timeString=time.toString("yyyy-MM-dd");
 
-    ui->messageHistory->moveCursor(QTextCursor::Start);
+        ui->messageHistory->moveCursor(QTextCursor::Start);
 
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
@@ -380,6 +378,16 @@ void ChatWindow::on_actionNikki_Beach_triggered()
     ui->sendButton->setStyleSheet("background-color: none;");
 
     setSmileySize(99);
+
+    QString bomboFile;
+#if defined(__MACOSX_BUILD__)
+    bomboFile = appdir + "/../Resources/bombo.wav";
+#elif defined(__WINDOWS_BUILD__)
+    bomboFile = appdir + "/bombo.wav";
+#endif
+    qDebug() << bomboFile;
+    
+    QSound::play(bomboFile);
 }
 
 void ChatWindow::on_actionShe_squats_bro_triggered()
@@ -499,4 +507,11 @@ void ChatWindow::on_actionNiklas_triggered()
 void ChatWindow::on_actionLoad_history_triggered()
 {
     chatGui->getHistory();
+}
+
+void ChatWindow::on_actionPrevious_message_triggered()
+{
+   ui->messageInput->setFocus();
+   ui->messageInput->clear();
+   ui->messageInput->insert(lastMessage);
 }
