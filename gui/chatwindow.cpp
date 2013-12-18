@@ -12,7 +12,7 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
 {
     ui->setupUi(this);
     chatGui = guiPointer;
-    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman,pirate,angry};
+    smiley= {happyFace,sadFace,straightFace,xdFace,oFace,astronaut,batman,grandpa,ironman,spiderman,pirate,angry,laurel};
 
     ui->messageInput->setStyleSheet("white");
     ui->roomTree->setStyleSheet("white");
@@ -203,13 +203,13 @@ void ChatWindow::sendMessage(){
 
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
-    QString timeString=historyVector.at(3);
-    timeString.chop(9);
+    QDate time=QDate::currentDate();
+    QString timeString=time.toString("yyyy-MM-dd");
 
     ui->messageHistory->moveCursor(QTextCursor::Start);
     ui->messageHistory->setTextColor(Qt::black);
     ui->messageHistory->setFontItalic(true);
-    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString+"------------"+"\n\n");
+    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString +"------------"+"\n\n");
     ui->messageHistory->setFontItalic(false);
 
     for(int i = 0;i<historyVector.size(); i+=4){
@@ -227,8 +227,10 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
 }
 
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
-    QString timeString=historyVector.at(3);
-    timeString.chop(9);
+        QDate time=QDate::currentDate();
+        int i = 0 - chatGui->historyCounter;
+        time =time.addDays(i+1);
+        QString timeString=time.toString("yyyy-MM-dd");
 
     ui->messageHistory->moveCursor(QTextCursor::Start);
 
@@ -289,6 +291,9 @@ void ChatWindow::on_actionBlack_triggered()
     ui->roomTree->setStyleSheet("background-color: grey;");
     ui->messageHistory->setStyleSheet("background-color: grey;");
     this->setStyleSheet("background-color: black;");
+    ui->mainToolBar->setStyleSheet("background-color: none;");
+    ui->menuBar->setStyleSheet("background-color: none;");
+    ui->sendButton->setStyleSheet("background-color: none;");
 }
 
 void ChatWindow::on_actionDefault_triggered()
@@ -356,6 +361,7 @@ QString ChatWindow::smilieConvert(const QString inMessage){
     messageConv.replace("spiderman",smiley.at(9));
     messageConv.replace("pirate",smiley.at(10));
     messageConv.replace(":@",smiley.at(11));
+    messageConv.replace("våt dröm",smiley.at(12));
 
     return messageConv;
 }
