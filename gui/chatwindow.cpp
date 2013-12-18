@@ -365,7 +365,11 @@ void ChatWindow::on_actionNikki_Beach_triggered()
 #endif
     qDebug() << bomboFile;
     
-    QSound::play(bomboFile);
+    player = new QMediaPlayer;
+    
+    player->setMedia(QUrl::fromLocalFile(bomboFile));
+    player->play();
+    
 }
 
 void ChatWindow::on_actionShe_squats_bro_triggered()

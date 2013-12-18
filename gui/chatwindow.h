@@ -10,6 +10,7 @@
 #include <QSound>
 #include <QCoreApplication>
 #include <QDate>
+#include <QMediaPlayer>
 
 class Gui;
 
@@ -108,6 +109,7 @@ private:
     QString lastMessage;
     QString appdir;
     QString soundFile;
+    QMediaPlayer *player;
 };
 
 #endif // CHATWINDOW_H
