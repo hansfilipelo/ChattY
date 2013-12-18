@@ -36,7 +36,7 @@ Compiling
 Client
 ==
 
-- To clone and compile the ChattY client on POSIX-compliant systems:
+- To clone and compile the ChattY client on POSIX-compliant (Linux, OS X) systems:
 
     git clone https://github.com/hansfilipelo/ChattY.git
     
@@ -55,7 +55,7 @@ Client
 Server
 ==
 
-- To clone and compile the ChattY server on POSIX-compliant systems:
+- To clone and compile the ChattY server on POSIX-compliant systems (Linux, OS X):
 
     git clone https://github.com/hansfilipelo/ChattY.git
 
