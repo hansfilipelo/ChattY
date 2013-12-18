@@ -72,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>972</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCustomize">
@@ -123,8 +123,15 @@
     </property>
     <addaction name="actionLoad_history"/>
    </widget>
+   <widget class="QMenu" name="menuMessage">
+    <property name="title">
+     <string>Message</string>
+    </property>
+    <addaction name="actionPrevious_message"/>
+   </widget>
    <addaction name="menuCustomize"/>
    <addaction name="menuHistory"/>
+   <addaction name="menuMessage"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -220,6 +227,14 @@
   <action name="actionNiklas">
    <property name="text">
     <string>Nikki</string>
+   </property>
+  </action>
+  <action name="actionPrevious_message">
+   <property name="text">
+    <string>Insert previous message</string>
+   </property>
+   <property name="shortcut">
+    <string>Up</string>
    </property>
   </action>
  </widget>

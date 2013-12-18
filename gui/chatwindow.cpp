@@ -19,7 +19,6 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
-
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -121,10 +120,12 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory//
 void ChatWindow::on_sendButton_clicked()
 {
+    lastMessage=ui->messageInput->text();
     sendMessage();
     ui->messageInput->clear();
     receiver="root";
     ui->sendButton->setText("Send");
+
 
 }
 
@@ -181,6 +182,7 @@ void ChatWindow::sendMessage(){
     }
     else{
         chatGui->sendMessage(name,receiver,ui->messageInput->text());
+
     }
 
 }
@@ -422,4 +424,11 @@ void ChatWindow::on_actionNiklas_triggered()
 void ChatWindow::on_actionLoad_history_triggered()
 {
     chatGui->getHistory();
+}
+
+void ChatWindow::on_actionPrevious_message_triggered()
+{
+   ui->messageInput->setFocus();
+   ui->messageInput->clear();
+   ui->messageInput->insert(lastMessage);
 }

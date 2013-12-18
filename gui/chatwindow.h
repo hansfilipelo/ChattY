@@ -75,6 +75,8 @@ private slots:
 
     void on_actionNiklas_triggered();
 
+    void on_actionPrevious_message_triggered();
+
 private:
     QString receiver="root";
     Ui::ChatWindow *ui;
@@ -97,6 +99,7 @@ private:
     QString laurel= "<img src=':/files/smilies/laurel.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
+    QString lastMessage;
 };
 
 #endif // CHATWINDOW_H
