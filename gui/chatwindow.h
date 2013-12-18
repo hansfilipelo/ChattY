@@ -89,7 +89,7 @@ private:
     QString lastMessage;
     QString appdir;
     QString soundFile;
-    QMediaPlayer *player;
+    QMediaPlayer *player = nullptr;
 };
 
 #endif // CHATWINDOW_H

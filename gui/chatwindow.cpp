@@ -324,6 +324,11 @@ void ChatWindow::on_actionDefault_triggered()
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
+    
+    if(player!=nullptr)
+    {
+        player->stop();
+    }
 }
 
 
@@ -342,6 +347,11 @@ void ChatWindow::on_actionChatty_triggered()
     effect3->setOpacity(0.8);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
+    
+    if(player!=nullptr)
+    {
+        player->stop();
+    }
 }
 
 void ChatWindow::on_actionCezch_triggered()
@@ -359,6 +369,11 @@ void ChatWindow::on_actionCezch_triggered()
     effect3->setOpacity(0.8);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
+    
+    if(player!=nullptr)
+    {
+        player->stop();
+    }
 }
 
 void ChatWindow::on_actionNikki_Beach_triggered()
@@ -390,6 +405,7 @@ void ChatWindow::on_actionNikki_Beach_triggered()
     player = new QMediaPlayer;
     
     player->setMedia(QUrl::fromLocalFile(bomboFile));
+    player->setVolume(100);
     player->play();
     
 }
@@ -409,6 +425,11 @@ void ChatWindow::on_actionShe_squats_bro_triggered()
     effect3->setOpacity(0.7);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
+    
+    if(player!=nullptr)
+    {
+        player->stop();
+    }
 }
 
 void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column)
