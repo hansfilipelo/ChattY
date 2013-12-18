@@ -139,10 +139,12 @@ ChatWindow::~ChatWindow()
 //If sendbutton is pressed display sent from text and message in messagehistory//
 void ChatWindow::on_sendButton_clicked()
 {
+    lastMessage=ui->messageInput->text();
     sendMessage();
     ui->messageInput->clear();
     receiver="root";
     ui->sendButton->setText("Send");
+
 
 }
 
@@ -234,7 +236,7 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         time =time.addDays(i+1);
         QString timeString=time.toString("yyyy-MM-dd");
 
-    ui->messageHistory->moveCursor(QTextCursor::Start);
+        ui->messageHistory->moveCursor(QTextCursor::Start);
 
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
@@ -476,4 +478,11 @@ void ChatWindow::on_actionNiklas_triggered()
 void ChatWindow::on_actionLoad_history_triggered()
 {
     chatGui->getHistory();
+}
+
+void ChatWindow::on_actionPrevious_message_triggered()
+{
+   ui->messageInput->setFocus();
+   ui->messageInput->clear();
+   ui->messageInput->insert(lastMessage);
 }
