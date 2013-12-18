@@ -187,6 +187,15 @@ void ChatWindow::sendMessage(){
 
 
 void ChatWindow::receiveHistory(QVector<QString> &historyVector){
+    QString timeString=historyVector.at(3);
+    timeString.chop(9);
+
+    ui->messageHistory->moveCursor(QTextCursor::Start);
+    ui->messageHistory->setTextColor(Qt::black);
+    ui->messageHistory->setFontItalic(true);
+    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString+"------------"+"\n\n");
+    ui->messageHistory->setFontItalic(false);
+
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
         ui->messageHistory->setTextColor(Qt::black);
@@ -202,11 +211,11 @@ void ChatWindow::receiveHistory(QVector<QString> &historyVector){
 }
 
 void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
-         ui->messageHistory->setTextColor(Qt::black);
-         ui->messageHistory->setFontItalic(true);
-         ui->messageHistory->insertPlainText("-------History now starts at" + historyVector.at(3)+"-------");
-         ui->messageHistory->setFontItalic(false);
-    ui->messageHistory->moveCursor(QTextCursor::Start);
+        QString timeString=historyVector.at(3);
+        timeString.chop(9);
+
+        ui->messageHistory->moveCursor(QTextCursor::Start);
+
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
         ui->messageHistory->setTextColor(Qt::black);
@@ -218,7 +227,13 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         ui->messageHistory->insertPlainText("\n");
 
     }
+    ui->messageHistory->moveCursor(QTextCursor::Start);
+    ui->messageHistory->setTextColor(Qt::black);
+    ui->messageHistory->setFontItalic(true);
+    ui->messageHistory->insertPlainText("\n------------Chat history from " + timeString +"------------"+"\n\n");
+    ui->messageHistory->setFontItalic(false);
     ui->messageHistory->moveCursor(QTextCursor::End);
+    ui->messageHistory->verticalScrollBar()->setValue(ui->messageHistory->verticalScrollBar()->minimum());
 }
 
 void ChatWindow::getHistory(){
