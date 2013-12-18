@@ -36,7 +36,6 @@ public:
     void getHistory();
     void clearHistory();
     void setSmileySize(int);
-    void whisperToMe(QString);
 
 private slots:
     void on_sendButton_clicked();
@@ -92,6 +91,8 @@ private:
     QString grandpa = "<img src=':/files/smilies/grandpa.png' width='25' height='25'>";
     QString ironman = "<img src=':/files/smilies/ironman.png' width='25' height='25'>";
     QString spiderman = "<img src=':/files/smilies/spiderman.png' width='25' height='25'>";
+    QString pirate = "<img src=':/files/smilies/pirate.png' width='25' height='25'>";
+    QString angry = "<img src=':/files/smilies/angry.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
 };

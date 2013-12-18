@@ -10,8 +10,9 @@
         <file>smilies/batman.png</file>
         <file>smilies/grandpa.png</file>
         <file>smilies/ironman.png</file>
-        <file>smilies/pirate.png</file>
         <file>smilies/spiderman.png</file>
         <file>smilies/astronaut.png</file>
+        <file>smilies/angry.png</file>
+        <file>smilies/pirate.png</file>
     </qresource>
 </RCC>

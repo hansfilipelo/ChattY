@@ -29,7 +29,7 @@ void LoginDialog::on_buttonBox_rejected()
 
 void LoginDialog::on_buttonBox_accepted()
 {   ui->errorMessage->setText("");
-    if (ui->inputName->text()=="User"){
+    if (ui->inputName->text()=="User" or ui->inputName->text()==""){
         ui->errorMessage->setText("Name not allowed");
     }
     if (ui->inputServer->text().contains(" ") or ui->inputServer->text()==""){
