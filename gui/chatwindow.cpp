@@ -20,19 +20,15 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
     
-    qDebug() << "kommer jag hit";
     // Set appdir depending on OS
     appdir = QCoreApplication::applicationDirPath();
-    qDebug() << "application dir is " << appdir;
     
-    // soundFile = "/Users/fille/Documents/Kod/ChattY/gui/ChattY.app/Contents/Resources/apple_sms.wav";
-
 #if defined(__MACOSX_BUILD__)
     soundFile = appdir + "/../Resources/apple_sms.wav";
 #elif defined(__WINDOWS_BUILD__)
     soundFile = appdir + "/apple_sms.wav";
 #endif
-    qDebug() << "filePrefix is " << soundFile;
+    
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -358,6 +354,16 @@ void ChatWindow::on_actionNikki_Beach_triggered()
     ui->sendButton->setStyleSheet("background-color: none;");
 
     setSmileySize(99);
+
+    QString bomboFile;
+#if defined(__MACOSX_BUILD__)
+    bomboFile = appdir + "/../Resources/bombo.wav";
+#elif defined(__WINDOWS_BUILD__)
+    bomboFile = appdir + "/bombo.wav";
+#endif
+    qDebug() << bomboFile;
+    
+    QSound::play(bomboFile);
 }
 
 void ChatWindow::on_actionShe_squats_bro_triggered()
