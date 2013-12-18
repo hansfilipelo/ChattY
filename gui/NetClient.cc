@@ -90,7 +90,6 @@ void NetClient::readyRead(){
         i = inData.indexOf(compare);
         commandName = inData.left(i);
         
-        p = p + 1;
         inData = inData.mid(i+1);
         
         QString temp = inData;
