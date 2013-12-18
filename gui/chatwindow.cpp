@@ -256,8 +256,6 @@ void ChatWindow::on_actionBlack_triggered()
     ui->roomTree->setStyleSheet("background-color: grey;");
     ui->messageHistory->setStyleSheet("background-color: grey;");
     this->setStyleSheet("background-color: black;");
-    ui->mainToolBar->setStyleSheet("background-color: none;");
-
 }
 
 void ChatWindow::on_actionDefault_triggered()
@@ -266,15 +264,12 @@ void ChatWindow::on_actionDefault_triggered()
     ui->roomTree->setStyleSheet("white");
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
-    ui->mainToolBar->setStyleSheet("none");
 }
 
 
 void ChatWindow::on_actionChatty_triggered()
 {
     setStyleSheet("ChatWindow{border-image:url(:/files/icon/ChattY.png) 0 0 0 0 stretch stretch;}");
-    ui->menuBar->setStyleSheet("background-color: transparent;");
-    ui->statusBar->setStyleSheet("background-color: transparent;");
     ui->messageHistory->setStyleSheet("background-color: white;");
     QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
     effect1->setOpacity(0.8);
@@ -287,14 +282,11 @@ void ChatWindow::on_actionChatty_triggered()
     effect3->setOpacity(0.8);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
-     ui->mainToolBar->setStyleSheet("background-color: none;");
 }
 
 void ChatWindow::on_actionCezch_triggered()
 {
     setStyleSheet("ChatWindow{background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(255, 255, 255, 255), stop:0.373979 rgba(255, 255, 255, 255), stop:0.373991 rgba(33, 30, 255, 255), stop:0.624018 rgba(33, 30, 255, 255), stop:0.624043 rgba(255, 0, 0, 255), stop:1 rgba(255, 0, 0, 255));}");
-    ui->menuBar->setStyleSheet("background-color: transparent;");
-    ui->statusBar->setStyleSheet("background-color: transparent;");
     ui->messageHistory->setStyleSheet("background-color: white;");
     QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
     effect1->setOpacity(0.8);
@@ -307,7 +299,6 @@ void ChatWindow::on_actionCezch_triggered()
     effect3->setOpacity(0.8);
     ui->messageInput->setGraphicsEffect(effect3);
     ui->sendButton->setStyleSheet("background-color: none;");
-     ui->mainToolBar->setStyleSheet("background-color: none;");
 }
 
 void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column)
