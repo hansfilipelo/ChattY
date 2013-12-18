@@ -177,9 +177,7 @@ void ChatWindow::on_messageInput_textEdited(const QString &arg1)
 void ChatWindow::sendMessage(){
     if (ui->messageInput->text()==""){
         return;
-    }
-    else if(name==receiver){
-        whisperToMe(ui->messageInput->text());
+
     }
     else{
         chatGui->sendMessage(name,receiver,ui->messageInput->text());
