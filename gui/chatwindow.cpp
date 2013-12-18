@@ -323,6 +323,42 @@ void ChatWindow::on_actionCezch_triggered()
     ui->sendButton->setStyleSheet("background-color: none;");
 }
 
+void ChatWindow::on_actionNikki_Beach_triggered()
+{
+    setStyleSheet("ChatWindow{border-image:url(:/files/icon/Nikkibeachupdate.jpg) 0 0 0 0 stretch stretch;}");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.7);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.7);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.7);
+    ui->messageInput->setGraphicsEffect(effect3);
+    ui->sendButton->setStyleSheet("background-color: none;");
+
+    setSmileySize(99);
+}
+
+void ChatWindow::on_actionShe_squats_bro_triggered()
+{
+    setStyleSheet("ChatWindow{border-image:url(:/files/icon/squatupdate.jpg) 0 0 0 0 stretch stretch;}");
+    ui->messageHistory->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect1 = new QGraphicsOpacityEffect(ui->messageHistory);
+    effect1->setOpacity(0.7);
+    ui->messageHistory->setGraphicsEffect(effect1);
+    ui->roomTree->setStyleSheet("background-color: white;");
+    QGraphicsOpacityEffect * effect2 = new QGraphicsOpacityEffect(ui->roomTree);
+    effect2->setOpacity(0.7);
+    ui->roomTree->setGraphicsEffect(effect2);
+    QGraphicsOpacityEffect * effect3 = new QGraphicsOpacityEffect(ui->messageInput);
+    effect3->setOpacity(0.7);
+    ui->messageInput->setGraphicsEffect(effect3);
+    ui->sendButton->setStyleSheet("background-color: none;");
+}
+
 void ChatWindow::on_roomTree_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     receiver = item->text(column);
