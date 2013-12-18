@@ -65,9 +65,9 @@ void NetClient::readyRead(){
     
     QByteArray Data = TcpSocket->readAll();
     
-    QString commandName;
+    QString commandName = "";
     QString inData = Data;
-    QString rest;
+    QString rest = "";
     int n = inData.indexOf(breaker);
     int i;
     
@@ -114,6 +114,7 @@ void NetClient::readyRead(){
         }
         
         else {
+    
             throw logic_error("Unknown command: " + commandName.toStdString());
         }
         
