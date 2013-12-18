@@ -8,6 +8,8 @@
 QMAKE_CXX	= g++
 QMAKE_CC	= gcc
 
+QMAKE_CXXFLAGS	+= -g
+
 # Qt components required. Server does not use GUI. 
 QT		+= core
 QT		+= network
