@@ -74,6 +74,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>inputServer</tabstop>
+  <tabstop>inputName</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
