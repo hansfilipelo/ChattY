@@ -7,6 +7,7 @@
 #include <QTreeWidget>
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
+#include <QSound>
 
 class Gui;
 
@@ -95,6 +96,8 @@ private:
     QString angry = "<img src=':/files/smilies/angry.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
+    QString appdir;
+    QString soundFile;
 };
 
 #endif // CHATWINDOW_H

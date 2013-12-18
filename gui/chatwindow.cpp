@@ -19,6 +19,14 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
+    
+    // Set appdir depending on OS
+    appdir = QCoreApplication::applicationDirPath();
+#if defined(__MACOSX_BUILD__)
+    soundFile = "file://" + appdir + "/../Resources/apple_sms.wav";
+#elif defined(__WINDOWS_BUILD__)
+    soundFile = "file:///" + appdir + "/apple_sms.wav";
+#endif
 
 }
 
@@ -52,6 +60,11 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
+    
+    if (!this->isActiveWindow()) {
+        QSound::play(soundFile);
+    }
+    
     ui->messageHistory->insertHtml(smilieConvert(message));
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);

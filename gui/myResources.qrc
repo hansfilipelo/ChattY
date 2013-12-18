@@ -14,5 +14,6 @@
         <file>smilies/astronaut.png</file>
         <file>smilies/angry.png</file>
         <file>smilies/pirate.png</file>
+        <file>build/apple_sms.wav</file>
     </qresource>
 </RCC>
