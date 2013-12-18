@@ -7,6 +7,8 @@
 #include <QTreeWidget>
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
+#include <QSound>
+#include <QCoreApplication>
 #include <QDate>
 
 class Gui;
@@ -101,6 +103,8 @@ private:
     QString laurel= "<img src=':/files/smilies/laurel.png' width='25' height='25'>";
     QString smileySize;
     QVector<QString> smiley;
+    QString appdir;
+    QString soundFile;
 };
 
 #endif // CHATWINDOW_H

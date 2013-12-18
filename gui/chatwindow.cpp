@@ -19,7 +19,20 @@ ChatWindow::ChatWindow(Gui* guiPointer) :
     ui->messageHistory->setStyleSheet("white");
     this->setStyleSheet("none");
     ui->mainToolBar->setStyleSheet("none");
+    
+    qDebug() << "kommer jag hit";
+    // Set appdir depending on OS
+    appdir = QCoreApplication::applicationDirPath();
+    qDebug() << "application dir is " << appdir;
+    
+    // soundFile = "/Users/fille/Documents/Kod/ChattY/gui/ChattY.app/Contents/Resources/apple_sms.wav";
 
+#if defined(__MACOSX_BUILD__)
+    soundFile = appdir + "/../Resources/apple_sms.wav";
+#elif defined(__WINDOWS_BUILD__)
+    soundFile = appdir + "/apple_sms.wav";
+#endif
+    qDebug() << "filePrefix is " << soundFile;
 }
 
 void ChatWindow::receiveMessage(const QString from, const QString to, const QString message, const QString time){
@@ -45,13 +58,18 @@ void ChatWindow::receiveMessage(const QString from, const QString to, const QStr
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText("You say: ");
         ui->messageHistory->setTextColor(Qt::black);
-     }
+    }
 
     else {
         ui->messageHistory->setTextColor(Qt::blue);
         ui->messageHistory->insertPlainText(from + " says: ");
         ui->messageHistory->setTextColor(Qt::black);
     }
+    
+    if (!this->isActiveWindow()) {
+        QSound::play(soundFile);
+    }
+    
     ui->messageHistory->insertHtml(smilieConvert(message));
     ui->messageHistory->insertPlainText("\n");
     ui->messageHistory->moveCursor(QTextCursor::End);
@@ -216,7 +234,7 @@ void ChatWindow::receiveOldHistory(QVector<QString> &historyVector){
         time =time.addDays(i+1);
         QString timeString=time.toString("yyyy-MM-dd");
 
-        ui->messageHistory->moveCursor(QTextCursor::Start);
+    ui->messageHistory->moveCursor(QTextCursor::Start);
 
     for(int i = 0;i<historyVector.size(); i+=4){
         QString tempString=historyVector.at(i+3);
