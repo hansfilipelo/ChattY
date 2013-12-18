@@ -8,6 +8,7 @@
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
 #include <QSound>
+#include <QCoreApplication>
 
 class Gui;
 
