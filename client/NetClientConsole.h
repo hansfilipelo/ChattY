@@ -48,6 +48,8 @@ private:
     
     QByteArray compare;
     QByteArray breaker;
+    
+    QString incompleteCommand = "";
 };
 
 

@@ -72,15 +72,26 @@ void NetClient::bytesWritten(qint64 bytes){
 // ---------------------------------------
 
 void NetClient::readyRead(){
+    
+    QString inData = "";
+    
+    if( not(incompleteCommand.isEmpty())){
+        inData = incompleteCommand;
+        incompleteCommand = "";
+    }
     QByteArray Data = TcpSocket->readAll();
     
+    QString commandName = "";
+    inData += Data;
+    QString rest = "";
+    int n = inData.indexOf(breaker);
     int i;
     
-    QString commandName;
-    QString inData = Data;
     
-    int n = inData.indexOf(breaker);
-    QString rest;
+    if(inData.indexOf(breaker) == -1 ){
+        incompleteCommand = inData;
+        return;
+    }
     
     
     do {
@@ -126,11 +137,19 @@ void NetClient::readyRead(){
         }
         
         else {
-            throw logic_error("Unknown command");
+            
+            //throw logic_error("Unknown command: " + commandName.toStdString());
+            //release version
+            qDebug() << "Unknown command: ";
+            inData = "";
+            commandName = "";
+            incompleteCommand = "";
+            return;
         }
         
         inData = rest;
         n = inData.indexOf(breaker);
+        commandName = "";
         
     }while (n != -1 );
 
@@ -176,7 +195,7 @@ void NetClient::handleMessage(QString inData){
     QString dateTime = inData;
     
     // Output data
-    qDebug() << dateTime + " " + from + ": " + contents;
+    qDebug() << dateTime + "   " + from + ": " + contents;
     
 }
 
@@ -216,8 +235,12 @@ void NetClient::handleHistory(QString inData){
     // PRint out
     for (i = 0; i < history.size(); i++) {
         QString temp;
-        temp = history.at(i); // From
+        temp = history.at(i+3); // time
+        temp += "   ";
+        
+        temp += history.at(i); // From
         temp += ": ";
+        
         i++;    // Skip to
         i++;    // Skip time
         temp += history.at(i); // Message
