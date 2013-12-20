@@ -12,9 +12,14 @@ using namespace std;
 
 // ---------------------------------------
 // Helper functions
-
+/*Function that handles both, /history and /oldHistory.
+ *Firstly it checks if the int conversion could be properly handled. 
+ *readOldFromFile(daysback) will read all messages, daysBack number of days ago
+ *these will be saved in oldLog and serialized. The try catch is necessary to keep
+ *the server from crashing in the event that the user does not exist since getName 
+ * throws.
+ */
 void Thread::handleHistory(QString inData) {
-    int i;
     
     bool ok;
     int daysBack = inData.toInt(&ok);
@@ -34,7 +39,7 @@ void Thread::handleHistory(QString inData) {
         if (logSize == 0){
             array += breaker;
         }else{
-            for (unsigned int i = 0; i < logSize; i++){
+            for (int i = 0; i < logSize; i++){
                 
                 Message tempMessage = oldLog.at(i);
                 
@@ -64,6 +69,9 @@ void Thread::handleHistory(QString inData) {
 }
 
 // ---------------
+/*Deserialization of message sent from NetClient and pass it along to the user's
+ *sendMessage function serverside.
+ */
 
 void Thread::handleMessage(QString inData){
     int i;
@@ -91,6 +99,10 @@ void Thread::handleMessage(QString inData){
 }
 
 // ----------------------
+
+/*Deserialization of name and, when name is not take a userAccepted command is sent
+ *back to the client to notify that everything went okay.
+ */
 
 void Thread::handleInitiate(string stdInData) {
     try{
@@ -127,6 +139,8 @@ void Thread::handleInitiate(string stdInData) {
 
 // ----------------------
 
+//Serialization of structure (of rooms and users) before it is sent to the client.
+
 void Thread::handleStructure() {
     vector<string> structure = userPointer->getStruct();
     
@@ -150,6 +164,10 @@ void Thread::handleStructure() {
 
 // ---------------------------------------
 
+/*Constructor for our thread, specifying the data and call separators, compare 
+ *and breaker.
+ */
+
 Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 {
     masterPointer=masterptr;
@@ -160,7 +178,8 @@ Thread::Thread(qintptr ID, Master* masterptr, QObject *parent) : QThread(parent)
 }
 
 // ---------------------------------------
-
+/*Connection of signals and slots, creation of the socket and connection.
+ */
 void Thread::run()
 {
     //thread starts here
@@ -182,10 +201,12 @@ void Thread::run()
     
 }
 
-// ---------------------------------------
-
-
 // ---------------------------
+
+/*The readyRead loop for the server. Separate the command from the data using
+ *indexOf(breaker)/indexOf(compare), check which command we just recieved handle
+ *it accordingly.
+ */
 
 void Thread::readyRead()
 {
@@ -197,13 +218,13 @@ void Thread::readyRead()
     QString commandName;
     QString inData = Data;
     
-    int n = inData.indexOf(breaker);
+    int n = inData.indexOf(breaker); // return the position of the first breaker.
     QString rest;
     
     
     do {
-        rest = inData.mid(n+1);
-        inData = inData.left(n);
+        rest = inData.mid(n+1); //takes everything right of and including position n+1
+        inData = inData.left(n); //takes everything left of position n.
         i = inData.indexOf(compare);
         
         commandName = inData.left(i);
@@ -231,8 +252,8 @@ void Thread::readyRead()
         }
         
         else {
-            cout << "Ej giltigt kommando" << commandName.toStdString() << endl;
-            TcpSocket->write("Ej giltigt kommando");
+            cout << "Non-valid command: " << commandName.toStdString() << endl;
+            TcpSocket->write("Non-valid command!");
             TcpSocket->waitForBytesWritten(5000);
             cout << socketDescriptor << "Data in: "<< stdInData<<endl;
         }
@@ -240,10 +261,15 @@ void Thread::readyRead()
         inData = rest;
         n = inData.indexOf(breaker);
         
-    }while (n != -1 );
+    }while (n != -1 ); //run again if there are more breakers.
 }
 
 // ---------------------------------------
+
+/*Upon disconnection the disconnect signal will fire and the asscociated slotfunction
+ *disconnected will run, deleting the user, the thread and asking the clients to 
+ *update their structures.
+ */
 
 void Thread::disconnected()
 {
@@ -264,18 +290,19 @@ void Thread::disconnected()
 
 // -----------------------------------------
 
-//responds to client
+/* Serialization of message then send it to the client.
+ */
 void Thread::sendMessage(Message messageObject){
     QByteArray array = "/message";
-    array += 0x1F; //unit separator
+    array += compare; //unit separator
     array += QString::fromStdString(messageObject.getFrom());
-    array += 0x1F;
+    array += compare;
     array += QString::fromStdString(messageObject.getTo());
-    array += 0x1F;
+    array += compare;
     array += QString::fromStdString(messageObject.getMessage());
-    array += 0x1F;
+    array += compare;
     array += QString::fromStdString(messageObject.getServerTime());
-    array += 0x1E;
+    array += breaker;
     
     TcpSocket->write(array);
     
@@ -289,10 +316,18 @@ void Thread::sendMessage(Message messageObject){
 
 // -----------------------------------------
 
+/*Serialization of history then send it to the client. The four fields;
+ *from to message and servertime will be rebuilt to a message object on the client 
+ *side.
+ */
 void Thread::sendHistory(){
     QByteArray array = "/history";
     array += compare; //unit separator
     unsigned int logSize = userPointer->getParentRoom()->log.size();
+    
+    if (logSize == 0){
+        array += breaker;
+    }
     
     for (unsigned int i = 0; i < logSize; i++){
         
@@ -325,10 +360,13 @@ void Thread::sendHistory(){
 
 // -----------------------------------------
 
+/*Username taken, ask client to reinitiate, and then disconnect the user.
+ */
+
 void Thread::reinitiate(){
     QByteArray array = "/reinitiate";
-    array += 0x1F;
-    array += 0x1E; //unit separator
+    array += compare;
+    array += breaker;
     
     TcpSocket->write(array);
     
@@ -342,12 +380,13 @@ void Thread::reinitiate(){
 }
 
 // -----------------------------------------
-
+/* Ask the client to ask for a new structure.
+ */
 
 void Thread::requestStruct() {
     QByteArray array = "/requestStruct";
-    array += 0x1F;
-    array += 0x1E;
+    array += compare;
+    array += breaker;
     
     TcpSocket->write(array);
     

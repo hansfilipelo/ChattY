@@ -9,7 +9,10 @@
 #include "../gui/gui.h"
 
 using namespace std;
-
+/*Creationg of NetClient object, with specifying of compare and breaker, our network
+ *data and call separators. Takes a pointer to the class GUI, the abstraction layer
+ *between the graphical classes and the network.
+ */
 NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *parent) : QObject(parent){
     
     guiPointer = myGui;
@@ -20,6 +23,11 @@ NetClient::NetClient(QString username, QString inAddress, Gui* myGui, QObject *p
 }
 
 // ---------------------------------------------
+
+/*Connect the slots to the corresponding signals so that when the signals fire the
+ *slot functions will run. Do a DNS lookup, for IP from dns name. connect to the host,
+ *on port 40001.
+ */
 
 void NetClient::start(){
     TcpSocket = new QTcpSocket(this);
@@ -44,9 +52,14 @@ void NetClient::start(){
 
 //------Slots---------
 
+/* When a connection is established we send the server the initiate command, appending
+ *our desire name. all traffic is sent via arrays, and are always deserialized from/to
+ *strings.
+ */
+
 void NetClient::connected(){
     QByteArray array = "/initiate";
-    array += 0x1F; //unit separator
+    array += compare; //unit separator
     array += name;
     array += breaker;
     
@@ -61,6 +74,17 @@ void NetClient::disconnected(){
 
 // --------readyRead------------------
 
+/*
+ *The main readloop of our network.
+ *Whenever data is available readyread is fired, and thus runs. 
+ *Here we deserialize data into a commandname and a rest. 
+ *Due to how our protocol for sending data is specified a valid command must
+ *contain atleast one breaker sign. If this sign is not present we save the
+ *current inData and add it together with the new indata when readyread is 
+ *fired again. Not doing this, will result in, whenever you send "large" amounts
+ *of data over the network the data could be cut and not be a valid command/data set. 
+ */
+
 void NetClient::readyRead(){
     
     QString inData = "";
@@ -74,19 +98,19 @@ void NetClient::readyRead(){
     QString commandName = "";
     inData += Data;
     QString rest = "";
-    int n = inData.indexOf(breaker);
-    int i;
+    int n = inData.indexOf(breaker);    //indexOf returns the position of the first
+                                        //occurence of the char breaker.
+    int i;                              //-1 if not present.
     
-    
-    if(inData.indexOf(breaker) == -1 ){
+    if(inData.indexOf(breaker) == -1 ){ //No breaker, save data for later.
         incompleteCommand = inData;
         return;
     }
     
     do {
         
-        rest = inData.mid(n+1);
-        inData = inData.left(n);
+        rest = inData.mid(n+1);       //Take everything right of and including i+1
+        inData = inData.left(n);      //Take everything left of index i.
         i = inData.indexOf(compare);
         commandName = inData.left(i);
         
@@ -97,8 +121,8 @@ void NetClient::readyRead(){
         
         // Check which command that's supposed to run
         if (commandName == "/reinitiate") {
-            guiPointer->userNameTaken();
-            break;
+            guiPointer->userNameTaken();        //reinitiate sent from server, i.e.
+            break;                              //username already taken
         }
         
         else if ( commandName == "/userAccepted") {
@@ -126,9 +150,7 @@ void NetClient::readyRead(){
         }
         
         else {
-
-            //throw logic_error("Unknown command: " + commandName.toStdString());
-            //release version
+            //Flushing data if an unknown command is read.
             cout << "Unknown command: " << endl;
             inData = "";
             commandName = "";
@@ -140,18 +162,18 @@ void NetClient::readyRead(){
         n = inData.indexOf(breaker);
         commandName = "";
         
-    }while (n != -1 );
+    }while (n != -1 ); // do this as long as there is atleast one breaker.
 }
 
 // ---------------------------------------------
 
 void NetClient::sendMessage(QString from, QString to, QString message){
     QByteArray array = "/message";
-    array += 0x1F; //unit separator
+    array += compare; //unit separator
     array += from;
-    array += 0x1F;
+    array += compare;
     array += to;
-    array += 0x1F;
+    array += compare;
     array += message;
     array += breaker;
     
@@ -163,18 +185,13 @@ void NetClient::setName(QString inName) {
     name=inName;
 }
 
-void NetClient::getStruct(){
-    QByteArray array = "/structure";
-    array += 0x1E;
-    
-    TcpSocket->write(array);
-    TcpSocket->waitForBytesWritten(1000);
-}
-
-//--------------------------------------------
+//-----------------------------------------------
 //Helpfunctions
 
-void NetClient::handleRequestStruct(){
+
+/* Asks server for structure.
+ */
+void NetClient::getStruct(){
     QByteArray array = "/structure";
     array += compare;
     array += breaker;
@@ -182,6 +199,18 @@ void NetClient::handleRequestStruct(){
     TcpSocket->write(array);
     TcpSocket->waitForBytesWritten(1000);
 }
+
+//----------------------------------------------
+
+
+/*All handleFunctions in NetClient are deserialization of data sent from server
+ *usually they also pass the data along to the gui.
+ */
+
+/*Server asks client to ask for an updated structure.
+ *This happens when a new user connects.
+ */
+
 
 // ---------------------------------------------
 
@@ -243,10 +272,16 @@ void NetClient::handleHistory(QString inData){
         inData = inData.mid(i+1);
         history.push_back(time);
     }
+    //send history to the gui.
     guiPointer->receiveHistory(history);
 }
 
 // ---------------------------------------------
+
+void NetClient::handleRequestStruct(){
+    getStruct();
+}
+//-----------------------------------------------
 
 void NetClient::handleOldHistory(QString inData){
     QVector<QString> history;
@@ -304,6 +339,9 @@ void NetClient::handleStructure(QString inData){
 
 // ---------------------------------------------
 
+
+/*Ask server for histroy, daysback number of days ago.
+ */
 void NetClient::getHistory(unsigned int daysBack) {
     QString temp;
     string daysBackString = to_string(daysBack);
