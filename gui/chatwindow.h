@@ -8,6 +8,7 @@
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
 
+// Sound. 
 #if defined(__MACOSX_BUILD__)
 #include <QSound>
 #include <QMediaPlayer>
@@ -15,6 +16,10 @@
 
 #include <QCoreApplication>
 #include <QDate>
+
+/*
+ Class MainWindow. This is the programs main window.
+ */
 
 class Gui;
 

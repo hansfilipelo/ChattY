@@ -6,6 +6,10 @@
 #include <iostream>
 class Gui;
 
+/*
+ Class LoginDialog. Dialog window for connecting to server. Prompts at startup and disconnect.
+ */
+
 namespace Ui {
 class LoginDialog;
 }
