@@ -61,7 +61,7 @@ Server
 
     cd ChattY/server
     
-    qmake ChattY_Win.pro -config release
+    qmake ChattYServer.pro -config release
     
     make
     
