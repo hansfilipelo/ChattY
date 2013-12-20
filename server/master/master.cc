@@ -26,8 +26,6 @@ bool Master::userOrNot(Room* inRoom) {
 // ------------------------
 
 
-
-
 // ---------------------------------------
 // Constructor
 

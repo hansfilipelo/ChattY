@@ -18,19 +18,27 @@ BESKRIVNING:
 #include "../getTime.h"
 #include "../room/room.h"
 
+/*
+ Master class. Class that is running the back end of the server, creating and controlling users and rooms.
+ 
+ */
+
 class Master {
 public:
     Master();
     ~Master();
     
+    // Rooms
     class Room* createRoom(std::string);
     void removeRoom(std::string);
-    class User* createUser(std::string);
-    void removeUser(std::string);
     Room* getRoom(std::string);
     Room* getTop();
     
-    void updateStructForAll();
+    // Users (subclass of rooms)
+    class User* createUser(std::string);
+    void removeUser(std::string);
+    
+    void updateStructForAll(); // Send info regarding users / rooms to all clients
     
     void printVector(); // testing purposes 
     

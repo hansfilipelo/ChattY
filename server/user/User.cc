@@ -10,7 +10,9 @@ BESKRIVNING:
 
 using namespace std;
 
-
+/*
+ User class. Issues commands from user and holds information about user.
+ */
 
 User::~User(){
     parentRoom->removeRoom(this);
@@ -71,7 +73,7 @@ void User::readAllFromFile() {
     //Dummy to replace function from room.
 }
 
-
+// ----------------------------------
 
 vector<string> User::getStruct() {
     return parentRoom->getStruct();

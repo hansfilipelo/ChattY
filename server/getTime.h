@@ -15,6 +15,10 @@ BESKRIVNING:
 #include <string>
 #include <time.h>
 
+/*
+ Gets current date and time. We now now that Qt has a built in class for doing exactly this but we built this using standard C++ libraries. 
+ */
+
 const std::string currentDateTime();
 
 #endif

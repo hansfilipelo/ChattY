@@ -38,12 +38,13 @@ void ifRoomRemove(Room* inRoom) {
     }
 }
 
+// ----------------------------------------
+// Destructor
+
+// Used on destruction to throw users up one step in the hierarchy
 void throwUp(Room* inRoom) {
     inRoom->chooseRoom(inRoom->parentRoom->parentRoom);
 }
-
-// ----------------------------------------
-// Destructor
 
 Room::~Room() {
     for_each(rooms.begin(), rooms.end(), ifRoomRemove);
@@ -136,14 +137,21 @@ void Room::listUsers(){
     return;
 }
 
+
+// ----------------------------------
+
 void Room::receiveMessage(Message inMessage) {
     string to = inMessage.getTo();
+    
+    // If to room, send to all and save to log
     if(to == name){
         log.push_back(inMessage);
         
         sendMessageAll(inMessage);
         saveToFile(inMessage);
     }
+    
+    // Else it's a whisper
     else{
         sendMessage(inMessage);
     }
@@ -163,6 +171,7 @@ void Room::sendMessageAll(Message inMessage) {
 }
 
 // ----------------------------------
+// Add new subroom
 
 void Room::addRoom(Room* inRoom) {
     this->rooms.push_back(inRoom);
@@ -171,6 +180,7 @@ void Room::addRoom(Room* inRoom) {
 
 
 // ----------------------------------
+// Saves message to file
 
 void Room::saveToFile(Message inMessage) {
     setFilePath();
@@ -184,6 +194,7 @@ void Room::saveToFile(Message inMessage) {
     logfile.close();
 }
 //-----------------------------------
+// Sets file path for where to save current logs
 
 void Room::setFilePath() {
     
@@ -214,6 +225,8 @@ void Room::setFilePath() {
 }
 
 // -----------------------------------
+// Reads todays chat logs on startup
+
 void Room::readAllFromFile() {
     log.clear();
     string line;
@@ -279,16 +292,26 @@ Message Room::getMessage(unsigned int i){
 }
 
 // -----------------------------------
+// This function is only used on subclass User.
 
 void Room::chooseRoom(Room*) {
     throw logic_error{"You're a retard since you're trying to move a room."};
 }
+
+// -----------------------------------
 
 Room* Room::getParentRoom() {
     return parentRoom;
 }
 
 // -----------------------------------
+/* 
+ Creates a vector containing the contents of the room in form of strings for listing in the client. 
+ The vector is built like this:
+ 
+    <room1, room2, ..., roomN, User, user1, user2, ..., userN>
+
+*/
 
 vector<string> Room::getStruct() {
     vector<string> structure;
@@ -316,6 +339,7 @@ vector<string> Room::getStruct() {
 
 
 // -------------------------------------
+// This function is only used on subclass User.
 
 void Room::requestStruct() {
     throw logic_error{"You're a retard since you're trying to do stuff to a room. You naughty naughty boy."};
@@ -323,22 +347,28 @@ void Room::requestStruct() {
 
 
 // -----------------------------------
+/*
+ Reads from old log files if requested by client. Takes in-arg telling how many days back requested log file is.
+ */
+
 vector<Message> Room::readOldFromFile(unsigned int dayCounter) {
     vector<Message> returnLog;
     string line;
     
     int i = 0 - dayCounter;
     
+    // Clear in case of earlier read
     string oldFilePath = "";
     
+    // Gets old date.
     QDate oldDate;
     oldDate = QDate::currentDate();
     oldDate = oldDate.addDays(i);
     
     QString oldDateString = oldDate.toString("yyyy-MM-dd");
     
+    // Get path and cd to home folder
     QDir dir = QDir::homePath();
-    
     dir.cd("ChattYlogs");
     QString qAbsolutePath = dir.absolutePath();
     string absolutePath = qAbsolutePath.toStdString();
@@ -347,6 +377,7 @@ vector<Message> Room::readOldFromFile(unsigned int dayCounter) {
     
     ifstream logfile (oldFilePath);
     
+    // Read file.
     if (logfile.is_open())
     {
         while (getline(logfile,line)) {
@@ -368,6 +399,7 @@ vector<Message> Room::readOldFromFile(unsigned int dayCounter) {
         logfile.close();
         return returnLog;
     }
+    // Send info to client if there's no log file for given date. 
     else {
         string tempString;
         tempString += "No chatlogs for date " + oldDateString.toStdString() + " in this room.";

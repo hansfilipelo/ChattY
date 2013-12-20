@@ -14,6 +14,9 @@ BESKRIVNING:
 #include "thread.h"
 #include "../master/master.h"
 
+/* 
+ Multithreaded server class. Creates threads which each handles connection with it's specific client. 
+*/
 
 class Server : public QTcpServer {
     
@@ -23,7 +26,6 @@ public:
     void start();
 
 signals:
-    
     
 public slots:
 

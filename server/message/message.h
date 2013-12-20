@@ -17,6 +17,10 @@
 #include <time.h>
 #include "../getTime.h"
 
+/*
+ Class holding contents and other info regarding messages. 
+ */
+
 class Message
 {
 public:

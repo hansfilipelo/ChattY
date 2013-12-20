@@ -20,6 +20,10 @@ BESKRIVNING:
 
 class User;
 
+/*
+ Thread handles communications with client (class NetClient). For each user on a server a specific thread is created. 
+ */
+
 class Thread : public QThread {
     
     Q_OBJECT
