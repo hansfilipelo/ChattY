@@ -8,7 +8,7 @@
 #include <initializer_list>
 #include <QGraphicsOpacityEffect>
 
-// Sound. 
+// Sound.
 #if defined(__MACOSX_BUILD__)
 #include <QSound>
 #include <QMediaPlayer>
