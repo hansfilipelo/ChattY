@@ -145,10 +145,13 @@ void Room::receiveMessage(Message inMessage) {
     
     // If to room, send to all and save to log
     if(to == name){
+
+        msgQueueLock.lockForWrite();
         log.push_back(inMessage);
         
         sendMessageAll(inMessage);
         saveToFile(inMessage);
+        msgQueueLock.unlock();
     }
     
     // Else it's a whisper

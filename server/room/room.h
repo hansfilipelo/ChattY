@@ -21,6 +21,7 @@ Benny
 #include <QDir>
 #include <QDate>
 #include <QString>
+#include <QReadWriteLock>
 #include "../getTime.h"
 #include "../message/message.h"
 #include "../master/master.h"
@@ -79,6 +80,9 @@ protected:
     std::vector<Room*> rooms;
     Room* parentRoom = nullptr;
     Master* masterPointer = nullptr;
+
+    // Read-write lock
+    QReadWriteLock msgQueueLock;
 };
 
 // --------------------

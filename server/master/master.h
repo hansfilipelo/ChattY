@@ -15,6 +15,7 @@ BESKRIVNING:
 #include <string>
 #include <vector>
 #include <map>
+#include <QReadWriteLock>
 #include "../getTime.h"
 #include "../room/room.h"
 
@@ -48,6 +49,8 @@ protected:
     unsigned int getPosOfRoom(std::string);
     std::vector<Room*> rooms;
     Room* topRoom;
+
+    QReadWriteLock roomLock;
 };
 
 #endif

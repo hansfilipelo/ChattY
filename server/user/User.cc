@@ -32,15 +32,21 @@ void User::chooseRoom(Room* newRoom){
 // ----------------------------------
 
 void User::receiveMessage(Message inMessage){
+    msgQueueLock.lockForWrite();
+
     log.push_back(inMessage); //tbd
     thread->sendMessage(inMessage);
+
+    msgQueueLock.unlock();
 }
 
 // ----------------------------------
 
 void User::sendMessage(Message outMessage){
     parentRoom->receiveMessage(outMessage);
+    msgQueueLock.lockForWrite();
     log.push_back(outMessage);
+    msgQueueLock.unlock();
 }
 
 // ----------------------------------
