@@ -256,7 +256,7 @@ void Room::readAllFromFile() {
         logfile.close();
     }
     else {
-        cout << "fel vid inläsning" << endl;
+        cout << "Warning: Can't read history." << endl;
     }
 }
 
