@@ -31,7 +31,7 @@ Compiling
     
     sudo apt-get upgrade
     
-    sudo apt-get install build-essential qt5-default git
+    sudo apt-get install build-essential qt5-default git qtmultimedia5-dev
 
 Client
 ==
